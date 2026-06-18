@@ -1,0 +1,122 @@
+[
+  {
+    "id": "5f47ac10b4f1c03e8c567890",
+    "user_email": "rahul.sharma@example.com",
+    "userName": "Rahul Sharma",
+    "delivery_email": "delivery1@example.com",
+    "ratings": 4.7,
+    "review": "Fast delivery and good communication. Very satisfied.",
+    "parcel_id": "5f47ac10b4f1c03e8c098765",
+    "pick_up_email": "pickup1@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/19.jpg",
+    "date": "2024-08-02T16:45:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567891",
+    "user_email": "priya.sen@example.com",
+    "userName": "Priya Sen",
+    "delivery_email": "delivery2@example.com",
+    "ratings": 4.3,
+    "review": "Parcel was delivered safely, but the tracking update was a little slow.",
+    "parcel_id": "5f47ac10b4f1c03e8c098766",
+    "pick_up_email": "pickup2@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/21.jpg",
+    "date": "2024-08-03T10:20:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567892",
+    "user_email": "arjun.verma@example.com",
+    "userName": "Arjun Verma",
+    "delivery_email": "delivery3@example.com",
+    "ratings": 3.8,
+    "review": "Delivery was okay, but it arrived later than expected.",
+    "parcel_id": "5f47ac10b4f1c03e8c098767",
+    "pick_up_email": "pickup3@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/33.jpg",
+    "date": "2024-08-04T13:15:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567893",
+    "user_email": "ananya.mukherjee@example.com",
+    "userName": "Ananya Mukherjee",
+    "delivery_email": "delivery4@example.com",
+    "ratings": 5,
+    "review": "Excellent service. The delivery person was polite and on time.",
+    "parcel_id": "5f47ac10b4f1c03e8c098768",
+    "pick_up_email": "pickup4@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/45.jpg",
+    "date": "2024-08-05T09:40:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567894",
+    "user_email": "rohit.patel@example.com",
+    "userName": "Rohit Patel",
+    "delivery_email": "delivery5@example.com",
+    "ratings": 2.9,
+    "review": "Late delivery and no proper updates. Disappointed with the service.",
+    "parcel_id": "5f47ac10b4f1c03e8c098769",
+    "pick_up_email": "pickup5@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/52.jpg",
+    "date": "2024-08-06T18:10:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567895",
+    "user_email": "sneha.iyer@example.com",
+    "userName": "Sneha Iyer",
+    "delivery_email": "delivery6@example.com",
+    "ratings": 4.6,
+    "review": "Good experience. The parcel reached in perfect condition.",
+    "parcel_id": "5f47ac10b4f1c03e8c098770",
+    "pick_up_email": "pickup6@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/61.jpg",
+    "date": "2024-08-07T12:30:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567896",
+    "user_email": "sourav.das@example.com",
+    "userName": "Sourav Das",
+    "delivery_email": "delivery7@example.com",
+    "ratings": 3.4,
+    "review": "Average service. Delivery was completed, but support response was slow.",
+    "parcel_id": "5f47ac10b4f1c03e8c098771",
+    "pick_up_email": "pickup7@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/74.jpg",
+    "date": "2024-08-08T15:05:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567897",
+    "user_email": "neha.kapoor@example.com",
+    "userName": "Neha Kapoor",
+    "delivery_email": "delivery8@example.com",
+    "ratings": 4.9,
+    "review": "Amazing delivery service. Very quick and professional.",
+    "parcel_id": "5f47ac10b4f1c03e8c098772",
+    "pick_up_email": "pickup8@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/12.jpg",
+    "date": "2024-08-09T11:25:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567898",
+    "user_email": "aman.khan@example.com",
+    "userName": "Aman Khan",
+    "delivery_email": "delivery9@example.com",
+    "ratings": 2.5,
+    "review": "The delivery was delayed and the package condition was not good.",
+    "parcel_id": "5f47ac10b4f1c03e8c098773",
+    "pick_up_email": "pickup9@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/28.jpg",
+    "date": "2024-08-10T17:50:00.000Z"
+  },
+  {
+    "id": "5f47ac10b4f1c03e8c567899",
+    "user_email": "ritu.chatterjee@example.com",
+    "userName": "Ritu Chatterjee",
+    "delivery_email": "delivery10@example.com",
+    "ratings": 4.1,
+    "review": "Nice service overall. Pickup and delivery both were smooth.",
+    "parcel_id": "5f47ac10b4f1c03e8c098774",
+    "pick_up_email": "pickup10@example.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/36.jpg",
+    "date": "2024-08-11T08:35:00.000Z"
+  }
+]
