@@ -9,11 +9,12 @@ const OurservecesCard = ({data}) => {
     return (
         <div>
            <NavLink>
-            <div className='bg-white  rounded-lg lg:max-w-[410px] lg:h-[300px]  '>
-                <img src={servecs} alt="" className='' />
-                <p className="">{data.title}</p>
-                <p className="">{data.description}</p>
+            <div className= 'bg-white  px-10 py-5 rounded-lg lg:max-w-[410px] lg:h-[350px] my-10 lg:my-5 '>
                 
+                    <img src={servecs} alt="" className='my-2 lg:w-[50px] lg:h-[50px] bg-[#EEEDFC] p-2 rounded-full lg:mx-auto' />
+              
+                <p className="font-bold text-[24px] text-center my-3 ">{data.title}</p>
+                <p className="text-[#606060] text-center my-2">{data.description}</p> 
             </div>
            </NavLink>
         </div>
