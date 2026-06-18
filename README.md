@@ -1,16 +1,59 @@
-# React + Vite
+# Zapsift 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Zapsift Mining Pool is a modern mining-pool website designed to help miners connect their hardware, monitor hashrate, track workers, and view mining rewards from a clean and user-friendly dashboard.
 
-Currently, two official plugins are available:
+The goal of Zapsift is to make mining-pool access simple, transparent, and easy to use for both beginners and experienced miners.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Real-time mining pool dashboard
+- Pool hashrate overview
+- Network difficulty and block statistics
+- Miner worker status tracking
+- Wallet-based mining access
+- Pending and paid reward tracking
+- Responsive UI for desktop and mobile
+- Clean modern website design
+- Easy setup guide for miners
+- Secure and transparent mining information
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+This project can be built using:
+
+- React.js / Next.js
+- Tailwind CSS
+- Node.js
+- Express.js
+- MongoDB
+- REST API
+- Mining pool API integration
+- Chart.js / Recharts for statistics
+
+---
+
+## 📌 Project Purpose
+
+Zapsift Mining Pool is created to provide miners with a smooth platform where they can:
+
+1. Connect their mining hardware.
+2. Use a Stratum mining URL.
+3. Track mining performance.
+4. Monitor active and inactive workers.
+5. View estimated and confirmed earnings.
+6. Access pool information from a simple dashboard.
+
+---
+
+## ⚙️ Mining Configuration Example
+
+Use the following format to connect your miner:
+
+```bash
+Pool URL: stratum+tcp://pool.zapsift.com:3333
+Worker: YOUR_WALLET_ADDRESS.WORKER_NAME
+Password: x
