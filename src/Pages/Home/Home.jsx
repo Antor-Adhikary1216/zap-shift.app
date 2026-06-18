@@ -4,6 +4,7 @@ import Work from '../Works/work';
 import Ourservces from '../Ourservices/Ourservces';
 import Helps from '../Helps/Helps';
 import TeamsDwon from '../TeamsDown/TeamsDwon';
+import Merchant from '../Merchant/Merchant';
 
 const workpromises = fetch("/Workcard.json")
 .then(res=>res.json())
@@ -22,6 +23,7 @@ const Home = () => {
             <Ourservces key={OurservecresPromises.id}  OurservecresPromises={OurservecresPromises} ></Ourservces>
           <Helps></Helps>
           <TeamsDwon key={servesPromises.id} servesPromises={servesPromises} ></TeamsDwon>
+          <Merchant/>
         </div>
     );
 };
