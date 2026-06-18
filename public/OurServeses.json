@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Express & Standard Delivery",
+    "description": "We deliver parcels within 24–72 hours across major Indian cities like Kolkata, Delhi, Mumbai, Bengaluru, Chennai, Hyderabad, and Pune. Express delivery is available in selected cities within 4–6 hours from pickup to drop-off.",
+    "highlighted": false
+  },
+  {
+    "id": 2,
+    "title": "Nationwide Delivery",
+    "description": "We provide nationwide parcel delivery across India, covering metro cities, towns, and remote areas. Your products reach customers safely within 48–72 hours.",
+    "highlighted": true
+  },
+  {
+    "id": 3,
+    "title": "Fulfillment Solution",
+    "description": "We offer customized fulfillment services for Indian businesses, including inventory management, online order processing, packaging, dispatch, and after-sales support.",
+    "highlighted": false
+  },
+  {
+    "id": 4,
+    "title": "Cash on Home Delivery",
+    "description": "We provide cash on delivery service across India with safe parcel handling and secure payment collection for your business.",
+    "highlighted": false
+  },
+  {
+    "id": 5,
+    "title": "Corporate Service / Contract In Logistics",
+    "description": "We provide customized corporate logistics services for Indian companies, including warehouse support, bulk shipment handling, and inventory management.",
+    "highlighted": false
+  },
+  {
+    "id": 6,
+    "title": "Parcel Return",
+    "description": "With our reverse logistics service, customers across India can easily return or exchange their products with online sellers and e-commerce businesses.",
+    "highlighted": false
+  }
+]
