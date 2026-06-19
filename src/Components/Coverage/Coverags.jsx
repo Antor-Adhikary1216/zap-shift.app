@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import  "../../../node_modules/leaflet/dist/css/leaflet.css"
@@ -7,6 +7,7 @@ import L from "leaflet";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { Zoom } from 'swiper/modules';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -22,15 +23,17 @@ const Coverags = () => {
   lng: 78.9629
 };
 
-const Servicesenter = useLoaderData()
-console.log(Servicesenter)
+const Servicesenter = useLoaderData() 
+const mapRef = useRef(null)
 const heandelSubmit = (e)=>{
     e.preventDefault()
     const locations = e.target.location.value 
-    const district = Servicesenter.find (c=>c.district.toLowerCase().includes(locations.toLowerCase()))
+   
+    const district = Servicesenter.find(c=>c.region.toLowerCase().includes(locations.toLowerCase()))
     if(district){
         const coord = [ district.latitude,district.longitude];
-        console.log(coord)
+        console.log( district,coord)
+        mapRef.current.flyTo(coord, 8)
 
     }
 }
@@ -51,12 +54,13 @@ const heandelSubmit = (e)=>{
                 </div>
 
                 {/* map containor*/}
-            <div className=" rounded-2xl w-[1280] h-[720px]">
+            <div className=" rounded-2xl w-full h-[720px]">
                 <MapContainer 
                  center={indiaCenter} 
                  zoom={6} 
                  scrollWheelZoom={false}
                  className='h-[720px]'
+                 ref={mapRef}
                  >
                     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
