@@ -6,11 +6,11 @@ import './nav.css'
 
 const Navbar = () => {
     const links = <>
-        <NavLink to="" ><li>Services </li></NavLink>
-        <NavLink to="" ><li>Coverage</li></NavLink>
-        <NavLink to="" ><li>About Us</li></NavLink>
-        <NavLink to="" ><li>Pricing</li></NavLink>
-        <NavLink to="" ><li>Be a Rider</li></NavLink>
+        <NavLink to="services" ><li>Services </li></NavLink>
+        <NavLink to="Coverags" ><li>Coverage</li></NavLink>
+        <NavLink to="aboutUs" ><li>About Us</li></NavLink>
+        <NavLink to="bargainnig" ><li>Pricing</li></NavLink>
+        <NavLink to="bearider" ><li>Be a Rider</li></NavLink>
     </>
     return (
         <div>
@@ -27,10 +27,10 @@ const Navbar = () => {
       </ul>
     </div>
     {/* LOGO degins -> */}
-    <div className="logo flex cursor-pointer">
+   <NavLink to="/"> <div className="logo flex cursor-pointer">
         <Logo></Logo>
         <p className='my-auto text-2xl font-semibold text-[#303030]'>ZapShift</p>
-    </div>
+    </div></NavLink>
   </div>
   <div className="navbar-center hidden lg:flex p-2 ">
     <ul className="menu menu-horizontal  gap-6 text-center text-[16px] font-medium text-[#606060]">
