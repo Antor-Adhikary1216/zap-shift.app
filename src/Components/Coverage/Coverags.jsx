@@ -54,7 +54,16 @@ console.log(Servicesenter)
                     {
                         Servicesenter.map(serviceData=> <Marker position={[serviceData.latitude, serviceData.longitude]}>
                         <Popup>
-                               A pretty CSS3 popup. <br /> Easily customizable.
+                              <strong>{serviceData.region}</strong> <br /> <span>{serviceData.district} , {serviceData.city} ,
+                                {serviceData.covered_area} <br />
+                                
+                                   </span>
+                                <span className='font-medium text-green-500'>{serviceData.status}</span>
+                                <img src={serviceData.flowchart} alt="" />
+                                
+                           
+                              
+
                         </Popup>
 
                      </Marker>)
