@@ -1,0 +1,802 @@
+[
+  {
+    "region": "West Bengal",
+    "district": "Kolkata",
+    "city": "Kolkata",
+    "covered_area": ["Salt Lake", "New Town", "Park Street", "Dumdum"],
+    "status": "active",
+    "flowchart": "https://example.com/kolkata-flowchart.png",
+    "longitude": 88.3639,
+    "latitude": 22.5726
+  },
+  {
+    "region": "West Bengal",
+    "district": "Paschim Bardhaman",
+    "city": "Durgapur",
+    "covered_area": ["City Centre", "Benachity", "Bidhannagar", "Muchipara"],
+    "status": "active",
+    "flowchart": "https://example.com/durgapur-flowchart.png",
+    "longitude": 87.3119,
+    "latitude": 23.5204
+  },
+  {
+    "region": "West Bengal",
+    "district": "Paschim Bardhaman",
+    "city": "Asansol",
+    "covered_area": ["Burnpur", "Kulti", "Raniganj", "Ushagram"],
+    "status": "active",
+    "flowchart": "https://example.com/asansol-flowchart.png",
+    "longitude": 86.9842,
+    "latitude": 23.6739
+  },
+  {
+    "region": "West Bengal",
+    "district": "Darjeeling",
+    "city": "Siliguri",
+    "covered_area": ["Sevoke Road", "Hakim Para", "Matigara", "Pradhan Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/siliguri-flowchart.png",
+    "longitude": 88.3953,
+    "latitude": 26.7271
+  },
+  {
+    "region": "West Bengal",
+    "district": "Howrah",
+    "city": "Howrah",
+    "covered_area": ["Shibpur", "Bally", "Santragachi", "Kadamtala"],
+    "status": "active",
+    "flowchart": "https://example.com/howrah-flowchart.png",
+    "longitude": 88.2636,
+    "latitude": 22.5958
+  },
+  {
+    "region": "Maharashtra",
+    "district": "Mumbai City",
+    "city": "Mumbai",
+    "covered_area": ["Andheri", "Bandra", "Dadar", "Powai"],
+    "status": "active",
+    "flowchart": "https://example.com/mumbai-flowchart.png",
+    "longitude": 72.8777,
+    "latitude": 19.076
+  },
+  {
+    "region": "Maharashtra",
+    "district": "Pune",
+    "city": "Pune",
+    "covered_area": ["Hinjewadi", "Kothrud", "Viman Nagar", "Hadapsar"],
+    "status": "active",
+    "flowchart": "https://example.com/pune-flowchart.png",
+    "longitude": 73.8567,
+    "latitude": 18.5204
+  },
+  {
+    "region": "Maharashtra",
+    "district": "Nagpur",
+    "city": "Nagpur",
+    "covered_area": ["Sitabuldi", "Dharampeth", "Manish Nagar", "Sadar"],
+    "status": "active",
+    "flowchart": "https://example.com/nagpur-flowchart.png",
+    "longitude": 79.0882,
+    "latitude": 21.1458
+  },
+  {
+    "region": "Maharashtra",
+    "district": "Nashik",
+    "city": "Nashik",
+    "covered_area": ["Panchavati", "Indira Nagar", "Gangapur Road", "CIDCO"],
+    "status": "active",
+    "flowchart": "https://example.com/nashik-flowchart.png",
+    "longitude": 73.7898,
+    "latitude": 19.9975
+  },
+  {
+    "region": "Maharashtra",
+    "district": "Thane",
+    "city": "Thane",
+    "covered_area": ["Ghodbunder Road", "Majiwada", "Vartak Nagar", "Kopri"],
+    "status": "active",
+    "flowchart": "https://example.com/thane-flowchart.png",
+    "longitude": 72.9781,
+    "latitude": 19.2183
+  },
+  {
+    "region": "Delhi",
+    "district": "New Delhi",
+    "city": "New Delhi",
+    "covered_area": ["Connaught Place", "Karol Bagh", "Chanakyapuri", "Lajpat Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/new-delhi-flowchart.png",
+    "longitude": 77.209,
+    "latitude": 28.6139
+  },
+  {
+    "region": "Delhi",
+    "district": "Central Delhi",
+    "city": "Delhi",
+    "covered_area": ["Rajendra Place", "Paharganj", "Civil Lines", "Kashmere Gate"],
+    "status": "active",
+    "flowchart": "https://example.com/delhi-flowchart.png",
+    "longitude": 77.1025,
+    "latitude": 28.7041
+  },
+  {
+    "region": "Haryana",
+    "district": "Gurugram",
+    "city": "Gurugram",
+    "covered_area": ["DLF Phase 1", "Sector 29", "Cyber City", "Sohna Road"],
+    "status": "active",
+    "flowchart": "https://example.com/gurugram-flowchart.png",
+    "longitude": 77.0266,
+    "latitude": 28.4595
+  },
+  {
+    "region": "Haryana",
+    "district": "Faridabad",
+    "city": "Faridabad",
+    "covered_area": ["Sector 15", "NIT", "Ballabgarh", "Old Faridabad"],
+    "status": "active",
+    "flowchart": "https://example.com/faridabad-flowchart.png",
+    "longitude": 77.3178,
+    "latitude": 28.4089
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Gautam Buddha Nagar",
+    "city": "Noida",
+    "covered_area": ["Sector 18", "Sector 62", "Sector 137", "Greater Noida West"],
+    "status": "active",
+    "flowchart": "https://example.com/noida-flowchart.png",
+    "longitude": 77.391,
+    "latitude": 28.5355
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Ghaziabad",
+    "city": "Ghaziabad",
+    "covered_area": ["Indirapuram", "Vaishali", "Raj Nagar", "Loni"],
+    "status": "active",
+    "flowchart": "https://example.com/ghaziabad-flowchart.png",
+    "longitude": 77.4538,
+    "latitude": 28.6692
+  },
+  {
+    "region": "Karnataka",
+    "district": "Bengaluru Urban",
+    "city": "Bengaluru",
+    "covered_area": ["Whitefield", "Koramangala", "Indiranagar", "Electronic City"],
+    "status": "active",
+    "flowchart": "https://example.com/bengaluru-flowchart.png",
+    "longitude": 77.5946,
+    "latitude": 12.9716
+  },
+  {
+    "region": "Karnataka",
+    "district": "Mysuru",
+    "city": "Mysuru",
+    "covered_area": ["Vijayanagar", "Kuvempunagar", "Gokulam", "Jayalakshmipuram"],
+    "status": "active",
+    "flowchart": "https://example.com/mysuru-flowchart.png",
+    "longitude": 76.6394,
+    "latitude": 12.2958
+  },
+  {
+    "region": "Karnataka",
+    "district": "Dakshina Kannada",
+    "city": "Mangaluru",
+    "covered_area": ["Kadri", "Bejai", "Kankanady", "Surathkal"],
+    "status": "active",
+    "flowchart": "https://example.com/mangaluru-flowchart.png",
+    "longitude": 74.856,
+    "latitude": 12.9141
+  },
+  {
+    "region": "Karnataka",
+    "district": "Dharwad",
+    "city": "Hubballi",
+    "covered_area": ["Vidya Nagar", "Keshwapur", "Gokul Road", "Unkal"],
+    "status": "active",
+    "flowchart": "https://example.com/hubballi-flowchart.png",
+    "longitude": 75.1239,
+    "latitude": 15.3647
+  },
+  {
+    "region": "Tamil Nadu",
+    "district": "Chennai",
+    "city": "Chennai",
+    "covered_area": ["T Nagar", "Anna Nagar", "Velachery", "Adyar"],
+    "status": "active",
+    "flowchart": "https://example.com/chennai-flowchart.png",
+    "longitude": 80.2707,
+    "latitude": 13.0827
+  },
+  {
+    "region": "Tamil Nadu",
+    "district": "Coimbatore",
+    "city": "Coimbatore",
+    "covered_area": ["RS Puram", "Gandhipuram", "Peelamedu", "Saibaba Colony"],
+    "status": "active",
+    "flowchart": "https://example.com/coimbatore-flowchart.png",
+    "longitude": 76.9558,
+    "latitude": 11.0168
+  },
+  {
+    "region": "Tamil Nadu",
+    "district": "Madurai",
+    "city": "Madurai",
+    "covered_area": ["Anna Nagar", "KK Nagar", "Tallakulam", "Simmakkal"],
+    "status": "active",
+    "flowchart": "https://example.com/madurai-flowchart.png",
+    "longitude": 78.1198,
+    "latitude": 9.9252
+  },
+  {
+    "region": "Tamil Nadu",
+    "district": "Tiruchirappalli",
+    "city": "Tiruchirappalli",
+    "covered_area": ["Srirangam", "Thillai Nagar", "Cantonment", "Woraiyur"],
+    "status": "active",
+    "flowchart": "https://example.com/tiruchirappalli-flowchart.png",
+    "longitude": 78.7047,
+    "latitude": 10.7905
+  },
+  {
+    "region": "Tamil Nadu",
+    "district": "Salem",
+    "city": "Salem",
+    "covered_area": ["Hasthampatti", "Fairlands", "Ammapet", "Gugai"],
+    "status": "active",
+    "flowchart": "https://example.com/salem-flowchart.png",
+    "longitude": 78.146,
+    "latitude": 11.6643
+  },
+  {
+    "region": "Telangana",
+    "district": "Hyderabad",
+    "city": "Hyderabad",
+    "covered_area": ["Banjara Hills", "Gachibowli", "Hitech City", "Madhapur"],
+    "status": "active",
+    "flowchart": "https://example.com/hyderabad-flowchart.png",
+    "longitude": 78.4867,
+    "latitude": 17.385
+  },
+  {
+    "region": "Telangana",
+    "district": "Hanamkonda",
+    "city": "Warangal",
+    "covered_area": ["Hanamkonda", "Kazipet", "Subedari", "Nakkalagutta"],
+    "status": "active",
+    "flowchart": "https://example.com/warangal-flowchart.png",
+    "longitude": 79.5941,
+    "latitude": 17.9689
+  },
+  {
+    "region": "Telangana",
+    "district": "Nizamabad",
+    "city": "Nizamabad",
+    "covered_area": ["Kanteshwar", "Bodhan Road", "Dichpally", "Vinayak Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/nizamabad-flowchart.png",
+    "longitude": 78.0941,
+    "latitude": 18.6725
+  },
+  {
+    "region": "Andhra Pradesh",
+    "district": "Visakhapatnam",
+    "city": "Visakhapatnam",
+    "covered_area": ["MVP Colony", "Gajuwaka", "Dwaraka Nagar", "Madhurawada"],
+    "status": "active",
+    "flowchart": "https://example.com/visakhapatnam-flowchart.png",
+    "longitude": 83.2185,
+    "latitude": 17.6868
+  },
+  {
+    "region": "Andhra Pradesh",
+    "district": "NTR",
+    "city": "Vijayawada",
+    "covered_area": ["Benz Circle", "Governorpet", "Patamata", "Auto Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/vijayawada-flowchart.png",
+    "longitude": 80.648,
+    "latitude": 16.5062
+  },
+  {
+    "region": "Andhra Pradesh",
+    "district": "Guntur",
+    "city": "Guntur",
+    "covered_area": ["Arundelpet", "Brodipet", "Lakshmipuram", "Nallapadu"],
+    "status": "active",
+    "flowchart": "https://example.com/guntur-flowchart.png",
+    "longitude": 80.4365,
+    "latitude": 16.3067
+  },
+  {
+    "region": "Andhra Pradesh",
+    "district": "Tirupati",
+    "city": "Tirupati",
+    "covered_area": ["Tiruchanur", "Renigunta Road", "Korlagunta", "Kapila Theertham"],
+    "status": "active",
+    "flowchart": "https://example.com/tirupati-flowchart.png",
+    "longitude": 79.4192,
+    "latitude": 13.6288
+  },
+  {
+    "region": "Odisha",
+    "district": "Khordha",
+    "city": "Bhubaneswar",
+    "covered_area": ["Jaydev Vihar", "Patia", "Khandagiri", "Sahid Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/bhubaneswar-flowchart.png",
+    "longitude": 85.8245,
+    "latitude": 20.2961
+  },
+  {
+    "region": "Odisha",
+    "district": "Cuttack",
+    "city": "Cuttack",
+    "covered_area": ["Badambadi", "Buxi Bazaar", "College Square", "Chauliaganj"],
+    "status": "active",
+    "flowchart": "https://example.com/cuttack-flowchart.png",
+    "longitude": 85.8793,
+    "latitude": 20.4625
+  },
+  {
+    "region": "Odisha",
+    "district": "Sundargarh",
+    "city": "Rourkela",
+    "covered_area": ["Civil Township", "Sector 2", "Panposh", "Udit Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/rourkela-flowchart.png",
+    "longitude": 84.8536,
+    "latitude": 22.2604
+  },
+  {
+    "region": "Bihar",
+    "district": "Patna",
+    "city": "Patna",
+    "covered_area": ["Kankarbagh", "Boring Road", "Patliputra", "Bailey Road"],
+    "status": "active",
+    "flowchart": "https://example.com/patna-flowchart.png",
+    "longitude": 85.1376,
+    "latitude": 25.5941
+  },
+  {
+    "region": "Bihar",
+    "district": "Gaya",
+    "city": "Gaya",
+    "covered_area": ["Bodh Gaya", "Delha", "Manpur", "AP Colony"],
+    "status": "active",
+    "flowchart": "https://example.com/gaya-flowchart.png",
+    "longitude": 84.9994,
+    "latitude": 24.7914
+  },
+  {
+    "region": "Jharkhand",
+    "district": "Ranchi",
+    "city": "Ranchi",
+    "covered_area": ["Harmu", "Kanke", "Lalpur", "Doranda"],
+    "status": "active",
+    "flowchart": "https://example.com/ranchi-flowchart.png",
+    "longitude": 85.3096,
+    "latitude": 23.3441
+  },
+  {
+    "region": "Jharkhand",
+    "district": "East Singhbhum",
+    "city": "Jamshedpur",
+    "covered_area": ["Sakchi", "Bistupur", "Kadma", "Telco Colony"],
+    "status": "active",
+    "flowchart": "https://example.com/jamshedpur-flowchart.png",
+    "longitude": 86.2029,
+    "latitude": 22.8046
+  },
+  {
+    "region": "Jharkhand",
+    "district": "Bokaro",
+    "city": "Bokaro",
+    "covered_area": ["Sector 4", "Chas", "Sector 9", "City Centre"],
+    "status": "active",
+    "flowchart": "https://example.com/bokaro-flowchart.png",
+    "longitude": 86.1511,
+    "latitude": 23.6693
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Lucknow",
+    "city": "Lucknow",
+    "covered_area": ["Gomti Nagar", "Hazratganj", "Aliganj", "Indira Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/lucknow-flowchart.png",
+    "longitude": 80.9462,
+    "latitude": 26.8467
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Kanpur Nagar",
+    "city": "Kanpur",
+    "covered_area": ["Kakadeo", "Swaroop Nagar", "Kidwai Nagar", "Govind Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/kanpur-flowchart.png",
+    "longitude": 80.3319,
+    "latitude": 26.4499
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Varanasi",
+    "city": "Varanasi",
+    "covered_area": ["Lanka", "Sigra", "Bhelupur", "Godowlia"],
+    "status": "active",
+    "flowchart": "https://example.com/varanasi-flowchart.png",
+    "longitude": 82.9739,
+    "latitude": 25.3176
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Agra",
+    "city": "Agra",
+    "covered_area": ["Tajganj", "Sanjay Place", "Kamla Nagar", "Dayalbagh"],
+    "status": "active",
+    "flowchart": "https://example.com/agra-flowchart.png",
+    "longitude": 78.0081,
+    "latitude": 27.1767
+  },
+  {
+    "region": "Uttar Pradesh",
+    "district": "Prayagraj",
+    "city": "Prayagraj",
+    "covered_area": ["Civil Lines", "Naini", "George Town", "Katra"],
+    "status": "active",
+    "flowchart": "https://example.com/prayagraj-flowchart.png",
+    "longitude": 81.8463,
+    "latitude": 25.4358
+  },
+  {
+    "region": "Rajasthan",
+    "district": "Jaipur",
+    "city": "Jaipur",
+    "covered_area": ["Vaishali Nagar", "Malviya Nagar", "Mansarovar", "C Scheme"],
+    "status": "active",
+    "flowchart": "https://example.com/jaipur-flowchart.png",
+    "longitude": 75.7873,
+    "latitude": 26.9124
+  },
+  {
+    "region": "Rajasthan",
+    "district": "Jodhpur",
+    "city": "Jodhpur",
+    "covered_area": ["Ratanada", "Sardarpura", "Paota", "Basni"],
+    "status": "active",
+    "flowchart": "https://example.com/jodhpur-flowchart.png",
+    "longitude": 73.0243,
+    "latitude": 26.2389
+  },
+  {
+    "region": "Rajasthan",
+    "district": "Udaipur",
+    "city": "Udaipur",
+    "covered_area": ["Hiran Magri", "Fatehpura", "Surajpole", "Bhopalpura"],
+    "status": "active",
+    "flowchart": "https://example.com/udaipur-flowchart.png",
+    "longitude": 73.7125,
+    "latitude": 24.5854
+  },
+  {
+    "region": "Rajasthan",
+    "district": "Kota",
+    "city": "Kota",
+    "covered_area": ["Talwandi", "Vigyan Nagar", "Dadabari", "Mahaveer Nagar"],
+    "status": "active",
+    "flowchart": "https://example.com/kota-flowchart.png",
+    "longitude": 75.8577,
+    "latitude": 25.2138
+  },
+  {
+    "region": "Gujarat",
+    "district": "Ahmedabad",
+    "city": "Ahmedabad",
+    "covered_area": ["Navrangpura", "Maninagar", "Satellite", "Bopal"],
+    "status": "active",
+    "flowchart": "https://example.com/ahmedabad-flowchart.png",
+    "longitude": 72.5714,
+    "latitude": 23.0225
+  },
+  {
+    "region": "Gujarat",
+    "district": "Surat",
+    "city": "Surat",
+    "covered_area": ["Adajan", "Vesu", "Varachha", "Katargam"],
+    "status": "active",
+    "flowchart": "https://example.com/surat-flowchart.png",
+    "longitude": 72.8311,
+    "latitude": 21.1702
+  },
+  {
+    "region": "Gujarat",
+    "district": "Vadodara",
+    "city": "Vadodara",
+    "covered_area": ["Alkapuri", "Gotri", "Manjalpur", "Fatehgunj"],
+    "status": "active",
+    "flowchart": "https://example.com/vadodara-flowchart.png",
+    "longitude": 73.1812,
+    "latitude": 22.3072
+  },
+  {
+    "region": "Gujarat",
+    "district": "Rajkot",
+    "city": "Rajkot",
+    "covered_area": ["Kalawad Road", "Yagnik Road", "University Road", "Mavdi"],
+    "status": "active",
+    "flowchart": "https://example.com/rajkot-flowchart.png",
+    "longitude": 70.8022,
+    "latitude": 22.3039
+  },
+  {
+    "region": "Gujarat",
+    "district": "Gandhinagar",
+    "city": "Gandhinagar",
+    "covered_area": ["Sector 21", "Sector 11", "Kudasan", "Sargasan"],
+    "status": "active",
+    "flowchart": "https://example.com/gandhinagar-flowchart.png",
+    "longitude": 72.6369,
+    "latitude": 23.2156
+  },
+  {
+    "region": "Madhya Pradesh",
+    "district": "Bhopal",
+    "city": "Bhopal",
+    "covered_area": ["MP Nagar", "Arera Colony", "Kolar Road", "New Market"],
+    "status": "active",
+    "flowchart": "https://example.com/bhopal-flowchart.png",
+    "longitude": 77.4126,
+    "latitude": 23.2599
+  },
+  {
+    "region": "Madhya Pradesh",
+    "district": "Indore",
+    "city": "Indore",
+    "covered_area": ["Vijay Nagar", "Palasia", "Rau", "Rajwada"],
+    "status": "active",
+    "flowchart": "https://example.com/indore-flowchart.png",
+    "longitude": 75.8577,
+    "latitude": 22.7196
+  },
+  {
+    "region": "Madhya Pradesh",
+    "district": "Gwalior",
+    "city": "Gwalior",
+    "covered_area": ["Lashkar", "Morar", "City Centre", "Thatipur"],
+    "status": "active",
+    "flowchart": "https://example.com/gwalior-flowchart.png",
+    "longitude": 78.1828,
+    "latitude": 26.2183
+  },
+  {
+    "region": "Madhya Pradesh",
+    "district": "Jabalpur",
+    "city": "Jabalpur",
+    "covered_area": ["Napier Town", "Wright Town", "Ranjhi", "Madan Mahal"],
+    "status": "active",
+    "flowchart": "https://example.com/jabalpur-flowchart.png",
+    "longitude": 79.9864,
+    "latitude": 23.1815
+  },
+  {
+    "region": "Chhattisgarh",
+    "district": "Raipur",
+    "city": "Raipur",
+    "covered_area": ["Pandri", "Shankar Nagar", "Tatibandh", "Telibandha"],
+    "status": "active",
+    "flowchart": "https://example.com/raipur-flowchart.png",
+    "longitude": 81.6296,
+    "latitude": 21.2514
+  },
+  {
+    "region": "Chhattisgarh",
+    "district": "Bilaspur",
+    "city": "Bilaspur",
+    "covered_area": ["Vyapar Vihar", "Civil Lines", "Sarkanda", "Mangla"],
+    "status": "active",
+    "flowchart": "https://example.com/bilaspur-flowchart.png",
+    "longitude": 82.1409,
+    "latitude": 22.0797
+  },
+  {
+    "region": "Chandigarh",
+    "district": "Chandigarh",
+    "city": "Chandigarh",
+    "covered_area": ["Sector 17", "Sector 22", "Manimajra", "Sector 35"],
+    "status": "active",
+    "flowchart": "https://example.com/chandigarh-flowchart.png",
+    "longitude": 76.7794,
+    "latitude": 30.7333
+  },
+  {
+    "region": "Punjab",
+    "district": "Ludhiana",
+    "city": "Ludhiana",
+    "covered_area": ["Model Town", "Sarabha Nagar", "Ferozepur Road", "Gill Road"],
+    "status": "active",
+    "flowchart": "https://example.com/ludhiana-flowchart.png",
+    "longitude": 75.8573,
+    "latitude": 30.901
+  },
+  {
+    "region": "Punjab",
+    "district": "Amritsar",
+    "city": "Amritsar",
+    "covered_area": ["Ranjit Avenue", "Lawrence Road", "Putlighar", "Hall Bazaar"],
+    "status": "active",
+    "flowchart": "https://example.com/amritsar-flowchart.png",
+    "longitude": 74.8723,
+    "latitude": 31.634
+  },
+  {
+    "region": "Punjab",
+    "district": "Jalandhar",
+    "city": "Jalandhar",
+    "covered_area": ["Model Town", "Urban Estate", "Basti Sheikh", "Civil Lines"],
+    "status": "active",
+    "flowchart": "https://example.com/jalandhar-flowchart.png",
+    "longitude": 75.5762,
+    "latitude": 31.326
+  },
+  {
+    "region": "Uttarakhand",
+    "district": "Dehradun",
+    "city": "Dehradun",
+    "covered_area": ["Rajpur Road", "Prem Nagar", "Dalanwala", "Clock Tower"],
+    "status": "active",
+    "flowchart": "https://example.com/dehradun-flowchart.png",
+    "longitude": 78.0322,
+    "latitude": 30.3165
+  },
+  {
+    "region": "Uttarakhand",
+    "district": "Haridwar",
+    "city": "Haridwar",
+    "covered_area": ["Jwalapur", "Kankhal", "BHEL Township", "Ranipur"],
+    "status": "active",
+    "flowchart": "https://example.com/haridwar-flowchart.png",
+    "longitude": 78.1642,
+    "latitude": 29.9457
+  },
+  {
+    "region": "Himachal Pradesh",
+    "district": "Shimla",
+    "city": "Shimla",
+    "covered_area": ["Mall Road", "Sanjauli", "Chotta Shimla", "Kasumpti"],
+    "status": "active",
+    "flowchart": "https://example.com/shimla-flowchart.png",
+    "longitude": 77.1734,
+    "latitude": 31.1048
+  },
+  {
+    "region": "Himachal Pradesh",
+    "district": "Kullu",
+    "city": "Manali",
+    "covered_area": ["Old Manali", "Mall Road", "Aleo", "Vashisht"],
+    "status": "active",
+    "flowchart": "https://example.com/manali-flowchart.png",
+    "longitude": 77.1892,
+    "latitude": 32.2432
+  },
+  {
+    "region": "Assam",
+    "district": "Kamrup Metropolitan",
+    "city": "Guwahati",
+    "covered_area": ["Paltan Bazaar", "Dispur", "Ganeshguri", "Beltola"],
+    "status": "active",
+    "flowchart": "https://example.com/guwahati-flowchart.png",
+    "longitude": 91.7362,
+    "latitude": 26.1445
+  },
+  {
+    "region": "Assam",
+    "district": "Dibrugarh",
+    "city": "Dibrugarh",
+    "covered_area": ["Chowkidinghee", "Khalihamari", "Milan Nagar", "Boiragimoth"],
+    "status": "active",
+    "flowchart": "https://example.com/dibrugarh-flowchart.png",
+    "longitude": 94.912,
+    "latitude": 27.4728
+  },
+  {
+    "region": "Meghalaya",
+    "district": "East Khasi Hills",
+    "city": "Shillong",
+    "covered_area": ["Police Bazaar", "Laitumkhrah", "Nongthymmai", "Mawlai"],
+    "status": "active",
+    "flowchart": "https://example.com/shillong-flowchart.png",
+    "longitude": 91.8933,
+    "latitude": 25.5788
+  },
+  {
+    "region": "Manipur",
+    "district": "Imphal West",
+    "city": "Imphal",
+    "covered_area": ["Thangal Bazaar", "Paona Bazaar", "Lamphelpat", "Singjamei"],
+    "status": "active",
+    "flowchart": "https://example.com/imphal-flowchart.png",
+    "longitude": 93.9368,
+    "latitude": 24.817
+  },
+  {
+    "region": "Mizoram",
+    "district": "Aizawl",
+    "city": "Aizawl",
+    "covered_area": ["Chanmari", "Dawrpui", "Bawngkawn", "Zarkawt"],
+    "status": "active",
+    "flowchart": "https://example.com/aizawl-flowchart.png",
+    "longitude": 92.7176,
+    "latitude": 23.7271
+  },
+  {
+    "region": "Tripura",
+    "district": "West Tripura",
+    "city": "Agartala",
+    "covered_area": ["Krishnanagar", "Banamalipur", "Badharghat", "Dhaleswar"],
+    "status": "active",
+    "flowchart": "https://example.com/agartala-flowchart.png",
+    "longitude": 91.2868,
+    "latitude": 23.8315
+  },
+  {
+    "region": "Nagaland",
+    "district": "Kohima",
+    "city": "Kohima",
+    "covered_area": ["PR Hill", "High School Colony", "Chandmari", "Bayavü"],
+    "status": "active",
+    "flowchart": "https://example.com/kohima-flowchart.png",
+    "longitude": 94.1086,
+    "latitude": 25.6751
+  },
+  {
+    "region": "Arunachal Pradesh",
+    "district": "Papum Pare",
+    "city": "Itanagar",
+    "covered_area": ["Naharlagun", "Nirjuli", "Ganga Market", "Chandranagar"],
+    "status": "active",
+    "flowchart": "https://example.com/itanagar-flowchart.png",
+    "longitude": 93.6053,
+    "latitude": 27.0844
+  },
+  {
+    "region": "Goa",
+    "district": "North Goa",
+    "city": "Panaji",
+    "covered_area": ["Miramar", "Dona Paula", "Altinho", "Fontainhas"],
+    "status": "active",
+    "flowchart": "https://example.com/panaji-flowchart.png",
+    "longitude": 73.8278,
+    "latitude": 15.4909
+  },
+  {
+    "region": "Kerala",
+    "district": "Ernakulam",
+    "city": "Kochi",
+    "covered_area": ["Kakkanad", "Edappally", "Fort Kochi", "Vyttila"],
+    "status": "active",
+    "flowchart": "https://example.com/kochi-flowchart.png",
+    "longitude": 76.2673,
+    "latitude": 9.9312
+  },
+  {
+    "region": "Kerala",
+    "district": "Thiruvananthapuram",
+    "city": "Thiruvananthapuram",
+    "covered_area": ["Kowdiar", "Pattom", "Technopark", "Vellayambalam"],
+    "status": "active",
+    "flowchart": "https://example.com/thiruvananthapuram-flowchart.png",
+    "longitude": 76.9366,
+    "latitude": 8.5241
+  },
+  {
+    "region": "Kerala",
+    "district": "Kozhikode",
+    "city": "Kozhikode",
+    "covered_area": ["Nadakkavu", "Mavoor Road", "Kallai", "Beypore"],
+    "status": "active",
+    "flowchart": "https://example.com/kozhikode-flowchart.png",
+    "longitude": 75.7804,
+    "latitude": 11.2588
+  }
+]

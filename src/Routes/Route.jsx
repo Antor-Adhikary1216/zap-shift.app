@@ -20,7 +20,9 @@ export const router = createBrowserRouter([
             },
             {
                 path:"Coverags",
-                Component: Coverags
+                Component: Coverags,
+                loader: ()=> fetch("/Resoin.json")
+                .then(res=>res.json())
             },
             {
                 path:'services',
