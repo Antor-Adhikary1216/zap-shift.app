@@ -24,18 +24,30 @@ const Coverags = () => {
 
 const Servicesenter = useLoaderData()
 console.log(Servicesenter)
+const heandelSubmit = (e)=>{
+    e.preventDefault()
+    const locations = e.target.location.value 
+    const district = Servicesenter.find (c=>c.district.toLowerCase().includes(locations.toLowerCase()))
+    if(district){
+        const coord = [ district.latitude,district.longitude];
+        console.log(coord)
+
+    }
+}
     return (
         <div>
             <div className=" bg-white shadow-lg p-10 my-10 rounded-2xl  ">
                 <h1 className='text-[38px] font-semibold'>We are available in 64 districts</h1>
                 <div className=" my-5 ">
-                    <label className="input ">
+                    {/* from */}
+                    <form onSubmit={heandelSubmit} >
+                                     <label className="input ">
                         <CiSearch className='text-[25px]' />
-  <input type="search" required placeholder="Search "  />
+                    <input type="search" required placeholder="Search " name='location' />
+                    <button className='bg-[#CAEB66] px-4  py-2 cursor-pointer  text-center '>Search</button>
+                                </label>
  
-</label>
- <button className='bg-[#CAEB66] px-4  py-2 cursor-pointer  text-center rounded-r-full '>Search</button>
-
+                    </form>
                 </div>
 
                 {/* map containor*/}
