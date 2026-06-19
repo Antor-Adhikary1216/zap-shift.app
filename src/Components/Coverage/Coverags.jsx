@@ -40,7 +40,7 @@ const heandelSubmit = (e)=>{
     return (
         <div>
             <div className=" bg-white shadow-lg p-10 my-10 rounded-2xl  ">
-                <h1 className='text-[38px] font-semibold'>We are available in 64 districts</h1>
+                <h1 className='text-[38px] font-semibold'>We are available in 80 districts</h1>
                 <div className=" my-5 ">
                     {/* from */}
                     <form onSubmit={heandelSubmit} >
