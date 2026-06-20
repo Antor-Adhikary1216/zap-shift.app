@@ -7,6 +7,9 @@ import Services from "../Components/Services/Services";
 import AboutUS from "../Components/AboutUS/AboutUS";
 import Bargainnig from "../Components/Bargainnig/Bargainnig"
 import BeaRider from "../Components/BeaRider/BeaRider";
+import AuthLaout from "../Layout/AuthLaoyut/AuthLaout";
+import Register from "../Components/Register/Register";
+import Login from "../Components/Login/Login";
 
 
 export const router = createBrowserRouter([
@@ -41,5 +44,15 @@ export const router = createBrowserRouter([
                 Component: BeaRider
             }
         ]
+        
+    }
+    ,
+    {
+        path:"login",
+        Component: Login
+    },
+    {
+        path:'Register',
+        Component:Register
     }
 ])
