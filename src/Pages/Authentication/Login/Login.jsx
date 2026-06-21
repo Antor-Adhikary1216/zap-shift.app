@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router';
 
 const Login = () => {
     return (
@@ -7,12 +8,14 @@ const Login = () => {
              <div className="card-body">
                  <h2 className='text-4xl font-bold my-2'> Welcome Back</h2>
             <p className=''>Login with ZapShift</p>
-        <fieldset className="fieldset">
+        <form >
+            <fieldset className="fieldset">
           <label className="label  text-[17px]">Email</label>
           <input type="email" className="input lg:w-[380px] rounded-2xl" placeholder="Email" />
           <label className="label text-[17px]">Password</label>
           <input type="password" className="input lg:w-[380px] rounded-2xl" placeholder="Password" />
           <div><a className="link link-hover">Forgot password?</a></div>
+          <NavLink to="/register"><p>Register </p></NavLink>
           <button className="btn btn-neutral mt-4 lg:w-[380px] rounded-full">Login</button>
           {/* google btn */}
           <button className="btn lg:w-[380px] mt-5 rounded-full bg-[#C2C2C2] text-black border-[#e5e5e5]">
@@ -20,6 +23,7 @@ const Login = () => {
   Login with Google
 </button>
         </fieldset>
+        </form>
       </div>
         </div>
     );
