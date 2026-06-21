@@ -1,16 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
+import useAuth from '../../../Hooks/useAuth/useAuth';
 
 const Register = () => {
-
+const {registerUser,} =useAuth()
     const {register,handleSubmit,
         formState:{errors}
     }=useForm()
     // submit function =>
         const submitHeandel = (e)=>{
-            
-            console.log(" after register data",e)
+            registerUser(e.email,e.password)
+            .then(res=>{
+                console.log(res.user)
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+            // console.log(" after register data",e)
         }
     return (
         <div>
