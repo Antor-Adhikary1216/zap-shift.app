@@ -8,8 +8,9 @@ import AboutUS from "../Components/AboutUS/AboutUS";
 import Bargainnig from "../Components/Bargainnig/Bargainnig"
 import BeaRider from "../Components/BeaRider/BeaRider";
 import AuthLaout from "../Layout/AuthLaoyut/AuthLaout";
-import Register from "../Components/Register/Register";
-import Login from "../Components/Login/Login";
+import Login from "../Pages/Authentication/Login/Login";
+import Register from "../Pages/Authentication/Register/Register";
+
 
 
 export const router = createBrowserRouter([
@@ -48,11 +49,18 @@ export const router = createBrowserRouter([
     }
     ,
     {
-        path:"login",
-        Component: Login
-    },
-    {
-        path:'Register',
-        Component:Register
+         path:"/",
+         Component: AuthLaout,
+         children:[
+            {
+                path:"login",
+                Component:Login
+            },
+            {
+                path:"register",
+                Component:Register
+            }
+         ]
     }
+
 ])

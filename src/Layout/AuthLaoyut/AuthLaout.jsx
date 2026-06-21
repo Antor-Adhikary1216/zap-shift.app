@@ -2,8 +2,7 @@ import React from 'react';
 import Logo from "../../Components/Logo/Logo"
 
 
-import Login from '../../Components/Login/Login';
-import Register from '../../Components/Register/Register';
+
 
 const AuthLaout = () => {
     return (
@@ -15,7 +14,7 @@ const AuthLaout = () => {
                 
 
             </div>
-             <Login></Login>
+            
             
            
         </div>
