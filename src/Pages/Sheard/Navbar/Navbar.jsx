@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { use } from 'react';
 import Logo from '../../../Components/Logo/Logo';
 import aro from "../../../assets/banner/arrow-up-right 1.png"
 import { NavLink } from 'react-router';
 import './nav.css'
+import useAuth from '../../../Hooks/useAuth/useAuth';
 
 const Navbar = () => {
+  const {user,Logout} = useAuth()
     const links = <>
         <NavLink to="services" ><li>Services </li></NavLink>
         <NavLink to="Coverags" ><li>Coverage</li></NavLink>
@@ -12,6 +14,14 @@ const Navbar = () => {
         <NavLink to="bargainnig" ><li>Pricing</li></NavLink>
         <NavLink to="bearider" ><li>Be a Rider</li></NavLink>
     </>
+
+    const landealLogOut = ()=>{
+      Logout()
+      .then()
+      .catch(error=>{
+        console.log(error)
+      })
+    }
     return (
         <div>
             <div className="navbar shadow-md lg:max-w-325 mx-auto rounded-[10px] bg-white  lg:px-7">
@@ -38,8 +48,15 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end gap-2 login ">
-    <NavLink to="/login" > <button className="btn   btn-outline rounded-xl  text-[#606060] lg:font-semibold lg:text-[18px]  ">Sign In</button></NavLink>
-    <NavLink to="" > <button className="btn  btn-outline rounded-xl  text-[#606060]  lg:font-semibold lg:text-[18px] ">Be a rider</button></NavLink>
+    
+    {
+      user ? 
+      <button onClick={landealLogOut} className="btn   btn-outline rounded-xl  text-[#606060] lg:font-semibold lg:text-[18px]  ">Sign Out</button>
+     
+       : <NavLink to="/login" > <button className="btn   btn-outline rounded-xl  text-[#606060] lg:font-semibold lg:text-[18px]  ">Sign In</button></NavLink>
+    
+    }
+    <NavLink to="" > <button  className="btn  btn-outline rounded-xl  text-[#606060]  lg:font-semibold lg:text-[18px] ">Be a rider</button></NavLink>
         <NavLink to=""> <div className='bg-black p-2 rounded-full'><img src={aro}  /></div>  </NavLink>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import Google from '../SocialLogin/Google';
+import Goback from '../../../Hooks/GootoHomePage/Goback';
 
 
 const Login = () => {
@@ -27,6 +28,7 @@ signInuser(e.email,e.password)
         <div>
            
              <div className="card-body">
+                <Goback/>
                  <h2 className='text-4xl font-bold my-2'> Welcome Back</h2>
             <p className=''>Login with ZapShift</p>
         <form onSubmit={handleSubmit(hendelsubmit)} >

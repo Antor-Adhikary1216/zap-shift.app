@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import Google from '../SocialLogin/Google';
+import Goback from '../../../Hooks/GootoHomePage/Goback';
 
 const Register = () => {
 const {registerUser,} =useAuth()
@@ -24,6 +25,7 @@ const {registerUser,} =useAuth()
         <div>
             
             <div className="card-body">
+                 <Goback/>
                              <h2 className='text-4xl font-bold my-2'> Create Account </h2>
                         <p className=''>Register with ZapShift</p>
                     <form onSubmit={handleSubmit(submitHeandel)} >
