@@ -1,25 +1,60 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { data, NavLink } from 'react-router';
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import Google from '../SocialLogin/Google';
 import Goback from '../../../Hooks/GootoHomePage/Goback';
+import axios, { Axios } from 'axios';
 
 const Register = () => {
-const {registerUser,} =useAuth()
+const {registerUser,updetedUserProfile} =useAuth()
     const {register,handleSubmit,
         formState:{errors}
     }=useForm()
     // submit function =>
+
+         
+
         const submitHeandel = (e)=>{
+
+            const profileImage = e.photo[0]
             registerUser(e.email,e.password)
             .then(res=>{
                 console.log(res.user)
+                   
+                // upder user Profile 
+                const Fromdata = new FormData()
+                Fromdata.append("image",profileImage)
+                const urlAPI = `https://api.imgbb.com/1/upload?key=${
+                    import.meta.env.VITE_image_host
+                }`
+               
+                axios.post(urlAPI,Fromdata)
+                .then(res=>{
+                    console.log('after image Uploded',res.data.data.display_url)
+                    const userProfile ={
+                        displayName :e.name,
+                        photoURL :res.data.data.display_url
+                    } 
+                    
+
+                    updetedUserProfile(userProfile)
+                    .then(result=>{
+                        console.log(" userProfileUpdatet",result)
+                    })
+                    .catch(errors=>{
+                        console.log(errors)
+                    })
+                })
+
+
             })
+            
+
             .catch(error=>{
                 console.log(error)
             })
-            // console.log(" after register data",e)
+            console.log(" after register data",e.photo[0])
         }
     return (
         <div>
@@ -30,6 +65,9 @@ const {registerUser,} =useAuth()
                         <p className=''>Register with ZapShift</p>
                     <form onSubmit={handleSubmit(submitHeandel)} >
                         <fieldset className="fieldset">
+                      <label className="label  text-[17px]">Image</label>
+                      
+                      <input type="file" {...register("photo",{required:true, })} accept='image/' className="input rounded-2xl file-input " placeholder="choose your Photo" />
                       <label className="label  text-[17px]">Name</label>
                       <input type="name" {...register("name",{required:true, pattern:/^[A-Za-z]+$/i})} className="input lg:w-[380px] rounded-2xl" placeholder="Name" />
                        {errors.name?.type === "required"&&(

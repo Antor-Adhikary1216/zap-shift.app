@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Authcontext } from '../AuthContext';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../../../FireBase/Firebase.config';
 
 const AuthProvider = ({children}) => {
@@ -26,6 +26,10 @@ return createUserWithEmailAndPassword(auth,email,password)
        return signOut(auth)
     }
 
+    const updetedUserProfile = (profile)=>{
+        return updateProfile(auth.cruntUser, profile)
+    }
+
    useEffect(()=>{
     const unSuscraibe = onAuthStateChanged(auth,(cruntUser)=>{
         setUser(cruntUser)
@@ -41,7 +45,11 @@ signInuser,
 siginWithGoogle,
 user,
 loading,
-Logout
+Logout,
+updetedUserProfile
+
+
+
 
     }
     return (
