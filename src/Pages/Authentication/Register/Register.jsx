@@ -6,6 +6,7 @@ import Google from '../SocialLogin/Google';
 import Goback from '../../../Hooks/GootoHomePage/Goback';
 import axios, { Axios } from 'axios';
 
+
 const Register = () => {
 const {registerUser,updetedUserProfile} =useAuth()
     const {register,handleSubmit,
@@ -67,7 +68,8 @@ const {registerUser,updetedUserProfile} =useAuth()
                         <fieldset className="fieldset">
                       <label className="label  text-[17px]">Image</label>
                       
-                      <input type="file" {...register("photo",{required:true, })} accept='image/' className="input rounded-2xl file-input " placeholder="choose your Photo" />
+                      <input type="file" {...register("photo",{required:true, })} accept='image' className="input rounded-2xl w-[100px] h-[60px]  px-3 py-2 text-center text-[10px] cursor-pointer"/>
+                    
                       <label className="label  text-[17px]">Name</label>
                       <input type="name" {...register("name",{required:true, pattern:/^[A-Za-z]+$/i})} className="input lg:w-[380px] rounded-2xl" placeholder="Name" />
                        {errors.name?.type === "required"&&(

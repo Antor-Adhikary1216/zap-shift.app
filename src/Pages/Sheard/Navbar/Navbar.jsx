@@ -56,7 +56,7 @@ const Navbar = () => {
        : <NavLink to="/login" > <button className="btn   btn-outline rounded-xl  text-[#606060] lg:font-semibold lg:text-[18px]  ">Sign In</button></NavLink>
     
     }
-    <NavLink to="" > <button  className="btn  btn-outline rounded-xl  text-[#606060]  lg:font-semibold lg:text-[18px] ">Be a rider</button></NavLink>
+    <NavLink to="bearider" > <button  className="btn  btn-outline rounded-xl  text-[#606060]  lg:font-semibold lg:text-[18px] ">Be a rider</button></NavLink>
         <NavLink to=""> <div className='bg-black p-2 rounded-full'><img src={aro}  /></div>  </NavLink>
   </div>
 </div>
