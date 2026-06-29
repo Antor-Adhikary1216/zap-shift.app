@@ -1,5 +1,11 @@
 import React from 'react';
 import agent from '../../assets/png/TeamsDwon/agent-pending.png'
+import RiderRison from './RiderRsion/RiderRison';
+
+
+const resonPromsese = fetch('/Resoin.json')
+.then(res=>res.json())
+
 
 const BeaRider = () => {
     return (
@@ -30,23 +36,14 @@ const BeaRider = () => {
                       <input type="text" className="input" placeholder="Type your Email" />
                             </fieldset> 
                                 {/* your regison *1 */}
-                                <fieldset className="fieldset">
-                       <legend className="fieldset-legend">Your Region</legend>
-                      <select defaultValue="select " className="select">
-                        <option disabled={true}>select your region</option>
-                         <option>Chrome</option>
-                         <option>FireFox</option>
-                        <option>Safari</option>
-                        </select>
-                           </fieldset> 
+                             <RiderRison resonPromsese={resonPromsese} ></RiderRison>
                                 {/* your distric *1 */}
                                 <fieldset className="fieldset">
                        <legend className="fieldset-legend">Your District</legend>
                       <select defaultValue="select" className="select">
                         <option disabled={true}>select your district</option>
-                         <option>Chrome</option>
-                         <option>FireFox</option>
-                        <option>Safari</option>
+                         <option>select your district</option>
+                         
                         </select>
                            </fieldset>  
                                 {/* your Aadhaar no  */}
@@ -61,7 +58,7 @@ const BeaRider = () => {
                             </fieldset> 
                                 {/* your Bick breand  */}
                                 <fieldset className="fieldset">
-                 <legend className="fieldset-legend">Bike Brand Model and Year</legend>
+                 <legend className="fieldset-legend">Bike Brand Model and Year</legend> 
                       <input type="text" className="input" placeholder="Type here" />
                             </fieldset> 
                                 {/* your Bick Registertion no  */}
@@ -75,13 +72,13 @@ const BeaRider = () => {
                       <input type="text" className="input" placeholder="Type here" />
                             </fieldset> 
                             {/* button for submit */}
-                            <button className="btn btn-xs lg:w-full my-3 bg-[#CAEB66] text-black sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">Responsive</button>
+                            <button className="btn btn-xs lg:w-full my-3 bg-[#CAEB66] text-black sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">Submit</button>
                             </form>
                         </div>
 
                     </div>
                     <div className="R">
-                        <img src={agent} alt="" />
+                        <img src={agent} />
 
                     </div>
                 </div>

@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"bearider",
-                Component: BeaRider
+                element:<BeaRider/>
             }
         ]
         
