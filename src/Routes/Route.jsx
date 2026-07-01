@@ -43,7 +43,9 @@ export const router = createBrowserRouter([
             },
             {
                     path:"/send_a_parcel",
-                    Component: SendParscel
+                    Component: SendParscel,
+                    loader: ()=> fetch("/Resoin.json")
+                .then(res=>res.json())
             },
             {
                 path:"bearider",
