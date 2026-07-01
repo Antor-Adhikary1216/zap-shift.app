@@ -3,10 +3,19 @@ import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 
 const SendParscel = () => {
-const {register, handleSubmit,formState:{errors}} = useForm()
+const {register, handleSubmit, watch, formState:{errors}} = useForm()
 const senter = useLoaderData()
  const regionsDuplicate = senter.map(reson => reson.region)
  const regios = [...new Set(regionsDuplicate)]
+ const senderwatch = watch("senderwatch")
+
+ const districtsByregions =region=>{
+ const distrctsregions = senter.filter(c=>c.region===region)
+ const districts = distrctsregions.map(d =>d.district)
+ return districts
+ }
+ 
+
 
 const handlesendParcel = (data)=>{
     console.log(data)
@@ -55,21 +64,27 @@ const handlesendParcel = (data)=>{
                             <input type="text" placeholder='Sender Address' className='rounded-md w-full border p-2' />
                             <p>Sender Phone No</p>
                             <input type="text" placeholder='Sender Phone No' className='rounded-md w-full border p-2' />
+                            {/*  pic a regoin -> */}
                             <p>Your Regions</p>
-                           <select defaultValue="Select your location" className="select select-accent w-full">
+                           <select {...register("senderwatch")} defaultValue="Select your location" className="select select-accent w-full">
                          <option disabled={true}>Select your location</option>
                          {
-                             regios.map(r=> <option>{r}</option>)
+                             regios.map((r,i)=> <option key={i} value={r}>{r}</option>)
                          }
-                            
-                            
                            </select>
 
-                            <p>Your District</p>
-                            <input type="text" placeholder='Your District' className='rounded-md w-full border p-2' />
-                            <p>Pickup Instruction</p>
-                            <input type="meassge" placeholder='Pickup Instruction' className='rounded-md w-full border p-2' />
-
+                           {/* dectricts */}
+                           <p>Your Destrict</p>
+                             <select {...register("senderDestricts")} defaultValue="Select your location" className="select select-accent w-full">
+                         <option disabled={true}>Select your location</option>
+                         {
+                             districtsByregions(senderwatch).map((r,i)=> <option key={i} value={r}>{r}</option>)
+                         }
+                           </select>
+                           
+                            {/* picup instruction  */}
+                            <p>picup Instruction</p>
+                            <input type="text" placeholder='Delivery Instruction ' className='rounded-md w-full border p-2' />
                               <p className='mt-15'>* PickUp Time 4pm-7pm Approx.</p>
 
                              <input type="submit" value="send parcel" className='btn' />
@@ -84,15 +99,23 @@ const handlesendParcel = (data)=>{
                             <input type="text" placeholder='Address' className='rounded-md w-full border p-2' />
                             <p>Receiver Contact No:</p>
                             <input type="text" placeholder='Receiver No' className='rounded-md w-full border p-2' />
-                            <p>Receiver Regions</p>
-                           <select defaultValue="Select your location" className="select select-accent w-full">
-                         <option disabled={true}>Select Receiver location</option>
+                           {/*  pic a regoin -> */}
+                            <p>Reciver Regions</p>
+                           <select {...register("senderwatch")} defaultValue="Select your location" className="select select-accent w-full">
+                         <option disabled={true}>Select your location</option>
                          {
-                            regios.map(re=> <option>{re}</option>)
+                             regios.map((r,i)=> <option key={i} value={r}>{r}</option>)
                          }
                            </select>
-                           <p>Receiver District</p>
-                            <input type="text" placeholder='Receiver Dectrict' className='rounded-md w-full border p-2' />
+
+                           {/* dectricts */}
+                           <p>Receiver Destrict</p>
+                             <select {...register("senderDestricts")} defaultValue="Select your location" className="select select-accent w-full">
+                         <option disabled={true}>Select your location</option>
+                         {
+                             districtsByregions(senderwatch).map((r,i)=> <option key={i} value={r}>{r}</option>)
+                         }
+                           </select>
                             <p>Delivery Instruction</p>
                             <input type="text" placeholder='Delivery Instruction ' className='rounded-md w-full border p-2' />
 
