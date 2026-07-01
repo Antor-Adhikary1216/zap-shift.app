@@ -10,6 +10,7 @@ import BeaRider from "../Components/BeaRider/BeaRider";
 import AuthLaout from "../Layout/AuthLaoyut/AuthLaout";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
+import SendParscel from "../Components/send_A_parscel/SendParscel";
 
 
 
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
             {
                 path:"bargainnig",
                 Component: Bargainnig
+            },
+            {
+                    path:"/send_a_parcel",
+                    Component: SendParscel
             },
             {
                 path:"bearider",

@@ -44,7 +44,7 @@ const BeaRider = () => {
                         <option disabled={true}>select your district</option>
                          <option>select your district</option>
                          
-                        </select>
+                        </select> 
                            </fieldset>  
                                 {/* your Aadhaar no  */}
                                 <fieldset className="fieldset">
