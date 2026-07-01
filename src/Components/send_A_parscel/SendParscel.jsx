@@ -24,26 +24,48 @@ const SendParscel = () => {
                     <div className="mt-10 flex gap-5 justify-center">
                        <div className="l ">
                         <p className='my-1'>Parcel Name</p>
-                        <input type="text" placeholder='name' className='bg-white w-[500px] border p-2 rounded-md ' />
+                        <input type="text" placeholder='Parcel Name' className='bg-white w-[500px] border p-2 rounded-md ' />
                        </div>
                        <div className="l ">
-                        <p className='my-1'>Parcel Name</p>
-                        <input type="text" placeholder='name' className='bg-white w-[500px] border p-2 rounded-md ' />
+                        <p className='my-1'>Parcel Weight (KG) .optional </p>
+                        <input type="text" placeholder='Parcel Weight (KG)' className='bg-white w-[500px] border p-2 rounded-md ' />
                        </div>
                     </div>
 
-
+                            <div className="border-b w-[1000px] mx-auto border-[#000000] my-10"></div>
                         {/*  sendder -> */}
-                        <div className=" justify-center my-10 flex gap-5">
+                        <div className=" justify-center mt-16 flex gap-5">
                             <div className="w-[500px]">
-                            <h1>Sender Details</h1>
+                            <h1 className='text-[20px] font-medium '>Sender Details</h1>
                             <p>Sender Name</p>
                             <input type="text" placeholder='Sender Name' className='rounded-md w-full border p-2' />
+                            <p>Sender Address</p>
+                            <input type="text" placeholder='Sender Address' className='rounded-md w-full border p-2' />
+                            <p>Sender Phone No</p>
+                            <input type="text" placeholder='Sender Phone No' className='rounded-md w-full border p-2' />
+                            <p>Your District</p>
+                            <input type="text" placeholder='Your District' className='rounded-md w-full border p-2' />
+                            <p>Pickup Instruction</p>
+                            <input type="meassge" placeholder='Pickup Instruction' className='rounded-md w-full border p-2' />
+
+                              <p className='mt-15'>* PickUp Time 4pm-7pm Approx.</p>
+
+                              <button className=' btn rounded-md px-10  mt-10 text-center bg-[#CAEB66]'>Proceed Confirm Booking</button>
                         </div>
+                      
+                        {/* Receiver Details */}
                         <div className="R w-[500px]">
-                            <h1>Sender Details</h1>
-                            <p>Sender Name</p>
-                            <input type="text" placeholder='Sender Name' className='rounded-md w-full border p-2' />
+                            <h1 className='text-[20px] font-medium '>Receiver Details</h1>
+                            <p>Receiver Name</p>
+                            <input type="text" placeholder='Receiver Name' className='rounded-md w-full border p-2' />
+                            <p>Receiver Address</p>
+                            <input type="text" placeholder='Address' className='rounded-md w-full border p-2' />
+                            <p>Receiver Contact No:</p>
+                            <input type="text" placeholder='Receiver No' className='rounded-md w-full border p-2' />
+                            <p>Receiver District</p>
+                            <input type="text" placeholder='Receiver Dectrict' className='rounded-md w-full border p-2' />
+                            <p>Delivery Instruction</p>
+                            <input type="text" placeholder='Delivery Instruction ' className='rounded-md w-full border p-2' />
 
                         </div>
                         </div>
