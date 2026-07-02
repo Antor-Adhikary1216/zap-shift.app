@@ -1,13 +1,14 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 
 const SendParscel = () => {
-const {register, handleSubmit, watch, formState:{errors}} = useForm()
+const {register, handleSubmit, control, formState:{errors}} = useForm()
 const senter = useLoaderData()
  const regionsDuplicate = senter.map(reson => reson.region)
  const regios = [...new Set(regionsDuplicate)]
- const senderwatch = watch("senderwatch")
+ const senderwatch = useWatch( {control, name:"senderwatch"})
+ const receiverrwatch = useWatch({control,name:"receiverrwatch"})
 
  const districtsByregions =region=>{
  const distrctsregions = senter.filter(c=>c.region===region)
@@ -64,9 +65,11 @@ const handlesendParcel = (data)=>{
                             <input type="text" placeholder='Sender Address' className='rounded-md w-full border p-2' />
                             <p>Sender Phone No</p>
                             <input type="text" placeholder='Sender Phone No' className='rounded-md w-full border p-2' />
+
+                            {/* Reciver--------------------------------------------------------------------------------  */}
                             {/*  pic a regoin -> */}
                             <p>Your Regions</p>
-                           <select {...register("senderwatch")} defaultValue="Select your location" className="select select-accent w-full">
+                           <select {...register("receiverrwatch")} defaultValue="Select your location" className="select select-accent w-full">
                          <option disabled={true}>Select your location</option>
                          {
                              regios.map((r,i)=> <option key={i} value={r}>{r}</option>)
@@ -75,19 +78,23 @@ const handlesendParcel = (data)=>{
 
                            {/* dectricts */}
                            <p>Your Destrict</p>
-                             <select {...register("senderDestricts")} defaultValue="Select your location" className="select select-accent w-full">
+                             <select {...register("receiverDestricts")} defaultValue="Select your location" className="select select-accent w-full">
                          <option disabled={true}>Select your location</option>
                          {
-                             districtsByregions(senderwatch).map((r,i)=> <option key={i} value={r}>{r}</option>)
+                             districtsByregions(receiverrwatch).map((r,i)=> <option key={i} value={r}>{r}</option>)
                          }
                            </select>
+
+                            {/*Address =>-------------------------- receiver  */}
+                            <p>Picup Address</p>
+                            <input type="text" placeholder='Pickup Address ' className='rounded-md w-full border p-2' />
                            
-                            {/* picup instruction  */}
-                            <p>picup Instruction</p>
+                            {/* reinstruction  */}
+                            <p>pickup Instruction</p>
                             <input type="text" placeholder='Delivery Instruction ' className='rounded-md w-full border p-2' />
                               <p className='mt-15'>* PickUp Time 4pm-7pm Approx.</p>
 
-                             <input type="submit" value="send parcel" className='btn' />
+                             <input type="submit" value="send parcel" className='btn px-10 text-lg font-bold bg-amber-400 mt-5' />
                         </div>
                        
                         {/* Receiver Details */}
@@ -116,6 +123,8 @@ const handlesendParcel = (data)=>{
                              districtsByregions(senderwatch).map((r,i)=> <option key={i} value={r}>{r}</option>)
                          }
                            </select>
+                           <p>Delivery Address</p>
+                            <input type="text" placeholder='Delivery Address ' className='rounded-md w-full border p-2' />
                             <p>Delivery Instruction</p>
                             <input type="text" placeholder='Delivery Instruction ' className='rounded-md w-full border p-2' />
 
