@@ -11,6 +11,8 @@ import AuthLaout from "../Layout/AuthLaoyut/AuthLaout";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
 import SendParscel from "../Components/send_A_parscel/SendParscel";
+import Dashlayout from "../Layout/Dashbord/Dashlayout";
+import MyParcels from "../Layout/Dashbord/MyParcels/MyParcels";
 
 
 
@@ -68,6 +70,16 @@ export const router = createBrowserRouter([
                 Component:Register
             }
          ]
+    },
+    {
+        path:"dashbord",
+        element: <Dashlayout></Dashlayout>,
+        children:[
+            {
+                path:'my-parcels',
+                Component: MyParcels
+            }
+        ]
     }
 
 ])

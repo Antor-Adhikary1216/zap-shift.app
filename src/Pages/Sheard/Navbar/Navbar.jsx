@@ -14,6 +14,13 @@ const Navbar = () => {
         <NavLink to="bargainnig" ><li>Pricing</li></NavLink>
         <NavLink to="send_a_parcel"><li>Send Parcel</li> </NavLink>
         <NavLink to="bearider" ><li>Be a Rider</li></NavLink>
+
+        {
+          user && <> 
+          <NavLink to="dashbord/my-parcels"><li>My Parcels</li> </NavLink> 
+          
+           </>
+        }
     </>
 
     const landealLogOut = ()=>{
@@ -25,7 +32,7 @@ const Navbar = () => {
     }
     return (
         <div>
-            <div className="navbar shadow-md lg:max-w-325 mx-auto rounded-[10px] bg-white  lg:px-7">
+            <div className="navbar shadow-md lg:max-w-full mx-auto rounded-[10px] bg-white  lg:px-7">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -48,7 +55,7 @@ const Navbar = () => {
      {links}
     </ul>
   </div>
-  <div className="navbar-end gap-2 login ">
+  <div className="navbar-end gap-1 login ">
     
     {
       user ? 
