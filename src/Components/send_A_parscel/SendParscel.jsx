@@ -3,10 +3,16 @@ import { useForm, useWatch } from 'react-hook-form';
 import { FaRupeeSign } from 'react-icons/fa';
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
+import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure';
 
 
 const SendParscel = () => {
 const {register, handleSubmit, control, formState:{errors}} = useForm()
+
+const axiosSecure = UseaxiosSecure()
+
+
+
 const senter = useLoaderData()
  const regionsDuplicate = senter.map(reson => reson.region)
  const regios = [...new Set(regionsDuplicate)]
@@ -70,8 +76,13 @@ Swal.fire({
   confirmButtonColor: "#3085d6",
   cancelButtonColor: "#d33",
   confirmButtonText: "Yes, take it my parcel!"
-}).then((result) => {
+}).then((result) => { 
   if (result.isConfirmed) 
+
+// seve the parcel database
+axiosSecure.post("/parcels")
+
+
     Swal.fire({
     title: "Conform !",
     text: "Your parcel has been conform.",
