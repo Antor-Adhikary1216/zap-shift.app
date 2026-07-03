@@ -1,13 +1,16 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { FaRupeeSign } from 'react-icons/fa';
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
 import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure';
+import useAuth from '../../Hooks/useAuth/useAuth';
 
 
 const SendParscel = () => {
 const {register, handleSubmit, control, formState:{errors}} = useForm()
+
+
+const {user} = useAuth()
 
 const axiosSecure = UseaxiosSecure()
 
@@ -80,7 +83,10 @@ Swal.fire({
   if (result.isConfirmed) 
 
 // seve the parcel database
-axiosSecure.post("/parcels")
+axiosSecure.post("/parcels", data)
+.then(res=>{
+    console.log( "After seveing parcel",res.data)
+})
 
 
     Swal.fire({
@@ -130,9 +136,9 @@ axiosSecure.post("/parcels")
                             <div className="w-[500px]">
                             <h1 className='text-[20px] font-medium '>Sender Details</h1>
                             <p>Sender Name</p>
-                            <input type="text" {...register (" sender Name")} placeholder='Sender Name' className='rounded-md w-full border p-2' />
-                            <p>Sender Address</p>
-                            <input type="text" placeholder='Sender Address' {...register("sender address")} className='rounded-md w-full border p-2' />
+                            <input type="text"  {...register (" sender Name")} defaultValue={user?.displayName} placeholder='Sender Name' className='rounded-md w-full border p-2' />
+                            <p>Email Address</p>
+                            <input type="email" placeholder='Email Address' {...register("senderemail")}  defaultValue={user?.email} className='rounded-md w-full border p-2' />
                             <p>Sender Phone No</p>
                             <input type="text" {...register(" senderNo")} placeholder='Sender Phone No' className='rounded-md w-full border p-2' />
 
@@ -172,8 +178,8 @@ axiosSecure.post("/parcels")
                             <h1 className='text-[20px] font-medium '>Receiver Details</h1>
                             <p>Receiver Name</p>
                             <input type="text" {...register("receiverName")} placeholder='Receiver Name' className='rounded-md w-full border p-2' />
-                            <p>Receiver Address</p>
-                            <input type="text" {... register("receiveraddress")} placeholder='Address' className='rounded-md w-full border p-2' />
+                            <p>Receiver Email Address</p>
+                            <input type="email" {... register("receiver email address")} placeholder= 'Email Address' className='rounded-md w-full border p-2' />
                             <p>Receiver Contact No:</p>
                             <input type="text" {...register("receiver Contect")} placeholder='Receiver No' className='rounded-md w-full border p-2' />
                            {/*  pic a regoin----------------------------------------- -> */}

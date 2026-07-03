@@ -3,6 +3,8 @@ import { Authcontext } from '../../Context/AuthContext/AuthContext';
 
 const useAuth = () => {
     const authinfo = use(Authcontext)
+
+    
     return authinfo
 };
 
