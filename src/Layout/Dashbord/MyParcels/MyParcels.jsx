@@ -6,6 +6,7 @@ import { FaEdit, FaRupeeSign } from "react-icons/fa";
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdDeleteForever } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -21,6 +22,31 @@ const MyParcels = () => {
 
 //    Handeling ==>
     const parcelhandelDelete = (id)=>{
+    //Aleat section =>
+   Swal.fire({
+    
+  title: "Are you sure to delete this?",
+  text: "You want to be delete this item !",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+
+  
+}).then((result) => {
+       
+    if(result.isConfirmed){
+          axiosSecure.delete(`/parcels/${id}`)
+    .then(res=>{
+        console.log(res)
+    })
+    }
+});
+        // sweet alete<===>
+
+        
+    
         console.log(id , "delete items")
 
 
