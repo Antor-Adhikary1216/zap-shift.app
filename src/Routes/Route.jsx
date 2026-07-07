@@ -13,6 +13,7 @@ import Register from "../Pages/Authentication/Register/Register";
 import SendParscel from "../Components/send_A_parscel/SendParscel";
 import Dashlayout from "../Layout/Dashbord/Dashlayout";
 import MyParcels from "../Layout/Dashbord/MyParcels/MyParcels";
+import PayNow from "../Layout/Dashbord/Payment/PayNow";
 
 
 
@@ -78,6 +79,13 @@ export const router = createBrowserRouter([
             {
                 path:'my-parcels',
                 Component: MyParcels
+            },
+            {
+                path:"payment/:parcelId",
+                Component: PayNow
+
+
+
             }
         ]
     }

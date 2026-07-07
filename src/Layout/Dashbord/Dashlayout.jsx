@@ -38,7 +38,7 @@ const Dashlayout = () => {
 
 
         <li className=''>
-          <Link to="/my-parcels"><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
+          <Link to="my-parcels"><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
             {/* Home icon */}
             <span><FaBoxOpen /></span>
             <span className="is-drawer-close:hidden">My parcels</span>

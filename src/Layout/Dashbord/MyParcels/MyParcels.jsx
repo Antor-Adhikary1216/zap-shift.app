@@ -4,9 +4,10 @@ import useAuth from "../../../Hooks/useAuth/useAuth";
 import UseaxiosSecure from "../../../Hooks/useAxios/useaxiosSecure";
 import { FaEdit, FaRupeeSign } from "react-icons/fa";
 import { RiEdit2Fill } from "react-icons/ri";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdDeliveryDining } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcels = () => {
   const { user } = useAuth();
@@ -53,7 +54,7 @@ const MyParcels = () => {
     })
     }
 });
-        // sweet alete<===>
+        // sweet  alete<===>
 
         
     
@@ -80,7 +81,7 @@ const MyParcels = () => {
               <th></th>
               <th>Parcel Name</th>
               <th>Parcel Type</th>
-              <th>Payment Status</th>
+              <th>Payment </th>
               <th className="flex items-center gap-2">
                 Parcel cost{" "}
                 <span>
@@ -88,23 +89,37 @@ const MyParcels = () => {
                 </span>
               </th>
                <th>Actions</th>
+                <th>Delevery status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="">
             {parcels.map((parcel, index) => (
               <tr key={parcel._id}>
                 <th>{index + 1}</th>
                 <td className="text-xl">{parcel.parcelName}</td>
                 <td className="text-xl">{parcel.parceltype}</td>
-                <td className="text-xl">Panding</td>
+                {/* Pyment */}
+                <td className="text-xl">
+                  {
+                    parcel.paymentStatus === "paid"? <span className="text-green-500">Paid</span>
+                    :<span className="text-red-500" > payment Panding </span>,
+                    <Link to={`/dashbord/payment/${parcel._id}`}> 
+                    <button className="btn bg-amber-400 shadow-none btn-sm">
+                      Pay-now
+                    </button>
+                     </Link>
+                  }
+                </td>
                 {/* cost */}
+
                 <td className="flex items-center gap-2 text-xl">
                   {parcel.cost}
                   <span>
                     <FaRupeeSign />
                   </span>
                 </td>
-
+               
+                  
                 {/* actions */}
                 <td className="px-2 ">
                   <button className="btn btn-square mx-2 items-center border-none bg-none shadow-none text-xl">
@@ -120,6 +135,15 @@ const MyParcels = () => {
                   </button>
                   
                    
+                </td>
+
+                <td className="flex items-center gap-2 text-xl">
+                  {parcel.deliveryStatus}
+                  
+                  <span>
+                   <FaRupeeSign />
+                    
+                  </span>
                 </td>
               </tr>
             ))}
