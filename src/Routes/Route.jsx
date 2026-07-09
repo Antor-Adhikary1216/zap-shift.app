@@ -82,7 +82,9 @@ export const router = createBrowserRouter([
             },
             {
                 path:"payment/:parcelId",
-                Component: PayNow
+                Component: PayNow,
+                
+            
 
 
 
