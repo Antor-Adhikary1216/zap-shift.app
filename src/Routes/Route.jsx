@@ -14,6 +14,9 @@ import SendParscel from "../Components/send_A_parscel/SendParscel";
 import Dashlayout from "../Layout/Dashbord/Dashlayout";
 import MyParcels from "../Layout/Dashbord/MyParcels/MyParcels";
 import PayNow from "../Layout/Dashbord/Payment/PayNow";
+import Payment_success from "../Layout/Dashbord/Payment/Payment_Success/Payment_success";
+import { Path } from "leaflet";
+import Payment_Canceld from "../Layout/Dashbord/Payment/Payment_Cancel/Payment_Canceld";
 
 
 
@@ -81,13 +84,16 @@ export const router = createBrowserRouter([
                 Component: MyParcels
             },
             {
-                path:"payment/:parcelId",
+                path:"payment/:parceslId",
                 Component: PayNow,
-                
-            
-
-
-
+            },
+            {
+                path:"payment-successful",
+                Component: Payment_success
+            },
+            {
+                path:"payment-canceld",
+                Component:Payment_Canceld
             }
         ]
     }

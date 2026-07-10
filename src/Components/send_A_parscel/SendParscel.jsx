@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import UseaxiosSecure from "../../Hooks/useAxios/useaxiosSecure";
 import useAuth from "../../Hooks/useAuth/useAuth";
@@ -16,6 +16,7 @@ const SendParscel = () => {
   const { user } = useAuth();
 
   const axiosSecure = UseaxiosSecure();
+    const navigete = useNavigate()
 
   const senter = useLoaderData();
   const regionsDuplicate = senter.map((reson) => reson.region);
@@ -28,6 +29,8 @@ const SendParscel = () => {
     const districts = distrctsregions.map((d) => d.district);
     return districts;
   };
+
+
 
   // {
   //     "parceltype": "document",
@@ -84,14 +87,21 @@ const SendParscel = () => {
       if (result.isConfirmed)
         // seve the parcel database
         axiosSecure.post("/parcels", data).then((res) => {
-          console.log("After seveing parcel", res.data);
-        });
 
-      Swal.fire({
+          if(res.data.insertedId){
+            navigete("/dashbord/my-parcels")
+            Swal.fire({
         title: "Conform !",
-        text: "Your parcel has been conform.",
+        text: "Your parcel has been conform now please pay your parcel cost .",
         icon: "success",
+        
+        
       });
+          }
+          console.log("After seveing parcel", res.data);
+        })
+
+      
     });
   };
 
