@@ -1,10 +1,8 @@
-import { useQueries, useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import UseaxiosSecure from "../../../Hooks/useAxios/useaxiosSecure";
 import { FaEdit, FaRupeeSign } from "react-icons/fa";
-import { RiEdit2Fill } from "react-icons/ri";
-import { MdDeleteForever, MdDeliveryDining } from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
@@ -15,6 +13,7 @@ const MyParcels = () => {
 
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", user?.email],
+    enabled: Boolean(user?.email),
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${user.email}`);
       return res.data;
@@ -100,15 +99,18 @@ const MyParcels = () => {
                 <td className="text-xl">{parcel.parceltype}</td>
                 {/* Pyment */}
                 <td className="text-xl">
-                  {
-                    parcel.paymentStatus === "paid"? <span className="text-green-500">Paid</span>
-                    :<span className="text-red-500" > payment Panding </span>,
-                    <Link to={`/dashbord/payment/${parcel._id}`}> 
-                    <button className="btn bg-amber-400 shadow-none btn-sm">
-                      Pay-now
-                    </button>
-                     </Link>
-                  }
+                  {parcel.paymentStatus === "paid" ? (
+                    <span className="text-green-500">Paid</span>
+                  ) : (
+                    <>
+                      <span className="text-red-500"> payment Panding </span>
+                      <Link to={`/dashbord/payment/${parcel._id}`}>
+                        <button className="btn bg-amber-400 shadow-none btn-sm">
+                          Pay-now
+                        </button>
+                      </Link>
+                    </>
+                  )}
                 </td>
                 {/* cost */}
 

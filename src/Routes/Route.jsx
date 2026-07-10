@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import App from "../App";
 import RootLayout from "../Layout/RootLayout";
 import Home from "../Pages/Home/Home";
 import Coverags from "../Components/Coverage/Coverags";
@@ -15,8 +14,8 @@ import Dashlayout from "../Layout/Dashbord/Dashlayout";
 import MyParcels from "../Layout/Dashbord/MyParcels/MyParcels";
 import PayNow from "../Layout/Dashbord/Payment/PayNow";
 import Payment_success from "../Layout/Dashbord/Payment/Payment_Success/Payment_success";
-import { Path } from "leaflet";
 import Payment_Canceld from "../Layout/Dashbord/Payment/Payment_Cancel/Payment_Canceld";
+import PendingParcel from "../Layout/Dashbord/PendingParcel/PendingParcel";
 
 
 
@@ -84,7 +83,7 @@ export const router = createBrowserRouter([
                 Component: MyParcels
             },
             {
-                path:"payment/:parceslId",
+                path:"payment/:parcelId",
                 Component: PayNow,
             },
             {
@@ -94,6 +93,10 @@ export const router = createBrowserRouter([
             {
                 path:"payment-canceld",
                 Component:Payment_Canceld
+            },
+            {
+                path:"pending-parcel/:parcelId",
+                Component: PendingParcel
             }
         ]
     }
