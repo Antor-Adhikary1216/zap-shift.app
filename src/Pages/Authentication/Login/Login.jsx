@@ -1,6 +1,6 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import Google from '../SocialLogin/Google';
 import Goback from '../../../Hooks/GootoHomePage/Goback';
@@ -10,18 +10,29 @@ const Login = () => {
 
     const {register, handleSubmit,formState:{errors}} = useForm()
     const {signInuser} =useAuth()
+    const navigate = useNavigate()
 
 
 
     // from submiter ->
     const hendelsubmit = (e)=>{
-signInuser(e.email,e.password)
-.then(res=>{
-    console.log(res.user)
-    .catch(error=>{
-                console.log(error)
+        signInuser(e.email,e.password)
+        .then(res=>{
+            console.log(res.user)
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Logged in successfully',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
             })
-})
+            navigate('/', { replace: true })
+        })
+        .catch(error=>{
+            console.log(error)
+        })
         // console.log("logindata", e)
     }
     return (

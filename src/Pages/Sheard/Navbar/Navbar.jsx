@@ -1,7 +1,7 @@
-import React, { use } from 'react';
 import Logo from '../../../Components/Logo/Logo';
 import aro from "../../../assets/banner/arrow-up-right 1.png"
 import { NavLink } from 'react-router';
+import Swal from 'sweetalert2';
 import './nav.css'
 import useAuth from '../../../Hooks/useAuth/useAuth';
 
@@ -25,7 +25,17 @@ const Navbar = () => {
 
     const landealLogOut = ()=>{
       Logout()
-      .then()
+      .then(()=>{
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'success',
+          title: 'Logged out successfully',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+        })
+      })
       .catch(error=>{
         console.log(error)
       })

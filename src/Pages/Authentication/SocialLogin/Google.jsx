@@ -1,16 +1,29 @@
-import React from 'react';
+import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 import useAuth from '../../../Hooks/useAuth/useAuth';
 
 const Google = () => {
 
     const {siginWithGoogle}=useAuth()
+    const navigate = useNavigate()
     const handelgoogleauth = ()=>{
-siginWithGoogle()
-.then(res=>{
-    console.log(res.user)
-})
-.cacth(Error)
-console.log(Error)
+        siginWithGoogle()
+        .then(res=>{
+            console.log(res.user)
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Logged in successfully',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            })
+            navigate('/', { replace: true })
+        })
+        .catch(error=>{
+            console.log(error)
+        })
     }
     return (
         <div>
