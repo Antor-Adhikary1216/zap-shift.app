@@ -16,6 +16,7 @@ import PayNow from "../Layout/Dashbord/Payment/PayNow";
 import Payment_success from "../Layout/Dashbord/Payment/Payment_Success/Payment_success";
 import Payment_Canceld from "../Layout/Dashbord/Payment/Payment_Cancel/Payment_Canceld";
 import PendingParcel from "../Layout/Dashbord/PendingParcel/PendingParcel";
+import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
 
 
 
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
             {
                 path:'my-parcels',
                 Component: MyParcels
+            },
+            {
+                path:'payment-history',
+                Component: PaymentHistory
             },
             {
                 path:"payment/:parcelId",

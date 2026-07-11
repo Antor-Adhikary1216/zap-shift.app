@@ -1,5 +1,4 @@
-import React from 'react';
-import { FaBoxOpen, FaHome } from 'react-icons/fa';
+import { FaBoxOpen, FaCreditCard, FaHome } from 'react-icons/fa';
 import { Link, NavLink, Outlet } from 'react-router';
 
 const Dashlayout = () => {
@@ -38,11 +37,20 @@ const Dashlayout = () => {
 
 
         <li className=''>
-          <Link to="my-parcels"><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
+          <NavLink to="my-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
             {/* Home icon */}
             <span><FaBoxOpen /></span>
             <span className="is-drawer-close:hidden">My parcels</span>
-          </button></Link>
+          </button></NavLink>
+        </li>
+
+        <li>
+          <NavLink to="payment-history" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="payment history">
+              <span><FaCreditCard /></span>
+              <span className="is-drawer-close:hidden">Payment history</span>
+            </button>
+          </NavLink>
         </li>
 
         
