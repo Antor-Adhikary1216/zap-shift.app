@@ -53,7 +53,7 @@ const PendingParcel = () => {
     }
 
     const paymentId = parcel.transactionId || location.state?.paymentId
-    const deliveryStatus = parcel.deliveryStatus || 'Pending'
+    const deliveryStatus = parcel.paymentStatus === 'paid' ? 'Parcel Shipped' : 'Pay Fast'
 
     return (
         <div className="m-4 max-w-3xl rounded-xl bg-white p-5 shadow-sm sm:m-6 sm:p-8">

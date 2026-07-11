@@ -132,20 +132,29 @@ const MyParcels = () => {
                   <IoIosSearch />
                   </button>
 
-                  <button onClick={()=>parcelhandelDelete (parcel._id) } className="btn btn-square mx-2 items-center border-none bg-none shadow-none text-xl">
-                  <MdDeleteForever />
-                  </button>
+                  {parcel.paymentStatus !== "paid" && (
+                    <button
+                      onClick={() => parcelhandelDelete(parcel._id)}
+                      className="btn btn-square mx-2 items-center border-none bg-none shadow-none text-xl"
+                      aria-label={`Delete ${parcel.parcelName || "parcel"}`}
+                    >
+                      <MdDeleteForever />
+                    </button>
+                  )}
                   
                    
                 </td>
 
-                <td className="flex items-center gap-2 text-xl">
-                  {parcel.deliveryStatus}
-                  
-                  <span>
-                   <FaRupeeSign />
-                    
-                  </span>
+                <td>
+                  {parcel.paymentStatus === "paid" ? (
+                    <span className="badge badge-success badge-outline whitespace-nowrap">
+                      Parcel Shipped
+                    </span>
+                  ) : (
+                    <span className="badge badge-warning badge-outline whitespace-nowrap">
+                      Pay Fast
+                    </span>
+                  )}
                 </td>
               </tr>
             ))}
