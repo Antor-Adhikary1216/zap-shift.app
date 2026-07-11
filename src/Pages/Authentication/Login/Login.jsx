@@ -61,7 +61,7 @@ const Login = () => {
                     Create Password itlist 6 carecters 
             </p>
           }
-          <div><a className="link link-hover">Forgot password?</a></div>
+          <div><NavLink to="/forgot-password" className="link link-hover text-[#77951d]">Forgot password?</NavLink></div>
           <NavLink to="/register"><p className='text-green-600 hover:underline'>Create a account</p></NavLink>
           <button className="btn btn-neutral mt-4 w-full rounded-full">Login</button>
           

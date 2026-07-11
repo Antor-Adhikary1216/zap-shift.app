@@ -1,5 +1,6 @@
 import Logo from '../../../Components/Logo/Logo';
 import aro from "../../../assets/banner/arrow-up-right 1.png"
+import zapShiftLogo from '../../../assets/logo.png'
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { NavLink, useNavigate } from 'react-router';
@@ -22,17 +23,33 @@ const Navbar = () => {
     })
 
     useEffect(() => {
-      if (loading || user || localStorage.getItem('zapshift-login-prompt-seen')) return
+      localStorage.removeItem('zapshift-login-prompt-seen')
+      if (loading || user || sessionStorage.getItem('zapshift-login-prompt-seen')) return
 
-      localStorage.setItem('zapshift-login-prompt-seen', 'true')
+      sessionStorage.setItem('zapshift-login-prompt-seen', 'true')
       Swal.fire({
-        icon: 'info',
-        title: 'Log in to explore ZapShift',
-        text: 'Sign in to view services, check coverage, calculate pricing, send parcels, and manage your deliveries.',
-        confirmButtonText: 'Go to login',
-        confirmButtonColor: '#03373D',
+        imageUrl: zapShiftLogo,
+        imageWidth: 72,
+        imageHeight: 72,
+        imageAlt: 'ZapShift logo',
+        title: 'Welcome to ZapShift',
+        html: '<p class="zapshift-login-brand">Fast. Reliable. Right on time.</p><p>Log in to check coverage, calculate pricing, send parcels, and manage every delivery.</p>',
+        confirmButtonText: 'Log in now',
         showCancelButton: true,
         cancelButtonText: 'Maybe later',
+        showCloseButton: true,
+        buttonsStyling: false,
+        backdrop: 'rgba(3, 55, 61, 0.62)',
+        customClass: {
+          popup: 'zapshift-login-popup',
+          image: 'zapshift-login-logo',
+          title: 'zapshift-login-title',
+          htmlContainer: 'zapshift-login-copy',
+          actions: 'zapshift-login-actions',
+          confirmButton: 'zapshift-login-confirm',
+          cancelButton: 'zapshift-login-cancel',
+          closeButton: 'zapshift-login-close',
+        },
       }).then((result) => {
         if (result.isConfirmed) navigate('/login')
       })

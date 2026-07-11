@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -12,7 +11,15 @@ const SendParscel = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      parceltype: "document",
+      receiverrwatch: "",
+      receiverDestricts: "",
+      senderwatch: "",
+      senderDestricts: "",
+    },
+  });
 
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -25,6 +32,8 @@ const SendParscel = () => {
   const regios = [...new Set(regionsDuplicate)];
   const senderwatch = useWatch({ control, name: "senderwatch" });
   const receiverrwatch = useWatch({ control, name: "receiverrwatch" });
+  const parceltype = useWatch({ control, name: "parceltype" });
+  const isDocument = parceltype === "document";
 
   const districtsByregions = (region) => {
     const distrctsregions = senter.filter((c) => c.region === region);
@@ -59,7 +68,7 @@ const SendParscel = () => {
     const Isdocument = data.parceltype === "document";
     const parcelweitght = parseFloat(data.parcelWeight);
     const Issamedistrict = data.receiverDestricts === data.senderDestricts;
-    let cost = 0;
+    let cost;
     if (Isdocument) {
       cost = Issamedistrict ? 69 : 99;
     } else {
@@ -123,9 +132,8 @@ const SendParscel = () => {
                 {...register("parceltype")}
                 value="document"
                 className="radio text-green-500"
-                defaultChecked
               />
-              <p>Document</p>
+              <p>Document <span className="text-red-500">*</span></p>
             </div>
             <div className="mt-3 flex gap-0.5 text-center">
               <input
@@ -134,28 +142,36 @@ const SendParscel = () => {
                 value="none-documet"
                 className="radio text-green-500"
               />
-              <p>None-Document</p>
+              <p>Non-Document <span className="text-red-500">*</span></p>
             </div>
           </div>
           {/* input */}
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10">
             <div className="min-w-0">
-              <p className="my-1">Parcel Name</p>
+              <p className="my-1">Parcel Name <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register("parcelName")}
+                {...register("parcelName", { required: true })}
                 placeholder="Parcel Name"
-                className="w-full rounded-md border bg-white p-2"
+                className={`w-full rounded-md border bg-white p-2 ${errors.parcelName ? "border-red-500" : ""}`}
               />
             </div>
             <div className="min-w-0">
-              <p className="my-1">Parcel Weight (KG) </p>
+              <p className="my-1">
+                Parcel Weight (KG) {!isDocument && <span className="text-red-500">*</span>}
+              </p>
               <input
-                type="text"
-                {...register("parcelWeight")}
-                placeholder="Parcel Weight (KG)"
-                className="w-full rounded-md border bg-white p-2"
+                type="number"
+                min="0.1"
+                step="0.1"
+                disabled={isDocument}
+                {...register("parcelWeight", {
+                  required: !isDocument,
+                  min: isDocument ? undefined : 0.1,
+                })}
+                placeholder={isDocument ? "Not required for documents" : "Parcel Weight (KG)"}
+                className={`w-full rounded-md border bg-white p-2 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 ${errors.parcelWeight ? "border-red-500" : ""}`}
               />
             </div>
           </div>
@@ -165,39 +181,38 @@ const SendParscel = () => {
           <div className="mt-10 grid gap-8 lg:mt-16 lg:grid-cols-2">
             <div className="min-w-0">
               <h1 className="text-[20px] font-medium ">Sender Details</h1>
-              <p>Sender Name</p>
+              <p>Sender Name <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register(" sender Name")}
+                {...register(" sender Name", { required: true })}
                 defaultValue={user?.displayName}
                 placeholder="Sender Name"
                 className="rounded-md w-full border p-2"
               />
-              <p>Email Address</p>
+              <p>Email Address <span className="text-red-500">*</span></p>
               <input
                 type="email"
                 placeholder="Email Address"
-                {...register("senderemail")}
+                {...register("senderemail", { required: true })}
                 defaultValue={user?.email}
                 className="rounded-md w-full border p-2"
               />
-              <p>Sender Phone No</p>
+              <p>Sender Phone No <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register(" senderNo")}
+                {...register(" senderNo", { required: true })}
                 placeholder="Sender Phone No"
                 className="rounded-md w-full border p-2"
               />
 
               {/* sender--------------------------------------------------------------------------------  */}
               {/*  pic a regoin -> */}
-              <p>Your Regions</p>
+              <p>Your Region <span className="text-red-500">*</span></p>
               <select
-                {...register("receiverrwatch")}
-                defaultValue="Select your location"
+                {...register("receiverrwatch", { required: true })}
                 className="select select-accent w-full"
               >
-                <option disabled={true}>Select your location</option>
+                <option value="" disabled>Select your location</option>
                 {regios.map((r, i) => (
                   <option key={i} value={r}>
                     {r}
@@ -206,13 +221,12 @@ const SendParscel = () => {
               </select>
 
               {/* dectricts */}
-              <p>Your Destrict</p>
+              <p>Your District <span className="text-red-500">*</span></p>
               <select
-                {...register("receiverDestricts")}
-                defaultValue="Select your location"
+                {...register("receiverDestricts", { required: true })}
                 className="select select-accent w-full"
               >
-                <option disabled={true}>Select your location</option>
+                <option value="" disabled>Select your location</option>
                 {districtsByregions(receiverrwatch).map((r, i) => (
                   <option key={i} value={r}>
                     {r}
@@ -221,10 +235,10 @@ const SendParscel = () => {
               </select>
 
               {/*Address =>-------------------------- receiver  */}
-              <p>Picup Address</p>
+              <p>Pickup Address <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register("senderpickup Address")}
+                {...register("senderpickup Address", { required: true })}
                 placeholder="Pickup Address "
                 className="rounded-md w-full border p-2"
               />
@@ -239,6 +253,12 @@ const SendParscel = () => {
               />
               <p className="mt-15">* PickUp Time 4pm-7pm Approx.</p>
 
+              {Object.keys(errors).length > 0 && (
+                <p className="mt-4 text-sm font-semibold text-red-600" role="alert">
+                  Please complete all required fields marked with *.
+                </p>
+              )}
+
               <input
                 type="submit"
                 value="send parcel"
@@ -249,35 +269,34 @@ const SendParscel = () => {
             {/* Receiver Details------------------------------------------------ */}
             <div className="min-w-0">
               <h1 className="text-[20px] font-medium ">Receiver Details</h1>
-              <p>Receiver Name</p>
+              <p>Receiver Name <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register("receiverName")}
+                {...register("receiverName", { required: true })}
                 placeholder="Receiver Name"
                 className="rounded-md w-full border p-2"
               />
-              <p>Receiver Email Address</p>
+              <p>Receiver Email Address <span className="text-red-500">*</span></p>
               <input
                 type="email"
-                {...register("receiver email address")}
+                {...register("receiver email address", { required: true })}
                 placeholder="Email Address"
                 className="rounded-md w-full border p-2"
               />
-              <p>Receiver Contact No:</p>
+              <p>Receiver Contact No <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register("receiver Contect")}
+                {...register("receiver Contect", { required: true })}
                 placeholder="Receiver No"
                 className="rounded-md w-full border p-2"
               />
               {/*  pic a regoin----------------------------------------- -> */}
-              <p>Reciver Regions</p>
+              <p>Receiver Region <span className="text-red-500">*</span></p>
               <select
-                {...register("senderwatch")}
-                defaultValue="Select your location"
+                {...register("senderwatch", { required: true })}
                 className="select select-accent w-full"
               >
-                <option disabled={true}>Select your location</option>
+                <option value="" disabled>Select your location</option>
                 {regios.map((r, i) => (
                   <option key={i} value={r}>
                     {r}
@@ -286,23 +305,22 @@ const SendParscel = () => {
               </select>
 
               {/* dectricts--------------------------------------- */}
-              <p>Receiver Destrict</p>
+              <p>Receiver District <span className="text-red-500">*</span></p>
               <select
-                {...register("senderDestricts")}
-                defaultValue="Select your location"
+                {...register("senderDestricts", { required: true })}
                 className="select select-accent w-full"
               >
-                <option disabled={true}>Select your location</option>
+                <option value="" disabled>Select your location</option>
                 {districtsByregions(senderwatch).map((r, i) => (
                   <option key={i} value={r}>
                     {r}
                   </option>
                 ))}
               </select>
-              <p>Delivery Address</p>
+              <p>Delivery Address <span className="text-red-500">*</span></p>
               <input
                 type="text"
-                {...register("delibery Address")}
+                {...register("delibery Address", { required: true })}
                 placeholder="Delivery Address "
                 className="rounded-md w-full border p-2"
               />

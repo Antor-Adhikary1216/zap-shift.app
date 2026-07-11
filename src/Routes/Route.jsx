@@ -19,6 +19,7 @@ import PendingParcel from "../Layout/Dashbord/PendingParcel/PendingParcel";
 import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
 import PrivetRoute from "./PrivetRoute";
 import TrackParcel from "../Pages/TrackParcel/TrackParcel";
+import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
 
 
 
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
             {
                 path:"register",
                 Component:Register
+            },
+            {
+                path:"forgot-password",
+                Component:ForgotPassword
             }
          ]
     },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Authcontext } from '../AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../../../FireBase/Firebase.config';
@@ -10,7 +10,10 @@ const [loading,setLoading ] = useState(true)
 const googleProvider = new GoogleAuthProvider()
     const registerUser =(email,password)=> {
         setLoading(true)
-return createUserWithEmailAndPassword(auth,email,password)
+        return createUserWithEmailAndPassword(auth,email,password).catch((error) => {
+            setLoading(false)
+            throw error
+        })
     }
     const signInuser = (email,password)=>{
         setLoading(true)
@@ -27,7 +30,8 @@ return createUserWithEmailAndPassword(auth,email,password)
     }
 
     const updetedUserProfile = (profile)=>{
-        return updateProfile(auth.cruntUser, profile)
+        if (!auth.currentUser) return Promise.reject(new Error('No authenticated user is available.'))
+        return updateProfile(auth.currentUser, profile)
     }
 
    useEffect(()=>{
