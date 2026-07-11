@@ -33,6 +33,7 @@ return createUserWithEmailAndPassword(auth,email,password)
    useEffect(()=>{
     const unSuscraibe = onAuthStateChanged(auth,(cruntUser)=>{
         setUser(cruntUser)
+        setLoading(false)
     })
     return ()=>{
         unSuscraibe()

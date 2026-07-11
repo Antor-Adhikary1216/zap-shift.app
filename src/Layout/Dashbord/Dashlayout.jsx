@@ -1,7 +1,21 @@
 import { FaBoxOpen, FaCreditCard, FaHome } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink, Outlet } from 'react-router';
+import useAuth from '../../Hooks/useAuth/useAuth';
+import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure';
 
 const Dashlayout = () => {
+    const { user } = useAuth()
+    const axiosSecure = UseaxiosSecure()
+    const { data: parcels = [] } = useQuery({
+      queryKey: ['my-parcels', user?.email],
+      enabled: Boolean(user?.email),
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
+        return res.data
+      },
+    })
+
     return (
        <div className="drawer lg:drawer-open">
   <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -36,13 +50,13 @@ const Dashlayout = () => {
         {/* Our dashbord --> */}
 
 
-        <li className=''>
+        {parcels.length > 0 && <li>
           <NavLink to="my-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
             {/* Home icon */}
             <span><FaBoxOpen /></span>
             <span className="is-drawer-close:hidden">My parcels</span>
           </button></NavLink>
-        </li>
+        </li>}
 
         <li>
           <NavLink to="payment-history" className={({ isActive }) => isActive ? 'menu-active' : ''}>

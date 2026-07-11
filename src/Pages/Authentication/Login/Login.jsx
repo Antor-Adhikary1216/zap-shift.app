@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import useAuth from '../../../Hooks/useAuth/useAuth';
@@ -11,6 +11,7 @@ const Login = () => {
     const {register, handleSubmit,formState:{errors}} = useForm()
     const {signInuser} =useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
 
 
 
@@ -28,7 +29,7 @@ const Login = () => {
                 timer: 2000,
                 timerProgressBar: true,
             })
-            navigate('/', { replace: true })
+            navigate(location.state?.from || '/', { replace: true })
         })
         .catch(error=>{
             console.log(error)

@@ -17,6 +17,7 @@ import Payment_success from "../Layout/Dashbord/Payment/Payment_Success/Payment_
 import Payment_Canceld from "../Layout/Dashbord/Payment/Payment_Cancel/Payment_Canceld";
 import PendingParcel from "../Layout/Dashbord/PendingParcel/PendingParcel";
 import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
+import PrivetRoute from "./PrivetRoute";
 
 
 
@@ -31,25 +32,25 @@ export const router = createBrowserRouter([
             },
             {
                 path:"Coverags",
-                Component: Coverags,
+                element: <PrivetRoute><Coverags /></PrivetRoute>,
                 loader: ()=> fetch("/Resoin.json")
                 .then(res=>res.json())
             },
             {
                 path:'services',
-                Component: Services
+                element: <PrivetRoute><Services /></PrivetRoute>
             },
             {
                 path:"aboutUs",
-                Component: AboutUS
+                element: <PrivetRoute><AboutUS /></PrivetRoute>
             },
             {
                 path:"bargainnig",
-                Component: Bargainnig
+                element: <PrivetRoute><Bargainnig /></PrivetRoute>
             },
             {
                     path:"/send_a_parcel",
-                    Component: SendParscel,
+                    element: <PrivetRoute><SendParscel /></PrivetRoute>,
                     loader: ()=> fetch("/Resoin.json")
                 .then(res=>res.json())
             },
@@ -77,7 +78,7 @@ export const router = createBrowserRouter([
     },
     {
         path:"dashbord",
-        element: <Dashlayout></Dashlayout>,
+        element: <PrivetRoute><Dashlayout /></PrivetRoute>,
         children:[
             {
                 path:'my-parcels',

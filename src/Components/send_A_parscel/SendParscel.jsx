@@ -4,6 +4,7 @@ import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import UseaxiosSecure from "../../Hooks/useAxios/useaxiosSecure";
 import useAuth from "../../Hooks/useAuth/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 const SendParscel = () => {
   const {
@@ -14,6 +15,7 @@ const SendParscel = () => {
   } = useForm();
 
   const { user } = useAuth();
+  const queryClient = useQueryClient();
 
   const axiosSecure = UseaxiosSecure();
     const navigete = useNavigate()
@@ -89,6 +91,7 @@ const SendParscel = () => {
         axiosSecure.post("/parcels", data).then((res) => {
 
           if(res.data.insertedId){
+            queryClient.invalidateQueries({ queryKey: ["my-parcels", user?.email] })
             navigete("/dashbord/my-parcels")
             Swal.fire({
         title: "Conform !",

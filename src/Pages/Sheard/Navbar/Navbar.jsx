@@ -1,27 +1,55 @@
 import Logo from '../../../Components/Logo/Logo';
 import aro from "../../../assets/banner/arrow-up-right 1.png"
-import { NavLink } from 'react-router';
+import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { NavLink, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import './nav.css'
 import useAuth from '../../../Hooks/useAuth/useAuth';
+import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure';
 
 const Navbar = () => {
-  const {user,Logout} = useAuth()
+  const {user, loading, Logout} = useAuth()
+    const navigate = useNavigate()
+    const axiosSecure = UseaxiosSecure()
+    const { data: parcels = [] } = useQuery({
+      queryKey: ['my-parcels', user?.email],
+      enabled: Boolean(user?.email),
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
+        return res.data
+      },
+    })
+
+    useEffect(() => {
+      if (loading || user || localStorage.getItem('zapshift-login-prompt-seen')) return
+
+      localStorage.setItem('zapshift-login-prompt-seen', 'true')
+      Swal.fire({
+        icon: 'info',
+        title: 'Log in to explore ZapShift',
+        text: 'Sign in to view services, check coverage, calculate pricing, send parcels, and manage your deliveries.',
+        confirmButtonText: 'Go to login',
+        confirmButtonColor: '#03373D',
+        showCancelButton: true,
+        cancelButtonText: 'Maybe later',
+      }).then((result) => {
+        if (result.isConfirmed) navigate('/login')
+      })
+    }, [loading, navigate, user])
+
     const navLinkClass = ({ isActive }) => isActive ? 'nav-item-active' : 'nav-item'
     const links = <>
-        <NavLink to="/services" className={navLinkClass}><li>Services</li></NavLink>
-        <NavLink to="/Coverags" className={navLinkClass}><li>Coverage</li></NavLink>
-        <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
-        <NavLink to="/bargainnig" className={navLinkClass}><li>Pricing</li></NavLink>
-        <NavLink to="/send_a_parcel" className={navLinkClass}><li>Send Parcel</li></NavLink>
-        {/* <NavLink to="bearider" ><li>Be a Rider</li></NavLink> */}
-
-        {
-          user && <> 
+        {user && <>
+          <NavLink to="/services" className={navLinkClass}><li>Services</li></NavLink>
+          <NavLink to="/Coverags" className={navLinkClass}><li>Coverage</li></NavLink>
+          <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
+          <NavLink to="/bargainnig" className={navLinkClass}><li>Pricing</li></NavLink>
+          <NavLink to="/send_a_parcel" className={navLinkClass}><li>Send Parcel</li></NavLink>
+          {parcels.length > 0 &&
           <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>My Parcels</li></NavLink>
-          
-           </>
-        }
+          }
+        </>}
     </>
 
     const landealLogOut = ()=>{
@@ -45,7 +73,7 @@ const Navbar = () => {
         <div>
             <div className="navbar min-h-16 rounded-[10px] bg-white px-2 shadow-md sm:px-4 lg:max-w-full lg:px-7">
   <div className="navbar-start min-w-0 flex-1">
-    <div className="dropdown">
+    <div className={user ? 'dropdown' : 'hidden'}>
       <div tabIndex={0} role="button" aria-label="Open navigation menu" className="btn btn-ghost btn-square lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
