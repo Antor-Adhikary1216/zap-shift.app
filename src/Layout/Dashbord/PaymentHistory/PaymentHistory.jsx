@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { FaCreditCard, FaReceipt } from 'react-icons/fa'
+import { FaCheck, FaCopy, FaCreditCard, FaReceipt, FaSearch } from 'react-icons/fa'
+import { Link } from 'react-router'
 import useAuth from '../../../Hooks/useAuth/useAuth'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
 
@@ -27,6 +29,13 @@ const formatDate = (date) => {
 const PaymentHistory = () => {
   const { user } = useAuth()
   const axiosSecure = UseaxiosSecure()
+  const [copiedTrackingId, setCopiedTrackingId] = useState('')
+
+  const copyTrackingId = async (trackingId) => {
+    await navigator.clipboard.writeText(trackingId)
+    setCopiedTrackingId(trackingId)
+    window.setTimeout(() => setCopiedTrackingId(''), 1800)
+  }
 
   const {
     data: payments = [],
@@ -109,11 +118,41 @@ const PaymentHistory = () => {
                       <dt className="font-medium text-base-content/50">Transaction ID</dt>
                       <dd className="mt-1 break-all font-mono text-xs">{payment.transactionId || 'Not available'}</dd>
                     </div>
+                    <div>
+                      <dt className="font-medium text-base-content/50">Tracking ID</dt>
+                      {payment.trackingId ? (
+                        <dd className="mt-1 flex items-center gap-2 rounded-xl bg-base-200 p-2">
+                          <span className="min-w-0 flex-1 break-all font-mono text-xs font-semibold text-primary">
+                            {payment.trackingId}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => copyTrackingId(payment.trackingId)}
+                            className="btn btn-square btn-ghost btn-sm shrink-0"
+                            aria-label={`Copy tracking ID ${payment.trackingId}`}
+                            title="Copy tracking ID"
+                          >
+                            {copiedTrackingId === payment.trackingId ? <FaCheck className="text-success" /> : <FaCopy />}
+                          </button>
+                        </dd>
+                      ) : (
+                        <dd className="mt-1 text-xs text-base-content/50">Not available</dd>
+                      )}
+                    </div>
                     <div className="flex items-center justify-between gap-4 border-t border-base-300 pt-3">
                       <dt className="font-medium text-base-content/50">Payment date</dt>
                       <dd className="text-right font-medium">{formatDate(payment.paidAt)}</dd>
                     </div>
                   </dl>
+
+                  {payment.trackingId && (
+                    <Link
+                      to={`/track-parcel?trackingId=${encodeURIComponent(payment.trackingId)}`}
+                      className="btn border-0 bg-[#CAEB66] font-bold text-[#03373D] shadow-none hover:bg-[#b9dc50]"
+                    >
+                      <FaSearch /> Track parcel
+                    </Link>
+                  )}
                 </div>
               </article>
             ))}

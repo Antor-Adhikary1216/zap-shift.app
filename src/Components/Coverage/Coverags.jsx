@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import  "../../../node_modules/leaflet/dist/css/leaflet.css"
+import "leaflet/dist/leaflet.css"
 import { useLoaderData } from 'react-router';
 import L from "leaflet";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";

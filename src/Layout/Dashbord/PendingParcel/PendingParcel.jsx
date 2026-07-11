@@ -79,14 +79,25 @@ const PendingParcel = () => {
                     <p className="font-medium text-green-600">Paid</p>
                 </div>
                 <div>
+                    <p className="text-sm text-gray-500">Tracking ID</p>
+                    <p className="break-all font-medium text-[#03373D]">{parcel.trackingId || 'Generating'}</p>
+                </div>
+                <div>
                     <p className="text-sm text-gray-500">Amount paid</p>
                     <p className="flex items-center gap-1 font-medium">{parcel.cost} <FaRupeeSign /></p>
                 </div>
             </div>
 
-            <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-8">
-                View all parcels
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+                {parcel.trackingId && (
+                    <Link to={`/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`} className="btn bg-[#CAEB66] text-[#03373D] border-0">
+                        Track parcel
+                    </Link>
+                )}
+                <Link to="/dashbord/my-parcels" className="btn btn-neutral">
+                    View all parcels
+                </Link>
+            </div>
         </div>
     )
 }

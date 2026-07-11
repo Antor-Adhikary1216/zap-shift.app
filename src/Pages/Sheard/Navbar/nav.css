@@ -32,6 +32,13 @@
     background-color: transparent;
 }
 
+@media (min-width: 1024px) {
+    .nav-item,
+    .nav-item-active {
+        padding-inline: 0.75rem;
+    }
+}
+
 @media (max-width: 1023px) {
     .nav-item,
     .nav-item-active {

@@ -46,6 +46,7 @@ const Navbar = () => {
           <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
           <NavLink to="/bargainnig" className={navLinkClass}><li>Pricing</li></NavLink>
           <NavLink to="/send_a_parcel" className={navLinkClass}><li>Send Parcel</li></NavLink>
+          <NavLink to="/track-parcel" className={navLinkClass}><li>Track Parcel</li></NavLink>
           {parcels.length > 0 &&
           <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>My Parcels</li></NavLink>
           }
@@ -89,8 +90,8 @@ const Navbar = () => {
         <p className='my-auto hidden text-xl font-semibold text-[#303030] sm:block sm:text-2xl'>ZapShift</p>
     </div></NavLink>
   </div>
-  <div className="navbar-center hidden lg:flex p-2 ">
-    <ul className="menu menu-horizontal  gap-6 text-center text-[16px] font-medium text-[#606060]">
+  <div className="navbar-center hidden lg:flex px-1">
+    <ul className="menu menu-horizontal gap-1 text-center text-[16px] font-medium text-[#606060]">
      {links}
     </ul>
   </div>

@@ -33,3 +33,5 @@ secrets/
 *.njsproj
 *.sln
 *.sw?
+
+.vercel

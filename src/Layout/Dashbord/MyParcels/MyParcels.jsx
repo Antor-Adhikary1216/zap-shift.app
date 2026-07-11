@@ -20,6 +20,12 @@ const MyParcels = () => {
     },
   });
 
+  const sortedParcels = [...parcels].sort((firstParcel, secondParcel) => {
+    const firstIsPaid = firstParcel.paymentStatus === "paid";
+    const secondIsPaid = secondParcel.paymentStatus === "paid";
+    return Number(firstIsPaid) - Number(secondIsPaid);
+  });
+
 //    Handeling ==>
     const parcelhandelDelete = (id)=>{
     //Aleat section =>
@@ -92,7 +98,7 @@ const MyParcels = () => {
             </tr>
           </thead>
           <tbody className="">
-            {parcels.map((parcel, index) => (
+            {sortedParcels.map((parcel, index) => (
               <tr key={parcel._id}>
                 <th>{index + 1}</th>
                 <td className="text-xl">{parcel.parcelName}</td>
@@ -129,8 +135,17 @@ const MyParcels = () => {
                   </button>
 
                   <button className="btn btn-square mx-2 items-center border-none bg-none shadow-none text-xl">
-                  <IoIosSearch />
+                    <IoIosSearch />
                   </button>
+
+                  {parcel.paymentStatus === "paid" && parcel.trackingId && (
+                    <Link
+                      to={`/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`}
+                      className="btn btn-sm border-0 bg-[#CAEB66] text-[#03373D]"
+                    >
+                      Track
+                    </Link>
+                  )}
 
                   {parcel.paymentStatus !== "paid" && (
                     <button

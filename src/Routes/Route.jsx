@@ -18,6 +18,7 @@ import Payment_Canceld from "../Layout/Dashbord/Payment/Payment_Cancel/Payment_C
 import PendingParcel from "../Layout/Dashbord/PendingParcel/PendingParcel";
 import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
 import PrivetRoute from "./PrivetRoute";
+import TrackParcel from "../Pages/TrackParcel/TrackParcel";
 
 
 
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
             {
                 path:"bearider",
                 element:<BeaRider/>
+            },
+            {
+                path:"track-parcel",
+                Component: TrackParcel
             }
         ]
         
