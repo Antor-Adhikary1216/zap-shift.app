@@ -8,7 +8,7 @@ import Goback from '../../Hooks/GootoHomePage/Goback';
 
 const AuthLaout = () => {
     return (
-        <div className='max-w-7xl mx-auto'>
+        <div className='mx-auto min-h-screen max-w-7xl px-4 py-5 sm:px-6 lg:px-8'>
            <NavLink to="/">
              <div className="flex">
                  <Logo></Logo> 
@@ -18,12 +18,12 @@ const AuthLaout = () => {
 
            </NavLink>
           
-            <div className="flex my-20 ">
-                <div className="flex-1">
+            <div className="my-8 grid items-center gap-8 lg:my-20 lg:grid-cols-2">
+                <div className="min-w-0">
                     <Outlet></Outlet>
                 </div>
-                <div className='flex-1'>
-                    <img src={g} alt="" />
+                <div className='hidden lg:block'>
+                    <img src={g} alt="" className="h-auto w-full" />
                 </div>
             </div>
             

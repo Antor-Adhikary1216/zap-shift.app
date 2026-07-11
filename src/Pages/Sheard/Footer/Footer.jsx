@@ -4,7 +4,7 @@ import Logo from '../../../Components/Logo/Logo';
 const Footer = () => {
     return (
         <div>
-            <footer className="footer footer-horizontal footer-center bg-black text-white  rounded-2xl p-7">
+            <footer className="footer footer-center flex w-full flex-col rounded-2xl bg-black p-5 text-center text-white sm:p-7">
 
               <div className="flex">
                 <Logo></Logo>
@@ -14,7 +14,7 @@ const Footer = () => {
               <div className=" border-b border-base-200 w-full ">
                 
               </div>
-  <nav className="grid grid-flow-col gap-4">
+  <nav className="flex flex-wrap justify-center gap-4">
     <a className="link link-hover">About us</a>
     <a className="link link-hover">Contact</a>
     <a className="link link-hover">Jobs</a>
@@ -58,7 +58,7 @@ const Footer = () => {
       </a>
     </div>
   </nav>
-  <aside>
+  <aside className="w-full max-w-full">
     <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
   </aside>
 </footer>

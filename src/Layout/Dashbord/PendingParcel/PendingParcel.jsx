@@ -56,7 +56,7 @@ const PendingParcel = () => {
     const deliveryStatus = parcel.deliveryStatus || 'Pending'
 
     return (
-        <div className="m-6 max-w-3xl rounded-xl bg-white p-8 shadow-sm">
+        <div className="m-4 max-w-3xl rounded-xl bg-white p-5 shadow-sm sm:m-6 sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                     <p className="text-sm font-medium uppercase tracking-wide text-gray-500">Pending parcel</p>

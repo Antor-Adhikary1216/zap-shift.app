@@ -20,7 +20,7 @@ const ReviwPromises = fetch("/Reviw.json").then(res=>res.json())
 
 const Home = () => {
     return (
-        <div className='mt-10'>
+        <div className='mt-5 sm:mt-10'>
             <Banner></Banner>
             <Work key={workpromises.id} workpromises={workpromises}></Work>
             <Ourservces key={OurservecresPromises.id}  OurservecresPromises={OurservecresPromises} ></Ourservces>

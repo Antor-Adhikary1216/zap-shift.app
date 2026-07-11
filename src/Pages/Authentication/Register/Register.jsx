@@ -60,7 +60,7 @@ const {registerUser,updetedUserProfile} =useAuth()
     return (
         <div>
             
-            <div className="card-body">
+            <div className="card-body mx-auto w-full max-w-md px-0 sm:px-8">
                  <Goback/>
                              <h2 className='text-4xl font-bold my-2'> Create Account </h2>
                         <p className=''>Register with ZapShift</p>
@@ -71,18 +71,18 @@ const {registerUser,updetedUserProfile} =useAuth()
                       <input type="file" {...register("photo",{required:true, })} accept='image' className="input rounded-2xl w-[100px] h-[60px]  px-3 py-2 text-center text-[10px] cursor-pointer"/>
                     
                       <label className="label  text-[17px]">Name</label>
-                      <input type="name" {...register("name",{required:true, pattern:/^[A-Za-z]+$/i})} className="input lg:w-[380px] rounded-2xl" placeholder="Name" />
+                      <input type="name" {...register("name",{required:true, pattern:/^[A-Za-z]+$/i})} className="input w-full rounded-2xl" placeholder="Name" />
                        {errors.name?.type === "required"&&(
                         <p className='text-red-600 '> Name is requrde!! </p>
                       )}
                       <label className="label  text-[17px]">Email</label>
-                      <input type="email" {...register("email", {required:true})} className="input lg:w-[380px] rounded-2xl" placeholder="Email" />
+                      <input type="email" {...register("email", {required:true})} className="input w-full rounded-2xl" placeholder="Email" />
                       {errors.email?.type === "required"&&(
                         <p className='text-red-600 '> Name is requrde!! </p>
                       )}
                       <label className="label text-[17px]">Password</label>
                       {/* password */}
-                      <input type="password" {...register("password", {required:true , minLength:6})} className="input lg:w-[380px] rounded-2xl" placeholder="Password" />
+                      <input type="password" {...register("password", {required:true , minLength:6})} className="input w-full rounded-2xl" placeholder="Password" />
                       {
                         errors.password?.type ==="required"&&(
                             <p className='text-red-500'>Password is required!! </p>
@@ -92,7 +92,7 @@ const {registerUser,updetedUserProfile} =useAuth()
                       <NavLink to="/login"><p className='text-blue-600 hover:underline'> back to Login </p></NavLink>
                      
                       
-                      <button className="btn btn-neutral mt-4 lg:w-[380px] rounded-full">Register</button>
+                      <button className="btn btn-neutral mt-4 w-full rounded-full">Register</button>
                       {/* google btn */}
                       <Google></Google>
                     </fieldset>

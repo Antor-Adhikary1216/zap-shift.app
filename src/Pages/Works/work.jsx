@@ -6,14 +6,14 @@ const Work = ({workpromises}) => {
     const Wdata = use(workpromises)
     
     return (
-        <div className='my-15'>
-            <h1 className='text-[32px] font-bold'>How it Works</h1>
-            <div className=" lg:flex justify-center gap-10 lg:my-10">
+        <section className='my-10 sm:my-15'>
+            <h1 className='text-2xl font-bold sm:text-[32px]'>How it Works</h1>
+            <div className="grid gap-5 py-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10 lg:py-10">
                 {
                 Wdata.map(data=><Workcard key={data.id} data={data}></Workcard>)
             }
             </div>
-        </div>
+        </section>
     );
 };
 

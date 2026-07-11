@@ -107,13 +107,13 @@ const SendParscel = () => {
 
   return (
     <div>
-      <div className="bg-white shadow-md p-10 mt-5 mb-10 rounded-xl">
-        <h1 className="font-bold text-[45px]">Send A Parcel</h1>
+      <div className="mt-5 mb-10 rounded-xl bg-white p-4 shadow-md sm:p-6 lg:p-10">
+        <h1 className="text-3xl font-bold sm:text-[45px]">Send A Parcel</h1>
         <p className="font-bold text-[20px] my-4">Enter your parcel details</p>
         <div className="border-b border-[#000000]"></div>
 
         <form onSubmit={handleSubmit(handlesendParcel)}>
-          <div className="flex gap-10">
+          <div className="flex flex-wrap gap-5 sm:gap-10">
             <div className="mt-3 flex gap-0.5 text-center">
               <input
                 type="radio"
@@ -136,31 +136,31 @@ const SendParscel = () => {
           </div>
           {/* input */}
 
-          <div className="mt-10 flex gap-5 justify-center">
-            <div className="l ">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10">
+            <div className="min-w-0">
               <p className="my-1">Parcel Name</p>
               <input
                 type="text"
                 {...register("parcelName")}
                 placeholder="Parcel Name"
-                className="bg-white w-[500px] border p-2 rounded-md "
+                className="w-full rounded-md border bg-white p-2"
               />
             </div>
-            <div className="l ">
+            <div className="min-w-0">
               <p className="my-1">Parcel Weight (KG) </p>
               <input
                 type="text"
                 {...register("parcelWeight")}
                 placeholder="Parcel Weight (KG)"
-                className="bg-white w-[500px] border p-2 rounded-md "
+                className="w-full rounded-md border bg-white p-2"
               />
             </div>
           </div>
 
-          <div className="border-b w-[1000px] mx-auto border-[#000000] my-10"></div>
+          <div className="mx-auto my-8 w-full border-b border-[#000000] lg:my-10"></div>
           {/*  sendder------------------------------------------------ -> */}
-          <div className=" justify-center mt-16 flex gap-5">
-            <div className="w-[500px]">
+          <div className="mt-10 grid gap-8 lg:mt-16 lg:grid-cols-2">
+            <div className="min-w-0">
               <h1 className="text-[20px] font-medium ">Sender Details</h1>
               <p>Sender Name</p>
               <input
@@ -239,12 +239,12 @@ const SendParscel = () => {
               <input
                 type="submit"
                 value="send parcel"
-                className="btn px-10 text-lg font-bold bg-amber-400 mt-5"
+                className="btn mt-5 w-full bg-amber-400 px-6 text-lg font-bold sm:w-auto sm:px-10"
               />
             </div>
 
             {/* Receiver Details------------------------------------------------ */}
-            <div className="R w-[500px]">
+            <div className="min-w-0">
               <h1 className="text-[20px] font-medium ">Receiver Details</h1>
               <p>Receiver Name</p>
               <input

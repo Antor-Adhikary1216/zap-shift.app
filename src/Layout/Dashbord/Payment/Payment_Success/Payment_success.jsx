@@ -53,7 +53,7 @@ const PaymentSuccess = () => {
 
     if (!sessionId) {
         return (
-            <div className="m-6 max-w-xl rounded-xl bg-white p-8 text-center shadow-sm">
+            <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
                 <h2 className="text-3xl font-semibold text-red-600">Payment confirmation unavailable</h2>
                 <p className="mt-3 text-gray-600">The Stripe session ID is missing.</p>
                 <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-6">
@@ -65,7 +65,7 @@ const PaymentSuccess = () => {
 
     if (isLoading) {
         return (
-            <div className="m-6 max-w-xl rounded-xl bg-white p-8 text-center shadow-sm">
+            <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
                 <span className="loading loading-spinner loading-lg" aria-label="Confirming payment"></span>
                 <p className="mt-3">Confirming your payment...</p>
             </div>
@@ -74,7 +74,7 @@ const PaymentSuccess = () => {
 
     if (isError) {
         return (
-            <div className="m-6 max-w-xl rounded-xl bg-white p-8 text-center shadow-sm">
+            <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
                 <h2 className="text-3xl font-semibold text-red-600">Payment could not be confirmed</h2>
                 <p className="mt-3 text-gray-600">
                     {error.response?.data?.message || 'Please return to your parcels and try again.'}
@@ -87,7 +87,7 @@ const PaymentSuccess = () => {
     }
 
     return (
-        <div className="m-6 max-w-xl rounded-xl bg-white p-8 text-center shadow-sm">
+        <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
             <h2 className="text-3xl font-semibold text-green-600">Payment successful</h2>
             <p className="mt-3 text-gray-600">Your parcel is now marked as paid.</p>
             {confirmation?.transactionId && (

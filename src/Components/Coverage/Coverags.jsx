@@ -40,7 +40,7 @@ const heandelSubmit = (e)=>{
     return (
         <div>
             <div className=" bg-white shadow-lg p-10 my-10 rounded-2xl  ">
-                <h1 className='text-[38px] font-semibold'>We are available in 80 districts</h1>
+                <h1 className='text-3xl font-semibold sm:text-[38px]'>We are available in 80 districts</h1>
                 <div className=" my-5 ">
                     {/* from */}
                     <form onSubmit={heandelSubmit} >
@@ -54,12 +54,12 @@ const heandelSubmit = (e)=>{
                 </div>
 
                 {/* map containor*/}
-            <div className=" rounded-2xl w-full h-[720px]">
+            <div className="h-[420px] w-full rounded-2xl sm:h-[560px] lg:h-[720px]">
                 <MapContainer 
                  center={indiaCenter} 
                  zoom={6} 
                  scrollWheelZoom={false}
-                 className='h-[720px]'
+                 className='h-[420px] sm:h-[560px] lg:h-[720px]'
                  ref={mapRef}
                  >
                     <TileLayer

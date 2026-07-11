@@ -10,8 +10,8 @@ const resonPromsese = fetch('/Resoin.json')
 const BeaRider = () => {
     return (
         <div>
-            <div className="lg:w-[1100px] shadow-md py-5 px-7 bg-white mt-5 mb-20 rounded-2xl mx-auto">
-                <h1 className=' text-5xl my-2 font-semibold'>Be a Rider</h1>
+            <div className="mx-auto mt-5 mb-12 rounded-2xl bg-white px-4 py-5 shadow-md sm:px-7 lg:mb-20 lg:w-[1100px]">
+                <h1 className='my-2 text-3xl font-semibold sm:text-5xl'>Be a Rider</h1>
                 <p className='text-[#606060] my-3'>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal <br /> packages to business shipments — we deliver on time, every time.</p>
 
                 <div className="main flex my-5 justify-between">

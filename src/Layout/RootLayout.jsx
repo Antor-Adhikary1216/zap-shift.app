@@ -6,7 +6,7 @@ import Navbar from '../Pages/Sheard/Navbar/Navbar';
 const RootLayout = () => {
     return (
         <div className='   min-h-screen bg-base-300'>
-            <div className=" max-w-[1350px] mx-auto p-10">
+            <div className="mx-auto max-w-[1350px] px-4 py-5 sm:px-6 lg:p-10">
         <header>
                 <Navbar></Navbar>
             </header>

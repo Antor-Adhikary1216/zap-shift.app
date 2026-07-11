@@ -4,7 +4,7 @@ const ReviwCard = ({data}) => {
     console.log(data)
     return (
         <div>
-            <div className="bg-white shadow-lg p-10 rounded-lg">
+            <div className="rounded-lg bg-white p-5 shadow-lg sm:p-10">
                 <p>{data.review}</p>
                 <div className="border-b my-2 "></div>
                 <div className="flex gap-4 items-center">
@@ -13,7 +13,7 @@ const ReviwCard = ({data}) => {
                     </div>
                         <div className="">
                             <h2 className='text-[#03373D] font-medium text-[20px]'>{data.userName}</h2>
-                        <p className='text-[#606060] text-[15px]'>{data.delivery_email}</p>
+                        <p className='break-all text-[15px] text-[#606060]'>{data.delivery_email}</p>
                         </div>
                 </div>
             </div>

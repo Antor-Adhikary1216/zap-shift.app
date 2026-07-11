@@ -8,10 +8,10 @@ const TeamsDownCard = ({data}) => {
     return (
         <div>
            <div className="bg-white shadow-md p-5 my-4 rounded-lg ">
-                <div className="flex gap-10">
+                <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:gap-10 sm:text-left">
                     
-                    <img src={f1} alt="" />
-                    <div className="justify-center p-5">
+                    <img src={f1} alt="" className="max-h-40 w-auto max-w-full shrink-0" />
+                    <div className="justify-center p-2 sm:p-5">
                         <h1 className='text-[#03373D] text-[24px] font-medium my-2'>{data.title}</h1>
                     <p className='text-[#606060] text-[16px] my-4'>{data.description}</p>
                     </div>

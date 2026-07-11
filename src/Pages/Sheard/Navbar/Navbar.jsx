@@ -7,17 +7,18 @@ import useAuth from '../../../Hooks/useAuth/useAuth';
 
 const Navbar = () => {
   const {user,Logout} = useAuth()
+    const navLinkClass = ({ isActive }) => isActive ? 'nav-item-active' : 'nav-item'
     const links = <>
-        <NavLink to="services" ><li>Services </li></NavLink>
-        <NavLink to="Coverags" ><li>Coverage</li></NavLink>
-        <NavLink to="aboutUs" ><li>About Us</li></NavLink>
-        <NavLink to="bargainnig" ><li>Pricing</li></NavLink>
-        <NavLink to="send_a_parcel"><li>Send Parcel</li> </NavLink>
+        <NavLink to="/services" className={navLinkClass}><li>Services</li></NavLink>
+        <NavLink to="/Coverags" className={navLinkClass}><li>Coverage</li></NavLink>
+        <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
+        <NavLink to="/bargainnig" className={navLinkClass}><li>Pricing</li></NavLink>
+        <NavLink to="/send_a_parcel" className={navLinkClass}><li>Send Parcel</li></NavLink>
         {/* <NavLink to="bearider" ><li>Be a Rider</li></NavLink> */}
 
         {
           user && <> 
-          <NavLink to="dashbord/my-parcels"><li>My Parcels</li> </NavLink> 
+          <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>My Parcels</li></NavLink>
           
            </>
         }
@@ -42,10 +43,10 @@ const Navbar = () => {
     }
     return (
         <div>
-            <div className="navbar shadow-md lg:max-w-full mx-auto rounded-[10px] bg-white  lg:px-7">
-  <div className="navbar-start">
+            <div className="navbar min-h-16 rounded-[10px] bg-white px-2 shadow-md sm:px-4 lg:max-w-full lg:px-7">
+  <div className="navbar-start min-w-0 flex-1">
     <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+      <div tabIndex={0} role="button" aria-label="Open navigation menu" className="btn btn-ghost btn-square lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
       <ul
@@ -55,9 +56,9 @@ const Navbar = () => {
       </ul>
     </div>
     {/* LOGO degins -> */}
-   <NavLink to="/"> <div className="logo flex cursor-pointer">
+   <NavLink to="/" aria-label="ZapShift home" className="shrink-0"> <div className="logo flex shrink-0 cursor-pointer">
         <Logo></Logo>
-        <p className='my-auto text-2xl font-semibold text-[#303030]'>ZapShift</p>
+        <p className='my-auto hidden text-xl font-semibold text-[#303030] sm:block sm:text-2xl'>ZapShift</p>
     </div></NavLink>
   </div>
   <div className="navbar-center hidden lg:flex p-2 ">
@@ -65,17 +66,17 @@ const Navbar = () => {
      {links}
     </ul>
   </div>
-  <div className="navbar-end gap-1 login ">
+  <div className="navbar-end w-auto shrink-0 gap-1 login">
     
     {
       user ? 
-      <button onClick={landealLogOut} className="btn   btn-outline rounded-xl  text-[#606060] lg:font-semibold lg:text-[18px]  ">Sign Out</button>
+      <button onClick={landealLogOut} className="btn btn-sm btn-outline rounded-xl text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign Out</button>
      
-       : <NavLink to="/login" > <button className="btn   btn-outline rounded-xl  text-[#606060] lg:font-semibold lg:text-[18px]  ">Sign In</button></NavLink>
+       : <NavLink to="/login" > <button className="btn btn-sm btn-outline rounded-xl text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign In</button></NavLink>
     
     }
-    <NavLink to="bearider" > <button  className="btn  btn-outline rounded-xl  text-[#606060]  lg:font-semibold lg:text-[18px] ">Be a rider</button></NavLink>
-        <NavLink to=""> <div className='bg-black p-2 rounded-full'><img src={aro}  /></div>  </NavLink>
+    <NavLink to="bearider" className="shrink-0"> <button className="btn btn-sm btn-outline rounded-xl px-2 text-[#606060] sm:btn-md sm:px-4 lg:font-semibold lg:text-[18px]">Be a rider</button></NavLink>
+        <NavLink to="/" aria-label="Go to home page" className="shrink-0"> <div className='flex size-8 items-center justify-center rounded-full bg-black p-2'><img src={aro} alt="" /></div>  </NavLink>
   </div>
 </div>
         </div>

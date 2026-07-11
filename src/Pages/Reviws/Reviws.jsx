@@ -21,7 +21,11 @@ const Reviws = ({ReviwPromises}) => {
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
-        slidesPerView={3}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
         coverflowEffect={{
           rotate: 20,
           stretch: '50%',
