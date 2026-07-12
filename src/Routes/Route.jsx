@@ -20,7 +20,6 @@ import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
 import PrivetRoute from "./PrivetRoute";
 import TrackParcel from "../Pages/TrackParcel/TrackParcel";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
-import ApproveRead from "../Layout/Dashbord/ApproveRead/ApproveRead";
 import ApprovedRider from "../Layout/Dashbord/ApprovedRider/ApprovedRider";
 
 
@@ -102,10 +101,6 @@ export const router = createBrowserRouter([
             {
                 path:'approved-rider',
                 Component: ApprovedRider
-            },
-            {
-                path:'approve-read',
-                Component: ApproveRead
             },
             {
                 path:"payment/:parcelId",

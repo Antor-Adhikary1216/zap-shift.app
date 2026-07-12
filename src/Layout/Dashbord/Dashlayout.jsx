@@ -15,15 +15,6 @@ const Dashlayout = () => {
         return res.data
       },
     })
-    const { data: roleInfo } = useQuery({
-      queryKey: ['user-role', user?.email],
-      enabled: Boolean(user?.email),
-      queryFn: async () => {
-        const res = await axiosSecure.get(`/users/${encodeURIComponent(user.email)}/role`)
-        return res.data
-      },
-    })
-
     return (
        <div className="drawer lg:drawer-open">
   <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -88,15 +79,6 @@ const Dashlayout = () => {
             <span className="is-drawer-close:hidden">Approved Rider</span>
           </NavLink>
         </li>
-
-        {roleInfo?.isAdmin && <li>
-          <NavLink to="approve-read" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <span><FaUserCheck /></span>
-            <span className="is-drawer-close:hidden">Approve Read</span>
-          </NavLink>
-        </li>}
-
-        
 
         {/* List item */}
         <li>
