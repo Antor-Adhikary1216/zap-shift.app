@@ -15,7 +15,7 @@ const [imagePreview, setImagePreview] = useState('')
 const [showPassword, setShowPassword] = useState(false)
 const [isSubmitting, setIsSubmitting] = useState(false)
 const [registrationError, setRegistrationError] = useState('')
-const {registerUser,updetedUserProfile} =useAuth()
+const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
     const navigate = useNavigate()
     const {register,handleSubmit,
         formState:{errors}
@@ -57,11 +57,13 @@ const {registerUser,updetedUserProfile} =useAuth()
                 const photoURL = imageResponse.data?.data?.display_url
                 if (!photoURL) throw new Error('The profile image could not be uploaded.')
 
-                await registerUser(formData.email.trim(), formData.password)
+                const registration = await registerUser(formData.email.trim(), formData.password)
                 await updetedUserProfile({
                     displayName: formData.name.trim(),
                     photoURL,
                 })
+                await registration.user.reload()
+                await saveUserToDatabase(registration.user, 'register')
 
                 await Swal.fire({
                     toast: true,
@@ -165,7 +167,10 @@ const {registerUser,updetedUserProfile} =useAuth()
                         {isSubmitting ? 'Creating account...' : 'Register'}
                       </button>
                       {/* google btn */}
-                      <Google></Google>
+                      <Google
+                        mode="register"
+                        onError={setRegistrationError}
+                      />
                     </fieldset>
                     </form>
                   </div>
