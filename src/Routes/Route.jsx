@@ -20,6 +20,8 @@ import PaymentHistory from "../Layout/Dashbord/PaymentHistory/PaymentHistory";
 import PrivetRoute from "./PrivetRoute";
 import TrackParcel from "../Pages/TrackParcel/TrackParcel";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
+import ApproveRead from "../Layout/Dashbord/ApproveRead/ApproveRead";
+import ApprovedRider from "../Layout/Dashbord/ApprovedRider/ApprovedRider";
 
 
 
@@ -51,18 +53,13 @@ export const router = createBrowserRouter([
                 element: <PrivetRoute><Bargainnig /></PrivetRoute>
             },
             {
-                    path:"/send_a_parcel",
-                    element: <PrivetRoute><SendParscel /></PrivetRoute>,
-                    loader: ()=> fetch("/Resoin.json")
-                .then(res=>res.json())
-            },
-            {
                 path:"bearider",
                 element:<BeaRider/>
             },
             {
-                path:"track-parcel",
-                Component: TrackParcel
+                path:"/send_a_parcel",
+                element: <PrivetRoute><SendParscel /></PrivetRoute>,
+                loader: ()=> fetch("/Resoin.json").then(res=>res.json())
             }
         ]
         
@@ -91,12 +88,24 @@ export const router = createBrowserRouter([
         element: <PrivetRoute><Dashlayout /></PrivetRoute>,
         children:[
             {
+                path:'track-parcel',
+                Component: TrackParcel
+            },
+            {
                 path:'my-parcels',
                 Component: MyParcels
             },
             {
                 path:'payment-history',
                 Component: PaymentHistory
+            },
+            {
+                path:'approved-rider',
+                Component: ApprovedRider
+            },
+            {
+                path:'approve-read',
+                Component: ApproveRead
             },
             {
                 path:"payment/:parcelId",

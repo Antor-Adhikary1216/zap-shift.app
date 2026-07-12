@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import agent from '../../assets/png/TeamsDwon/agent-pending.png'
@@ -29,7 +29,6 @@ const BeaRider = () => {
   })
 
   const selectedRegion = useWatch({ control, name: 'region' })
-  const previousRegion = useRef(selectedRegion)
   const regions = [...new Set(locations.map((location) => location.region))]
   const districts = locations
     .filter((location) => location.region === selectedRegion)
@@ -37,10 +36,7 @@ const BeaRider = () => {
     .filter((district, index, values) => values.indexOf(district) === index)
 
   useEffect(() => {
-    if (previousRegion.current && previousRegion.current !== selectedRegion) {
-      setValue('district', '')
-    }
-    previousRegion.current = selectedRegion
+    setValue('district', '')
   }, [selectedRegion, setValue])
 
   const handleRiderApplication = async (data) => {
@@ -53,8 +49,14 @@ const BeaRider = () => {
         reset({
           name: user?.displayName || '',
           email: user?.email || '',
+          drivingLicense: '',
+          phone: '',
           region: '',
           district: '',
+          aadhaarNumber: '',
+          bikeModel: '',
+          bikeRegistration: '',
+          about: '',
         })
         Swal.fire({
           icon: 'success',

@@ -63,7 +63,6 @@ const Navbar = () => {
           <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
           <NavLink to="/bargainnig" className={navLinkClass}><li>Pricing</li></NavLink>
           <NavLink to="/send_a_parcel" className={navLinkClass}><li>Send Parcel</li></NavLink>
-          <NavLink to="/track-parcel" className={navLinkClass}><li>Track Parcel</li></NavLink>
           {parcels.length > 0 &&
           <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>My Parcels</li></NavLink>
           }

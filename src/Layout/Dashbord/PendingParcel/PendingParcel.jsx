@@ -90,7 +90,7 @@ const PendingParcel = () => {
 
             <div className="mt-8 flex flex-wrap gap-3">
                 {parcel.trackingId && (
-                    <Link to={`/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`} className="btn bg-[#CAEB66] text-[#03373D] border-0">
+                    <Link to={`/dashbord/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`} className="btn bg-[#CAEB66] text-[#03373D] border-0">
                         Track parcel
                     </Link>
                 )}

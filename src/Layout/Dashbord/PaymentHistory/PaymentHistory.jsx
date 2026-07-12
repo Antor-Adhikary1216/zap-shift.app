@@ -147,7 +147,7 @@ const PaymentHistory = () => {
 
                   {payment.trackingId && (
                     <Link
-                      to={`/track-parcel?trackingId=${encodeURIComponent(payment.trackingId)}`}
+                      to={`/dashbord/track-parcel?trackingId=${encodeURIComponent(payment.trackingId)}`}
                       className="btn border-0 bg-[#CAEB66] font-bold text-[#03373D] shadow-none hover:bg-[#b9dc50]"
                     >
                       <FaSearch /> Track parcel

@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaCreditCard, FaHome } from 'react-icons/fa';
+import { FaBoxOpen, FaCreditCard, FaHome, FaSearch, FaUserCheck } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink, Outlet } from 'react-router';
 import useAuth from '../../Hooks/useAuth/useAuth';
@@ -12,6 +12,14 @@ const Dashlayout = () => {
       enabled: Boolean(user?.email),
       queryFn: async () => {
         const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
+        return res.data
+      },
+    })
+    const { data: roleInfo } = useQuery({
+      queryKey: ['user-role', user?.email],
+      enabled: Boolean(user?.email),
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/users/${encodeURIComponent(user.email)}/role`)
         return res.data
       },
     })
@@ -49,6 +57,13 @@ const Dashlayout = () => {
 
         {/* Our dashbord --> */}
 
+        <li>
+          <NavLink to="track-parcel" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <span><FaSearch /></span>
+            <span className="is-drawer-close:hidden">Track parcel</span>
+          </NavLink>
+        </li>
+
 
         {parcels.length > 0 && <li>
           <NavLink to="my-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
@@ -66,6 +81,20 @@ const Dashlayout = () => {
             </button>
           </NavLink>
         </li>
+
+        <li>
+          <NavLink to="approved-rider" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <span><FaUserCheck /></span>
+            <span className="is-drawer-close:hidden">Approved Rider</span>
+          </NavLink>
+        </li>
+
+        {roleInfo?.isAdmin && <li>
+          <NavLink to="approve-read" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <span><FaUserCheck /></span>
+            <span className="is-drawer-close:hidden">Approve Read</span>
+          </NavLink>
+        </li>}
 
         
 

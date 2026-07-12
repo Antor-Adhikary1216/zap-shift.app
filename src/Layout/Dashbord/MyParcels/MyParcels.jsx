@@ -140,7 +140,7 @@ const MyParcels = () => {
 
                   {parcel.paymentStatus === "paid" && parcel.trackingId && (
                     <Link
-                      to={`/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`}
+                      to={`/dashbord/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`}
                       className="btn btn-sm border-0 bg-[#CAEB66] text-[#03373D]"
                     >
                       Track
