@@ -7,13 +7,14 @@ import { IoIosSearch } from "react-icons/io";
 import Swal from "sweetalert2";
 import { Link, Navigate } from "react-router";
 import useUserRole from "../../../Hooks/useUserRole/useUserRole";
+import DashboardLoader from "../../../Components/LoadingIndicator/DashboardLoader";
 
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = UseaxiosSecure();
   const { isAdmin, isRoleLoading } = useUserRole();
 
-  const { data: parcels = [], refetch } = useQuery({
+  const { data: parcels = [], refetch, isLoading: isParcelsLoading } = useQuery({
     queryKey: ["my-parcels", user?.email],
     enabled: Boolean(user?.email) && !isRoleLoading && !isAdmin,
     queryFn: async () => {
@@ -71,8 +72,8 @@ const MyParcels = () => {
     }
 
 
-  if (isRoleLoading) {
-    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>;
+  if (isRoleLoading || isParcelsLoading) {
+    return <DashboardLoader message="Loading your parcels..." />;
   }
 
   if (isAdmin) {

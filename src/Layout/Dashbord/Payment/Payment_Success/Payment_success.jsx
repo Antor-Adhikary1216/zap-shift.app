@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useSearchParams } from 'react-router'
 import UseaxiosSecure from '../../../../Hooks/useAxios/useaxiosSecure'
+import DashboardLoader from '../../../../Components/LoadingIndicator/DashboardLoader'
 
 const PaymentSuccess = () => {
     const [searchParams] = useSearchParams()
@@ -64,12 +65,7 @@ const PaymentSuccess = () => {
     }
 
     if (isLoading) {
-        return (
-            <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
-                <span className="loading loading-spinner loading-lg" aria-label="Confirming payment"></span>
-                <p className="mt-3">Confirming your payment...</p>
-            </div>
-        )
+        return <DashboardLoader message="Confirming your payment..." />
     }
 
     if (isError) {

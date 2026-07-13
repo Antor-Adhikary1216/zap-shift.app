@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { Authcontext } from '../AuthContext';
 import { createUserWithEmailAndPassword, EmailAuthProvider, GoogleAuthProvider, linkWithCredential, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../../../FireBase/Firebase.config';
+import { startGlobalLoading } from '../../../Utilities/globalLoading';
 
 const apiUrl = import.meta.env.VITE_API_URL || 'https://zap-shift-server-peach-nine.vercel.app'
 
 const saveUserToDatabase = async (firebaseUser, action = 'login') => {
+    const stopLoading = startGlobalLoading(action === 'register' ? 'Creating your account...' : 'Synchronizing your account...')
+    try {
     const response = await fetch(`${apiUrl}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,9 +35,14 @@ const saveUserToDatabase = async (firebaseUser, action = 'login') => {
 
     if (!response.ok) throw new Error(data.message || 'Unable to save the user account.')
     return data
+    } finally {
+        stopLoading()
+    }
 }
 
 const ensureUserDoesNotExist = async (email) => {
+    const stopLoading = startGlobalLoading('Checking your account...')
+    try {
     const response = await fetch(`${apiUrl}/users/${encodeURIComponent(email)}/role`)
 
     if (response.ok) {
@@ -44,6 +52,9 @@ const ensureUserDoesNotExist = async (email) => {
     if (response.status !== 404) {
         throw new Error('Unable to verify this email address. Please try again shortly.')
     }
+    } finally {
+        stopLoading()
+    }
 }
 
 const AuthProvider = ({children}) => {
@@ -52,14 +63,20 @@ const [loading,setLoading ] = useState(true)
 const [, setProfileVersion] = useState(0)
 
 const googleProvider = new GoogleAuthProvider()
-    const registerUser =(email,password)=> {
+    const registerUser = async (email,password)=> {
+        const stopLoading = startGlobalLoading('Creating your account...')
         setLoading(true)
-        return createUserWithEmailAndPassword(auth,email,password).catch((error) => {
+        try {
+            return await createUserWithEmailAndPassword(auth,email,password)
+        } catch (error) {
             setLoading(false)
             throw error
-        })
+        } finally {
+            stopLoading()
+        }
     }
     const signInuser = async (email,password)=>{
+        const stopLoading = startGlobalLoading('Signing you in...')
         setLoading(true)
         try {
             const result = await signInWithEmailAndPassword(auth,email,password)
@@ -70,9 +87,12 @@ const googleProvider = new GoogleAuthProvider()
         } catch (error) {
             setLoading(false)
             throw error
+        } finally {
+            stopLoading()
         }
     }
     const siginWithGoogle = async ()=>{
+        const stopLoading = startGlobalLoading('Connecting with Google...')
         setLoading(true)
         try {
             const result = await signInWithPopup(auth,googleProvider)
@@ -83,9 +103,12 @@ const googleProvider = new GoogleAuthProvider()
         } catch (error) {
             setLoading(false)
             throw error
+        } finally {
+            stopLoading()
         }
     }
     const startGoogleRegistration = async ()=>{
+        const stopLoading = startGlobalLoading('Preparing Google registration...')
         setLoading(true)
 
         try {
@@ -101,9 +124,12 @@ const googleProvider = new GoogleAuthProvider()
             if (auth.currentUser) await signOut(auth)
             setLoading(false)
             throw error
+        } finally {
+            stopLoading()
         }
     }
     const completeGoogleRegistration = async (firebaseUser, password)=>{
+        const stopLoading = startGlobalLoading('Completing your account...')
         try {
             if (typeof password !== 'string' || password.length < 6) {
                 throw new Error('Create a password with at least 6 characters.')
@@ -117,12 +143,19 @@ const googleProvider = new GoogleAuthProvider()
             if (auth.currentUser) await signOut(auth)
             setLoading(false)
             throw error
+        } finally {
+            stopLoading()
         }
     }
     
-    const Logout = ()=>{
+    const Logout = async ()=>{
+        const stopLoading = startGlobalLoading('Signing you out...')
         setLoading(true)
-       return signOut(auth)
+        try {
+            return await signOut(auth)
+        } finally {
+            stopLoading()
+        }
     }
 
     const updetedUserProfile = async (profile)=>{

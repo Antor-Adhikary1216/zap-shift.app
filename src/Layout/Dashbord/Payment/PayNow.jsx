@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router';
 import { FaCreditCard } from 'react-icons/fa';
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure';
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader';
 
 const PayNow = () => {
     const { parcelId } = useParams()
@@ -49,11 +50,7 @@ const PayNow = () => {
     }
 
     if (isLoading) {
-        return (
-            <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-base-200/50">
-                <span className="loading loading-spinner loading-lg text-primary" aria-label="Loading parcel"></span>
-            </div>
-        )
+        return <DashboardLoader message="Preparing parcel payment..." />
     }
 
     if (isError || !parcel) {

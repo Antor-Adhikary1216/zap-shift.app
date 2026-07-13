@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { FaUserMinus, FaUserShield } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader'
 import useAuth from '../../../Hooks/useAuth/useAuth'
 
 const UserManagement = () => {
@@ -81,7 +82,7 @@ const UserManagement = () => {
   }
 
   if (isLoading) {
-    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+    return <DashboardLoader message="Loading user accounts..." />
   }
 
   return (

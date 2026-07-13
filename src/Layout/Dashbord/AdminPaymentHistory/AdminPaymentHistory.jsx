@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { FaMoneyCheckAlt, FaReceipt } from 'react-icons/fa'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader'
 
 const formatAmount = (payment) => {
   const amount = Number.isFinite(payment.paymentAmount)
@@ -40,7 +41,7 @@ const AdminPaymentHistory = () => {
   }, 0)
 
   if (isLoading) {
-    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+    return <DashboardLoader message="Loading all payments..." />
   }
 
   return (

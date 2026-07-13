@@ -17,6 +17,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import logo from '../../assets/logo.png'
 import useAuth from '../../Hooks/useAuth/useAuth'
 import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure'
+import FloatingLoader from '../../Components/LoadingIndicator/FloatingLoader'
 
 const pageTitles = {
   'track-parcel': ['Track parcel', 'Find the latest location and status of a shipment.'],
@@ -89,6 +90,10 @@ const Dashlayout = () => {
   }
 
   const closeDrawer = () => setDrawerOpen(false)
+
+  if (isRoleLoading) {
+    return <><div className="min-h-screen bg-[#F6F8F8]" /><FloatingLoader message="Loading your dashboard..." /></>
+  }
 
   return (
     <div className="drawer lg:drawer-open">
@@ -171,13 +176,7 @@ const Dashlayout = () => {
                   <span>Back to home</span>
                 </Link>
               </li>
-              {isRoleLoading ? (
-                <li className="space-y-3 px-3 py-2">
-                  <div className="h-11 animate-pulse rounded-xl bg-white/10" />
-                  <div className="h-11 animate-pulse rounded-xl bg-white/10" />
-                  <div className="h-11 animate-pulse rounded-xl bg-white/10" />
-                </li>
-              ) : navigationItems.map(({ to, label, icon: Icon, badge }) => (
+              {navigationItems.map(({ to, label, icon: Icon, badge }) => (
                 <li key={to}>
                   <NavLink
                     to={to}

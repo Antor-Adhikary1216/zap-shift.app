@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { FaBoxOpen, FaBoxes, FaEye, FaMapMarkerAlt, FaTimes } from 'react-icons/fa'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader'
 
 const formatDate = (date) => date
   ? new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(date))
@@ -42,7 +43,7 @@ const AdminParcels = () => {
   const pendingCount = parcels.filter((parcel) => parcel.paymentStatus !== 'paid').length
 
   if (isLoading) {
-    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+    return <DashboardLoader message="Loading all parcels..." />
   }
 
   return (

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Navigate } from 'react-router'
 import useAuth from '../Hooks/useAuth/useAuth'
 import UseaxiosSecure from '../Hooks/useAxios/useaxiosSecure'
+import FloatingLoader from '../Components/LoadingIndicator/FloatingLoader'
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -16,7 +17,7 @@ const AdminRoute = ({ children }) => {
   })
 
   if (loading || isLoading) {
-    return <div className="flex min-h-screen items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+    return <><div className="min-h-screen bg-[#F6F8F8]" /><FloatingLoader message="Verifying administrator access..." /></>
   }
 
   if (!user) return <Navigate to="/login" replace />

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useLocation, useParams } from 'react-router'
 import { FaRupeeSign } from 'react-icons/fa'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader'
 
 const PendingParcel = () => {
     const { parcelId } = useParams()
@@ -22,11 +23,7 @@ const PendingParcel = () => {
     })
 
     if (isLoading) {
-        return (
-            <div className="flex min-h-64 items-center justify-center">
-                <span className="loading loading-spinner loading-lg" aria-label="Loading pending parcel"></span>
-            </div>
-        )
+        return <DashboardLoader message="Loading parcel details..." />
     }
 
     if (isError || !parcel) {

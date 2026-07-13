@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { FaCheck, FaIdCard, FaMapMarkerAlt, FaMotorcycle, FaPhone, FaRegEnvelope, FaTimes } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader'
 
 const ApprovedRider = () => {
   const axiosSecure = UseaxiosSecure()
@@ -49,7 +50,7 @@ const ApprovedRider = () => {
   }
 
   if (isLoading) {
-    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+    return <DashboardLoader message="Loading rider applications..." />
   }
 
   return (

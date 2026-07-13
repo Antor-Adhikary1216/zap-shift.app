@@ -1,5 +1,6 @@
 import useAuth from '../Hooks/useAuth/useAuth';
 import { Navigate, useLocation } from 'react-router';
+import FloatingLoader from '../Components/LoadingIndicator/FloatingLoader';
 
 const PrivetRoute = ({children}) => {
 
@@ -7,9 +8,7 @@ const PrivetRoute = ({children}) => {
     const location = useLocation()
 
     if(loading){
-        return <div className="flex min-h-screen items-center justify-center" role="status">
-            <span className="loading loading-spinner loading-lg" aria-label="Checking authentication"></span>
-        </div>
+        return <><div className="min-h-screen bg-[#F6F8F8]" /><FloatingLoader message="Preparing your account..." /></>
     }
     if(!user){
         return <Navigate to='/login' state={{ from: location.pathname }} replace />

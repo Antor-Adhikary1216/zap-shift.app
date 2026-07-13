@@ -5,6 +5,7 @@ import { Link, Navigate } from 'react-router'
 import useAuth from '../../../Hooks/useAuth/useAuth'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
 import useUserRole from '../../../Hooks/useUserRole/useUserRole'
+import DashboardLoader from '../../../Components/LoadingIndicator/DashboardLoader'
 
 const formatAmount = (payment) => {
   const amount = Number.isFinite(payment.paymentAmount)
@@ -54,7 +55,7 @@ const PaymentHistory = () => {
   })
 
   if (isRoleLoading) {
-    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+    return <DashboardLoader message="Loading your payment history..." />
   }
 
   if (isAdmin) return <Navigate to="/dashbord/admin-payment-history" replace />
@@ -74,9 +75,7 @@ const PaymentHistory = () => {
         </div>
 
         {isLoading && (
-          <div className="flex min-h-64 items-center justify-center" role="status">
-            <span className="loading loading-spinner loading-lg text-primary" aria-label="Loading payment history" />
-          </div>
+          <DashboardLoader compact message="Loading your payment history..." />
         )}
 
         {isError && (
