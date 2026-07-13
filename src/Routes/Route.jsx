@@ -21,6 +21,8 @@ import PrivetRoute from "./PrivetRoute";
 import TrackParcel from "../Pages/TrackParcel/TrackParcel";
 import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPassword";
 import ApprovedRider from "../Layout/Dashbord/ApprovedRider/ApprovedRider";
+import UserManagement from "../Layout/Dashbord/UserManagement/UserManagement";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -100,7 +102,11 @@ export const router = createBrowserRouter([
             },
             {
                 path:'approved-rider',
-                Component: ApprovedRider
+                element: <AdminRoute><ApprovedRider /></AdminRoute>
+            },
+            {
+                path:'user-management',
+                element: <AdminRoute><UserManagement /></AdminRoute>
             },
             {
                 path:"payment/:parcelId",

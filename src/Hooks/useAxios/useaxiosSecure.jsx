@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from "axios";
-import { PiConfettiThin } from 'react-icons/pi';
 import useAuth from '../useAuth/useAuth';
 
 
@@ -16,10 +15,20 @@ const UseaxiosSecure = () => {
 const {user} = useAuth()
 // intersept 
     useEffect(()=>{
-        axiosSecure.interceptors.request.use(config=>{
-            config.headers.Authorization=`Bearer ${user?.accessToken} `
+        const requestInterceptor = axiosSecure.interceptors.request.use(async config=>{
+            if (user) {
+                const token = await user.getIdToken()
+                config.headers.Authorization = `Bearer ${token}`
+            } else {
+                delete config.headers.Authorization
+            }
+
             return config 
         })
+
+        return () => {
+            axiosSecure.interceptors.request.eject(requestInterceptor)
+        }
     }
     ,[user])
 

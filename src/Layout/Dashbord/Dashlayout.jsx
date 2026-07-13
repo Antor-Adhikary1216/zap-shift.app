@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaCreditCard, FaHome, FaSearch, FaUserCheck } from 'react-icons/fa';
+import { FaBoxOpen, FaCreditCard, FaHome, FaSearch, FaUserCheck, FaUsersCog } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink, Outlet } from 'react-router';
 import useAuth from '../../Hooks/useAuth/useAuth';
@@ -12,6 +12,14 @@ const Dashlayout = () => {
       enabled: Boolean(user?.email),
       queryFn: async () => {
         const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
+        return res.data
+      },
+    })
+    const { data: roleInfo } = useQuery({
+      queryKey: ['user-role', user?.email],
+      enabled: Boolean(user?.email),
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/users/${encodeURIComponent(user.email)}/role`)
         return res.data
       },
     })
@@ -29,7 +37,7 @@ const Dashlayout = () => {
     </nav>
     {/* Page content here */}
     <Outlet></Outlet>
-    <div className="p-4">Page Content</div>
+    {/* <div className="p-4">Page Content</div> */}
   </div>
 
   <div className="drawer-side is-drawer-close:overflow-visible">
@@ -73,21 +81,22 @@ const Dashlayout = () => {
           </NavLink>
         </li>
 
-        <li>
+        {roleInfo?.isAdmin && <li>
           <NavLink to="approved-rider" className={({ isActive }) => isActive ? 'menu-active' : ''}>
             <span><FaUserCheck /></span>
             <span className="is-drawer-close:hidden">Approved Rider</span>
           </NavLink>
-        </li>
+        </li>}
+
+        {roleInfo?.isAdmin && <li>
+          <NavLink to="user-management" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <span><FaUsersCog /></span>
+            <span className="is-drawer-close:hidden">User Management</span>
+          </NavLink>
+        </li>}
 
         {/* List item */}
-        <li>
-          <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
-            {/* Settings icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
-            <span className="is-drawer-close:hidden">Settings</span>
-          </button>
-        </li>
+        
       </ul>
     </div>
   </div>
