@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaCreditCard, FaHome, FaSearch, FaUserCheck, FaUsersCog } from 'react-icons/fa';
+import { FaBoxOpen, FaBoxes, FaCreditCard, FaHome, FaMoneyCheckAlt, FaSearch, FaUserCheck, FaUsersCog } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink, Outlet } from 'react-router';
 import useAuth from '../../Hooks/useAuth/useAuth';
@@ -64,7 +64,7 @@ const Dashlayout = () => {
         </li>
 
 
-        {parcels.length > 0 && <li>
+        {roleInfo && !roleInfo.isAdmin && parcels.length > 0 && <li>
           <NavLink to="my-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
             {/* Home icon */}
             <span><FaBoxOpen /></span>
@@ -72,14 +72,28 @@ const Dashlayout = () => {
           </button></NavLink>
         </li>}
 
-        <li>
+        {roleInfo && !roleInfo.isAdmin && <li>
           <NavLink to="payment-history" className={({ isActive }) => isActive ? 'menu-active' : ''}>
             <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="payment history">
               <span><FaCreditCard /></span>
               <span className="is-drawer-close:hidden">Payment history</span>
             </button>
           </NavLink>
-        </li>
+        </li>}
+
+        {roleInfo?.isAdmin && <li>
+          <NavLink to="admin-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <span><FaBoxes /></span>
+            <span className="is-drawer-close:hidden">All Parcels</span>
+          </NavLink>
+        </li>}
+
+        {roleInfo?.isAdmin && <li>
+          <NavLink to="admin-payment-history" className={({ isActive }) => isActive ? 'menu-active' : ''}>
+            <span><FaMoneyCheckAlt /></span>
+            <span className="is-drawer-close:hidden">All Payments</span>
+          </NavLink>
+        </li>}
 
         {roleInfo?.isAdmin && <li>
           <NavLink to="approved-rider" className={({ isActive }) => isActive ? 'menu-active' : ''}>

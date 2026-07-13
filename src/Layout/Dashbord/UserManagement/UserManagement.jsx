@@ -143,28 +143,36 @@ const UserManagement = () => {
                       {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Not available'}
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        onClick={() => handleRoleAction(user)}
-                        disabled={user.email === currentUser?.email || Boolean(activeAction)}
-                        className="btn btn-sm whitespace-nowrap border-[#A8CE36] bg-[#F3F9DF] text-[#03373D] hover:bg-[#CAEB66]"
-                        title={user.role === 'admin' ? 'Remove admin role' : 'Make admin'}
-                      >
-                        {activeAction === `role-${user._id}` ? <span className="loading loading-spinner loading-xs" /> : <FaUserShield />}
-                        {user.role === 'admin' ? 'Remove Admin' : 'Make Admin'}
-                      </button>
+                      {user.email === currentUser?.email ? (
+                        <span className="text-xs font-semibold text-base-content/45">Current admin</span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleRoleAction(user)}
+                          disabled={Boolean(activeAction)}
+                          className="btn btn-sm whitespace-nowrap border-[#A8CE36] bg-[#F3F9DF] text-[#03373D] hover:bg-[#CAEB66]"
+                          title={user.role === 'admin' ? 'Remove admin role' : 'Make admin'}
+                        >
+                          {activeAction === `role-${user._id}` ? <span className="loading loading-spinner loading-xs" /> : <FaUserShield />}
+                          {user.role === 'admin' ? 'Remove Admin' : 'Make Admin'}
+                        </button>
+                      )}
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteAction(user)}
-                        disabled={user.email === currentUser?.email || Boolean(activeAction)}
-                        className="btn btn-sm whitespace-nowrap border-red-200 bg-red-50 text-red-700 hover:border-red-600 hover:bg-red-600 hover:text-white"
-                        title="Delete user"
-                      >
-                        {activeAction === `delete-${user._id}` ? <span className="loading loading-spinner loading-xs" /> : <FaUserMinus />}
-                        Delete
-                      </button>
+                      {user.email === currentUser?.email ? (
+                        <span className="text-xs text-base-content/35">Protected account</span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteAction(user)}
+                          disabled={Boolean(activeAction)}
+                          className="btn btn-sm whitespace-nowrap border-red-200 bg-red-50 text-red-700 hover:border-red-600 hover:bg-red-600 hover:text-white"
+                          title="Delete user"
+                        >
+                          {activeAction === `delete-${user._id}` ? <span className="loading loading-spinner loading-xs" /> : <FaUserMinus />}
+                          Delete
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

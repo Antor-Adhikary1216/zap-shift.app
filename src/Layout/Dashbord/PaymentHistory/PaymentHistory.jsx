@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { FaCheck, FaCopy, FaCreditCard, FaReceipt, FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router'
+import { Link, Navigate } from 'react-router'
 import useAuth from '../../../Hooks/useAuth/useAuth'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
+import useUserRole from '../../../Hooks/useUserRole/useUserRole'
 
 const formatAmount = (payment) => {
   const amount = Number.isFinite(payment.paymentAmount)
@@ -29,6 +30,7 @@ const formatDate = (date) => {
 const PaymentHistory = () => {
   const { user } = useAuth()
   const axiosSecure = UseaxiosSecure()
+  const { isAdmin, isRoleLoading } = useUserRole()
   const [copiedTrackingId, setCopiedTrackingId] = useState('')
 
   const copyTrackingId = async (trackingId) => {
@@ -44,12 +46,18 @@ const PaymentHistory = () => {
     refetch,
   } = useQuery({
     queryKey: ['payment-history', user?.email],
-    enabled: Boolean(user?.email),
+    enabled: Boolean(user?.email) && !isRoleLoading && !isAdmin,
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments?email=${encodeURIComponent(user.email)}`)
       return res.data
     },
   })
+
+  if (isRoleLoading) {
+    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>
+  }
+
+  if (isAdmin) return <Navigate to="/dashbord/admin-payment-history" replace />
 
   return (
     <main className="min-h-[calc(100vh-4rem)] bg-base-200/50 p-4 sm:p-8">

@@ -23,6 +23,8 @@ import ForgotPassword from "../Pages/Authentication/ForgotPassword/ForgotPasswor
 import ApprovedRider from "../Layout/Dashbord/ApprovedRider/ApprovedRider";
 import UserManagement from "../Layout/Dashbord/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
+import AdminPaymentHistory from "../Layout/Dashbord/AdminPaymentHistory/AdminPaymentHistory";
+import AdminParcels from "../Layout/Dashbord/AdminParcels/AdminParcels";
 
 
 
@@ -99,6 +101,14 @@ export const router = createBrowserRouter([
             {
                 path:'payment-history',
                 Component: PaymentHistory
+            },
+            {
+                path:'admin-parcels',
+                element: <AdminRoute><AdminParcels /></AdminRoute>
+            },
+            {
+                path:'admin-payment-history',
+                element: <AdminRoute><AdminPaymentHistory /></AdminRoute>
             },
             {
                 path:'approved-rider',

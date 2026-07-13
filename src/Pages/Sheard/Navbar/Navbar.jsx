@@ -8,14 +8,16 @@ import Swal from 'sweetalert2';
 import './nav.css'
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure';
+import useUserRole from '../../../Hooks/useUserRole/useUserRole';
 
 const Navbar = () => {
   const {user, loading, Logout} = useAuth()
     const navigate = useNavigate()
     const axiosSecure = UseaxiosSecure()
+    const { isAdmin, isRoleLoading } = useUserRole()
     const { data: parcels = [] } = useQuery({
       queryKey: ['my-parcels', user?.email],
-      enabled: Boolean(user?.email),
+      enabled: Boolean(user?.email) && !isRoleLoading && !isAdmin,
       queryFn: async () => {
         const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
         return res.data
@@ -57,7 +59,9 @@ const Navbar = () => {
 
     const navLinkClass = ({ isActive }) => isActive ? 'nav-item-active' : 'nav-item'
     const links = <>
-        {user && <>
+        {user && !isRoleLoading && (isAdmin ? (
+          <NavLink to="/dashbord/user-management" className={navLinkClass}><li>Dashboard</li></NavLink>
+        ) : <>
           <NavLink to="/services" className={navLinkClass}><li>Services</li></NavLink>
           <NavLink to="/Coverags" className={navLinkClass}><li>Coverage</li></NavLink>
           <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
@@ -66,7 +70,7 @@ const Navbar = () => {
           {parcels.length > 0 &&
           <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>My Parcels</li></NavLink>
           }
-        </>}
+        </>)}
     </>
 
     const landealLogOut = ()=>{
@@ -120,8 +124,10 @@ const Navbar = () => {
        : <NavLink to="/login" > <button className="btn btn-sm btn-outline rounded-xl text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign In</button></NavLink>
     
     }
-    <NavLink to="bearider" className="shrink-0"> <button className="btn btn-sm btn-outline rounded-xl px-2 text-[#606060] sm:btn-md sm:px-4 lg:font-semibold lg:text-[18px]">Be a rider</button></NavLink>
-        <NavLink to="/" aria-label="Go to home page" className="shrink-0"> <div className='flex size-8 items-center justify-center rounded-full bg-black p-2'><img src={aro} alt="" /></div>  </NavLink>
+    {!isRoleLoading && !isAdmin && <>
+      <NavLink to="bearider" className="shrink-0"> <button className="btn btn-sm btn-outline rounded-xl px-2 text-[#606060] sm:btn-md sm:px-4 lg:font-semibold lg:text-[18px]">Be a rider</button></NavLink>
+      <NavLink to="/" aria-label="Go to home page" className="shrink-0"> <div className='flex size-8 items-center justify-center rounded-full bg-black p-2'><img src={aro} alt="" /></div>  </NavLink>
+    </>}
   </div>
 </div>
         </div>
