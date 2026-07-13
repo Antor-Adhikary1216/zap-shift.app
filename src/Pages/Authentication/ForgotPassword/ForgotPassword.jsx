@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate, useSearchParams } from 'react-router'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
@@ -8,6 +8,8 @@ import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure'
 const ForgotPassword = () => {
   const axiosSecure = UseaxiosSecure()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const prefilledEmail = searchParams.get('email')?.trim().toLowerCase() || ''
   const [isSending, setIsSending] = useState(false)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
@@ -22,7 +24,7 @@ const ForgotPassword = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm({ defaultValues: { email: prefilledEmail } })
 
   useEffect(() => {
     if (step !== 'code' || codeSeconds <= 0) return undefined

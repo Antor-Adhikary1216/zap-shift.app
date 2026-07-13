@@ -49,6 +49,7 @@ const ensureUserDoesNotExist = async (email) => {
 const AuthProvider = ({children}) => {
 const [user , setUser] =useState()
 const [loading,setLoading ] = useState(true)
+const [, setProfileVersion] = useState(0)
 
 const googleProvider = new GoogleAuthProvider()
     const registerUser =(email,password)=> {
@@ -124,9 +125,11 @@ const googleProvider = new GoogleAuthProvider()
        return signOut(auth)
     }
 
-    const updetedUserProfile = (profile)=>{
+    const updetedUserProfile = async (profile)=>{
         if (!auth.currentUser) return Promise.reject(new Error('No authenticated user is available.'))
-        return updateProfile(auth.currentUser, profile)
+        await updateProfile(auth.currentUser, profile)
+        setProfileVersion((version) => version + 1)
+        return auth.currentUser
     }
 
    useEffect(()=>{

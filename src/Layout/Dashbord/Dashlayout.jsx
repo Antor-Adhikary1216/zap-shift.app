@@ -21,6 +21,7 @@ import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure'
 const pageTitles = {
   'track-parcel': ['Track parcel', 'Find the latest location and status of a shipment.'],
   'my-parcels': ['My parcels', 'Review and manage all of your parcel requests.'],
+  'account-settings': ['Account settings', 'Update your profile and account security.'],
   'payment-history': ['Payment history', 'View your completed parcel payments.'],
   'admin-parcels': ['All parcels', 'Monitor parcel requests from every customer.'],
   'admin-payment-history': ['All payments', 'Review payments completed by all users.'],
@@ -122,11 +123,16 @@ const Dashlayout = () => {
                 <p className="text-sm font-bold text-[#03373D]">{displayName}</p>
                 <p className="text-xs capitalize text-[#708487]">{roleInfo?.isAdmin ? 'Administrator' : 'Customer account'}</p>
               </div>
-              <div className="avatar placeholder">
+              <Link
+                to={roleInfo?.isAdmin ? '/dashbord/user-management' : '/dashbord/account-settings'}
+                className="avatar placeholder rounded-full focus:outline-none focus:ring-2 focus:ring-[#03373D] focus:ring-offset-4"
+                title={roleInfo?.isAdmin ? 'Open user management' : 'Manage your account'}
+                aria-label={roleInfo?.isAdmin ? 'Open user management' : 'Manage your account'}
+              >
                 <div className="h-11 w-11 overflow-hidden rounded-full bg-[#03373D] text-[#CAEB66] ring-2 ring-[#CAEB66] ring-offset-2">
                   {user?.photoURL ? <img src={user.photoURL} alt={displayName} /> : <span className="text-sm font-bold">{initials}</span>}
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </header>

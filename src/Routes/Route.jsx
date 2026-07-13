@@ -25,6 +25,7 @@ import UserManagement from "../Layout/Dashbord/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
 import AdminPaymentHistory from "../Layout/Dashbord/AdminPaymentHistory/AdminPaymentHistory";
 import AdminParcels from "../Layout/Dashbord/AdminParcels/AdminParcels";
+import AccountSettings from "../Layout/Dashbord/AccountSettings/AccountSettings";
 
 
 
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
         path:"dashbord",
         element: <PrivetRoute><Dashlayout /></PrivetRoute>,
         children:[
+            {
+                path:'account-settings',
+                Component: AccountSettings
+            },
             {
                 path:'track-parcel',
                 Component: TrackParcel
