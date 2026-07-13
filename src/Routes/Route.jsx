@@ -26,6 +26,8 @@ import AdminRoute from "./AdminRoute";
 import AdminPaymentHistory from "../Layout/Dashbord/AdminPaymentHistory/AdminPaymentHistory";
 import AdminParcels from "../Layout/Dashbord/AdminParcels/AdminParcels";
 import AccountSettings from "../Layout/Dashbord/AccountSettings/AccountSettings";
+import UserRoute from "./UserRoute";
+import DashboardHome from "./DashboardHome";
 
 
 
@@ -92,8 +94,12 @@ export const router = createBrowserRouter([
         element: <PrivetRoute><Dashlayout /></PrivetRoute>,
         children:[
             {
+                index: true,
+                Component: DashboardHome
+            },
+            {
                 path:'account-settings',
-                Component: AccountSettings
+                element: <UserRoute><AccountSettings /></UserRoute>
             },
             {
                 path:'track-parcel',
@@ -101,11 +107,11 @@ export const router = createBrowserRouter([
             },
             {
                 path:'my-parcels',
-                Component: MyParcels
+                element: <UserRoute><MyParcels /></UserRoute>
             },
             {
                 path:'payment-history',
-                Component: PaymentHistory
+                element: <UserRoute><PaymentHistory /></UserRoute>
             },
             {
                 path:'admin-parcels',
@@ -125,19 +131,19 @@ export const router = createBrowserRouter([
             },
             {
                 path:"payment/:parcelId",
-                Component: PayNow,
+                element: <UserRoute><PayNow /></UserRoute>,
             },
             {
                 path:"payment-successful",
-                Component: Payment_success
+                element: <UserRoute><Payment_success /></UserRoute>
             },
             {
                 path:"payment-canceld",
-                Component:Payment_Canceld
+                element: <UserRoute><Payment_Canceld /></UserRoute>
             },
             {
                 path:"pending-parcel/:parcelId",
-                Component: PendingParcel
+                element: <UserRoute><PendingParcel /></UserRoute>
             }
         ]
     }
