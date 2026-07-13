@@ -1,121 +1,210 @@
-import { FaBoxOpen, FaBoxes, FaCreditCard, FaHome, FaMoneyCheckAlt, FaSearch, FaUserCheck, FaUsersCog } from 'react-icons/fa';
-import { useQuery } from '@tanstack/react-query';
-import { Link, NavLink, Outlet } from 'react-router';
-import useAuth from '../../Hooks/useAuth/useAuth';
-import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure';
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import {
+  FaBars,
+  FaBoxOpen,
+  FaBoxes,
+  FaChevronRight,
+  FaCreditCard,
+  FaHome,
+  FaMoneyCheckAlt,
+  FaSearch,
+  FaSignOutAlt,
+  FaUserCheck,
+  FaUsersCog,
+} from 'react-icons/fa'
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router'
+import logo from '../../assets/logo.png'
+import useAuth from '../../Hooks/useAuth/useAuth'
+import UseaxiosSecure from '../../Hooks/useAxios/useaxiosSecure'
+
+const pageTitles = {
+  'track-parcel': ['Track parcel', 'Find the latest location and status of a shipment.'],
+  'my-parcels': ['My parcels', 'Review and manage all of your parcel requests.'],
+  'payment-history': ['Payment history', 'View your completed parcel payments.'],
+  'admin-parcels': ['All parcels', 'Monitor parcel requests from every customer.'],
+  'admin-payment-history': ['All payments', 'Review payments completed by all users.'],
+  'approved-rider': ['Rider requests', 'Review and manage rider applications.'],
+  'user-management': ['User management', 'Manage users, roles, and account access.'],
+  payment: ['Parcel payment', 'Complete payment for your parcel request.'],
+  'payment-successful': ['Payment successful', 'Your parcel payment has been confirmed.'],
+  'payment-canceld': ['Payment cancelled', 'Your parcel payment was not completed.'],
+  'pending-parcel': ['Parcel details', 'Review the current details for this parcel.'],
+}
 
 const Dashlayout = () => {
-    const { user } = useAuth()
-    const axiosSecure = UseaxiosSecure()
-    const { data: parcels = [] } = useQuery({
-      queryKey: ['my-parcels', user?.email],
-      enabled: Boolean(user?.email),
-      queryFn: async () => {
-        const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
-        return res.data
-      },
-    })
-    const { data: roleInfo } = useQuery({
-      queryKey: ['user-role', user?.email],
-      enabled: Boolean(user?.email),
-      queryFn: async () => {
-        const res = await axiosSecure.get(`/users/${encodeURIComponent(user.email)}/role`)
-        return res.data
-      },
-    })
-    return (
-       <div className="drawer lg:drawer-open">
-  <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content">
-    {/* Navbar */}
-    <nav className="navbar w-full bg-base-300">
-      <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
-        {/* Sidebar toggle icon */}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-      </label>
-      <div className="px-4">Zap shft Dashbord</div>
-    </nav>
-    {/* Page content here */}
-    <Outlet></Outlet>
-    {/* <div className="p-4">Page Content</div> */}
-  </div>
+  const { user, Logout } = useAuth()
+  const axiosSecure = UseaxiosSecure()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
-  <div className="drawer-side is-drawer-close:overflow-visible">
-    <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-    <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-      {/* Sidebar content here */}
-      <ul className="menu w-full grow">
-        {/* List item */}
-       <li className=''>
-          <Link to="/"><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="Back to home page">
-            {/* Home icon */}
-            <span><FaHome /></span>
-            <span className="is-drawer-close:hidden">home page</span>
-          </button></Link>
-        </li>
+  const { data: roleInfo, isLoading: isRoleLoading } = useQuery({
+    queryKey: ['user-role', user?.email],
+    enabled: Boolean(user?.email),
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${encodeURIComponent(user.email)}/role`)
+      return res.data
+    },
+  })
 
-        {/* Our dashbord --> */}
+  const { data: parcels = [] } = useQuery({
+    queryKey: ['my-parcels', user?.email],
+    enabled: Boolean(user?.email) && !isRoleLoading && !roleInfo?.isAdmin,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
+      return res.data
+    },
+  })
 
-        <li>
-          <NavLink to="track-parcel" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <span><FaSearch /></span>
-            <span className="is-drawer-close:hidden">Track parcel</span>
-          </NavLink>
-        </li>
+  const userNavigation = [
+    { to: 'my-parcels', label: 'My parcels', icon: FaBoxOpen, badge: parcels.length || null },
+    { to: 'track-parcel', label: 'Track parcel', icon: FaSearch },
+    { to: 'payment-history', label: 'Payment history', icon: FaCreditCard },
+  ]
 
+  const adminNavigation = [
+    { to: 'track-parcel', label: 'Track parcel', icon: FaSearch },
+    { to: 'admin-parcels', label: 'All parcels', icon: FaBoxes },
+    { to: 'admin-payment-history', label: 'All payments', icon: FaMoneyCheckAlt },
+    { to: 'approved-rider', label: 'Rider requests', icon: FaUserCheck },
+    { to: 'user-management', label: 'User management', icon: FaUsersCog },
+  ]
 
-        {roleInfo && !roleInfo.isAdmin && parcels.length > 0 && <li>
-          <NavLink to="my-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}><button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="my parcels">
-            {/* Home icon */}
-            <span><FaBoxOpen /></span>
-            <span className="is-drawer-close:hidden">My parcels</span>
-          </button></NavLink>
-        </li>}
+  const navigationItems = roleInfo?.isAdmin ? adminNavigation : userNavigation
+  const currentSegment = location.pathname.split('/').filter(Boolean)[1] || ''
+  const [pageTitle, pageDescription] = pageTitles[currentSegment] || ['Dashboard', 'Manage your ZapShift activity in one place.']
+  const displayName = user?.displayName || user?.email?.split('@')[0] || 'ZapShift user'
+  const initials = displayName
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
 
-        {roleInfo && !roleInfo.isAdmin && <li>
-          <NavLink to="payment-history" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center gap-1 text-lg" data-tip="payment history">
-              <span><FaCreditCard /></span>
-              <span className="is-drawer-close:hidden">Payment history</span>
+  const handleLogout = async () => {
+    await Logout()
+    navigate('/')
+  }
+
+  const closeDrawer = () => setDrawerOpen(false)
+
+  return (
+    <div className="drawer lg:drawer-open">
+      <input
+        id="dashboard-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={drawerOpen}
+        onChange={(event) => setDrawerOpen(event.target.checked)}
+      />
+
+      <div className="drawer-content min-w-0 bg-[#F6F8F8]">
+        <header className="sticky top-0 z-30 border-b border-[#DCE5E6] bg-white/95 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
+          <div className="flex min-h-14 items-center justify-between gap-4">
+            <div className="flex min-w-0 items-center gap-3">
+              <label htmlFor="dashboard-drawer" className="btn btn-square btn-ghost lg:hidden" aria-label="Open dashboard menu">
+                <FaBars className="text-xl text-[#03373D]" />
+              </label>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#708487]">
+                  <span>Dashboard</span>
+                  <FaChevronRight className="text-[9px]" />
+                  <span className="truncate text-[#617718]">{pageTitle}</span>
+                </div>
+                <h1 className="mt-1 truncate text-xl font-bold text-[#03373D] sm:text-2xl">{pageTitle}</h1>
+                <p className="hidden truncate text-sm text-[#708487] sm:block">{pageDescription}</p>
+              </div>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-3">
+              <div className="hidden text-right md:block">
+                <p className="text-sm font-bold text-[#03373D]">{displayName}</p>
+                <p className="text-xs capitalize text-[#708487]">{roleInfo?.isAdmin ? 'Administrator' : 'Customer account'}</p>
+              </div>
+              <div className="avatar placeholder">
+                <div className="h-11 w-11 overflow-hidden rounded-full bg-[#03373D] text-[#CAEB66] ring-2 ring-[#CAEB66] ring-offset-2">
+                  {user?.photoURL ? <img src={user.photoURL} alt={displayName} /> : <span className="text-sm font-bold">{initials}</span>}
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div className="min-w-0">
+          <Outlet />
+        </div>
+      </div>
+
+      <aside className="drawer-side z-40">
+        <label htmlFor="dashboard-drawer" className="drawer-overlay" aria-label="Close dashboard menu" />
+        <div className="flex min-h-full w-72 flex-col bg-[#03373D] text-white">
+          <div className="border-b border-white/10 px-6 py-5">
+            <Link to="/" onClick={closeDrawer} className="inline-flex rounded-xl bg-white px-3 py-2">
+              <img src={logo} alt="ZapShift" className="h-9 w-auto object-contain" />
+            </Link>
+            <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate font-bold">{displayName}</p>
+                  <p className="truncate text-xs text-white/55">{user?.email}</p>
+                </div>
+                <span className="rounded-full bg-[#CAEB66] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#03373D]">
+                  {roleInfo?.isAdmin ? 'Admin' : 'User'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <nav className="flex-1 overflow-y-auto px-4 py-6">
+            <p className="mb-3 px-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white/40">Navigation</p>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/" onClick={closeDrawer} className="flex items-center gap-3 rounded-xl px-4 py-3 font-medium text-white/70 transition hover:bg-white/10 hover:text-white">
+                  <FaHome className="text-lg" />
+                  <span>Back to home</span>
+                </Link>
+              </li>
+              {isRoleLoading ? (
+                <li className="space-y-3 px-3 py-2">
+                  <div className="h-11 animate-pulse rounded-xl bg-white/10" />
+                  <div className="h-11 animate-pulse rounded-xl bg-white/10" />
+                  <div className="h-11 animate-pulse rounded-xl bg-white/10" />
+                </li>
+              ) : navigationItems.map(({ to, label, icon: Icon, badge }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    onClick={closeDrawer}
+                    className={({ isActive }) => `group flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition ${isActive ? 'bg-[#CAEB66] text-[#03373D] shadow-lg shadow-black/10' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        <Icon className="text-lg" />
+                        <span className="flex-1">{label}</span>
+                        {badge ? <span className={`rounded-full px-2 py-0.5 text-xs ${isActive ? 'bg-[#03373D] text-white' : 'bg-white/15 text-white'}`}>{badge}</span> : null}
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="border-t border-white/10 p-4">
+            <div className="mb-3 rounded-xl bg-white/5 px-4 py-3 text-xs text-white/50">
+              <p className="font-semibold text-white/80">{new Intl.DateTimeFormat('en-IN', { weekday: 'long' }).format(new Date())}</p>
+              <p>{new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())}</p>
+            </div>
+            <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-4 py-3 font-semibold text-white/70 transition hover:bg-red-500/15 hover:text-red-200">
+              <FaSignOutAlt className="text-lg" />
+              <span>Log out</span>
             </button>
-          </NavLink>
-        </li>}
-
-        {roleInfo?.isAdmin && <li>
-          <NavLink to="admin-parcels" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <span><FaBoxes /></span>
-            <span className="is-drawer-close:hidden">All Parcels</span>
-          </NavLink>
-        </li>}
-
-        {roleInfo?.isAdmin && <li>
-          <NavLink to="admin-payment-history" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <span><FaMoneyCheckAlt /></span>
-            <span className="is-drawer-close:hidden">All Payments</span>
-          </NavLink>
-        </li>}
-
-        {roleInfo?.isAdmin && <li>
-          <NavLink to="approved-rider" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <span><FaUserCheck /></span>
-            <span className="is-drawer-close:hidden">Approved Rider</span>
-          </NavLink>
-        </li>}
-
-        {roleInfo?.isAdmin && <li>
-          <NavLink to="user-management" className={({ isActive }) => isActive ? 'menu-active' : ''}>
-            <span><FaUsersCog /></span>
-            <span className="is-drawer-close:hidden">User Management</span>
-          </NavLink>
-        </li>}
-
-        {/* List item */}
-        
-      </ul>
+          </div>
+        </div>
+      </aside>
     </div>
-  </div>
-</div>
-    );
-};
+  )
+}
 
-export default Dashlayout;
+export default Dashlayout

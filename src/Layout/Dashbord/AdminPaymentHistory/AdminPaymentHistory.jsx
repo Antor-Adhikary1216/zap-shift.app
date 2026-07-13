@@ -84,6 +84,7 @@ const AdminPaymentHistory = () => {
                   <th>User</th>
                   <th>Parcel</th>
                   <th>Amount</th>
+                  <th>Payment status</th>
                   <th>Transaction ID</th>
                   <th>Tracking ID</th>
                   <th>Paid at</th>
@@ -102,6 +103,11 @@ const AdminPaymentHistory = () => {
                       <p className="text-xs capitalize text-base-content/50">{payment.parceltype || 'Parcel delivery'}</p>
                     </td>
                     <td className="whitespace-nowrap font-bold text-[#617718]">{formatAmount(payment)}</td>
+                    <td>
+                      <span className={`badge whitespace-nowrap font-semibold ${payment.paymentStatus === 'paid' ? 'badge-success badge-outline' : 'badge-warning badge-outline'}`}>
+                        {payment.paymentStatus === 'paid' ? 'Paid' : payment.paymentStatus || 'Pending'}
+                      </span>
+                    </td>
                     <td className="max-w-52 break-all font-mono text-xs">{payment.transactionId || 'Not available'}</td>
                     <td className="max-w-44 break-all font-mono text-xs">{payment.trackingId || 'Not available'}</td>
                     <td className="whitespace-nowrap">{formatDate(payment.paidAt)}</td>

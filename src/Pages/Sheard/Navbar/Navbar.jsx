@@ -2,27 +2,16 @@ import Logo from '../../../Components/Logo/Logo';
 import aro from "../../../assets/banner/arrow-up-right 1.png"
 import zapShiftLogo from '../../../assets/logo.png'
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { NavLink, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import './nav.css'
 import useAuth from '../../../Hooks/useAuth/useAuth';
-import UseaxiosSecure from '../../../Hooks/useAxios/useaxiosSecure';
 import useUserRole from '../../../Hooks/useUserRole/useUserRole';
 
 const Navbar = () => {
   const {user, loading, Logout} = useAuth()
     const navigate = useNavigate()
-    const axiosSecure = UseaxiosSecure()
     const { isAdmin, isRoleLoading } = useUserRole()
-    const { data: parcels = [] } = useQuery({
-      queryKey: ['my-parcels', user?.email],
-      enabled: Boolean(user?.email) && !isRoleLoading && !isAdmin,
-      queryFn: async () => {
-        const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
-        return res.data
-      },
-    })
 
     useEffect(() => {
       localStorage.removeItem('zapshift-login-prompt-seen')
@@ -67,9 +56,7 @@ const Navbar = () => {
           <NavLink to="/aboutUs" className={navLinkClass}><li>About Us</li></NavLink>
           <NavLink to="/bargainnig" className={navLinkClass}><li>Pricing</li></NavLink>
           <NavLink to="/send_a_parcel" className={navLinkClass}><li>Send Parcel</li></NavLink>
-          {parcels.length > 0 &&
-          <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>My Parcels</li></NavLink>
-          }
+          <NavLink to="/dashbord/my-parcels" className={navLinkClass}><li>Dashboard</li></NavLink>
         </>)}
     </>
 

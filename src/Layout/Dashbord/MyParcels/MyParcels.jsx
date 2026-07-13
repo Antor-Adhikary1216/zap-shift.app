@@ -5,15 +5,17 @@ import { FaEdit, FaRupeeSign } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
+import useUserRole from "../../../Hooks/useUserRole/useUserRole";
 
 const MyParcels = () => {
   const { user } = useAuth();
   const axiosSecure = UseaxiosSecure();
+  const { isAdmin, isRoleLoading } = useUserRole();
 
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", user?.email],
-    enabled: Boolean(user?.email),
+    enabled: Boolean(user?.email) && !isRoleLoading && !isAdmin,
     queryFn: async () => {
       const res = await axiosSecure.get(`/parcels?email=${user.email}`);
       return res.data;
@@ -67,6 +69,15 @@ const MyParcels = () => {
 
 
     }
+
+
+  if (isRoleLoading) {
+    return <div className="flex min-h-72 items-center justify-center"><span className="loading loading-spinner loading-lg" /></div>;
+  }
+
+  if (isAdmin) {
+    return <Navigate to="/dashbord/admin-parcels" replace />;
+  }
 
 
 
