@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"bearider",
-                element:<BeaRider/>
+                element:<PrivetRoute><BeaRider /></PrivetRoute>
             },
             {
                 path:"/send_a_parcel",
