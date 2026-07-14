@@ -54,7 +54,7 @@ const Dashlayout = () => {
     queryKey: ['my-parcels', user?.email],
     enabled: Boolean(user?.email) && !isRoleLoading && !roleInfo?.isAdmin,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?email=${encodeURIComponent(user.email)}`)
+      const res = await axiosSecure.get('/parcels')
       return res.data
     },
   })

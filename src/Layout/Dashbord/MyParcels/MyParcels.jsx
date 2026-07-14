@@ -18,7 +18,7 @@ const MyParcels = () => {
     queryKey: ["my-parcels", user?.email],
     enabled: Boolean(user?.email) && !isRoleLoading && !isAdmin,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?email=${user.email}`);
+      const res = await axiosSecure.get('/parcels');
       return res.data;
     },
   });

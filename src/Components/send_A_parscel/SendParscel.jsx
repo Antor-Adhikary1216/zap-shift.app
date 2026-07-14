@@ -62,9 +62,7 @@ const SendParscel = () => {
   //     "delibery Address": "",
   //     "Delibery instruction": ""
   // }
-  const handlesendParcel = (data) => {
-    console.log(data);
-
+  const handlesendParcel = async (data) => {
     const Isdocument = data.parceltype === "document";
     const parcelweitght = parseFloat(data.parcelWeight);
     const Issamedistrict = data.receiverDestricts === data.senderDestricts;
@@ -83,10 +81,9 @@ const SendParscel = () => {
         cost = minCharge + extraCharge;
       }
     }
-    console.log("cost", cost);
     data.cost = cost;
     // Sweet Alert Info------------------------------->
-    Swal.fire({
+    const confirmation = await Swal.fire({
       title: "Are you agree with  price?",
       text: ` You have to pay ${cost} Rupe!💸  `,
       icon: "warning",
@@ -94,27 +91,29 @@ const SendParscel = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, take it my parcel!",
-    }).then((result) => {
-      if (result.isConfirmed)
-        // seve the parcel database
-        axiosSecure.post("/parcels", data).then((res) => {
-
-          if(res.data.insertedId){
-            queryClient.invalidateQueries({ queryKey: ["my-parcels", user?.email] })
-            navigete("/dashbord/my-parcels")
-            Swal.fire({
-        title: "Conform !",
-        text: "Your parcel has been conform now please pay your parcel cost .",
-        icon: "success",
-        
-        
-      });
-          }
-          console.log("After seveing parcel", res.data);
-        })
-
-      
     });
+
+    if (!confirmation.isConfirmed) return;
+
+    try {
+      const res = await axiosSecure.post("/parcels", data);
+
+      if (res.data.insertedId) {
+        await queryClient.invalidateQueries({ queryKey: ["my-parcels", user?.email] });
+        navigete("/dashbord/my-parcels");
+        Swal.fire({
+          title: "Confirmed!",
+          text: "Your parcel has been saved. You can now pay the delivery cost.",
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Unable to save parcel",
+        text: error.response?.data?.message || "Please try again in a moment.",
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -193,10 +192,14 @@ const SendParscel = () => {
               <input
                 type="email"
                 placeholder="Email Address"
-                {...register("senderemail", { required: true })}
+                {...register("senderemail", {
+                  required: true,
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+                })}
                 defaultValue={user?.email}
-                className="rounded-md w-full border p-2"
+                className={`w-full rounded-md border bg-white p-2 ${errors.senderemail ? "border-red-500" : ""}`}
               />
+              {errors.senderemail && <p className="text-sm font-medium text-red-600">Please provide a valid sender email address.</p>}
               <p>Sender Phone No <span className="text-red-500">*</span></p>
               <input
                 type="text"

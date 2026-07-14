@@ -9,18 +9,22 @@ import imageUploadIcon from '../../../assets/png/TeamsDwon/image-upload-icon.png
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+
 
 const Register = () => {
 const [imagePreview, setImagePreview] = useState('')
 const [showPassword, setShowPassword] = useState(false)
 const [isSubmitting, setIsSubmitting] = useState(false)
+const [submissionStep, setSubmissionStep] = useState('')
 const [registrationError, setRegistrationError] = useState('')
-const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
+const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDatabase} =useAuth()
     const navigate = useNavigate()
     const {register,handleSubmit,
         formState:{errors}
     }=useForm()
-    const photoRegister = register("photo", { required: true })
+    const photoRegister = register("photo")
 
     const handleImagePreview = (event) => {
         photoRegister.onChange(event)
@@ -41,50 +45,126 @@ const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
         const submitHeandel = async (formData)=>{
             setIsSubmitting(true)
             setRegistrationError('')
+            let registration
+            let emailVerificationCompleted = false
 
             try {
+                const email = formData.email.trim().toLowerCase()
+                setSubmissionStep('Sending verification code...')
+                await axios.post(`${apiUrl}/auth/registration/send-code`, { email })
+
+                const codePrompt = await Swal.fire({
+                    icon: 'info',
+                    title: 'Check your email',
+                    text: `Enter the six-digit verification code sent to ${email}.`,
+                    input: 'text',
+                    inputPlaceholder: 'Six-digit code',
+                    inputAttributes: {
+                        inputmode: 'numeric',
+                        maxlength: '6',
+                        autocomplete: 'one-time-code',
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Verify email',
+                    confirmButtonColor: '#03373D',
+                    showLoaderOnConfirm: true,
+                    allowOutsideClick: () => !Swal.isLoading(),
+                    preConfirm: async (code) => {
+                        if (!/^\d{6}$/.test(String(code || '').trim())) {
+                            Swal.showValidationMessage('Enter the six-digit code sent to your email.')
+                            return false
+                        }
+
+                        try {
+                            const response = await axios.post(`${apiUrl}/auth/registration/verify-code`, {
+                                email,
+                                code: String(code).trim(),
+                            })
+                            return response.data.verificationToken
+                        } catch (error) {
+                            Swal.showValidationMessage(error.response?.data?.message || 'Unable to verify this code.')
+                            return false
+                        }
+                    },
+                })
+
+                if (!codePrompt.isConfirmed || !codePrompt.value) return
+
+                setSubmissionStep('Creating your account...')
                 const profileImage = formData.photo?.[0]
                 const imageHostKey = import.meta.env.VITE_image_host
-                if (!profileImage) throw new Error('Please select a profile image.')
-                if (!imageHostKey) throw new Error('Profile image upload is not configured.')
+                if (profileImage && !imageHostKey) throw new Error('Profile image upload is not configured.')
 
-                const imageData = new FormData()
-                imageData.append('image', profileImage)
-                const imageResponse = await axios.post(
-                    `https://api.imgbb.com/1/upload?key=${imageHostKey}`,
-                    imageData
-                )
-                const photoURL = imageResponse.data?.data?.display_url
-                if (!photoURL) throw new Error('The profile image could not be uploaded.')
+                const imageUploadPromise = profileImage
+                    ? (() => {
+                        const imageData = new FormData()
+                        imageData.append('image', profileImage)
+                        return axios.post(`https://api.imgbb.com/1/upload?key=${imageHostKey}`, imageData)
+                            .then((response) => {
+                                const uploadedPhoto = response.data?.data?.display_url
+                                if (!uploadedPhoto) throw new Error('The profile image could not be uploaded.')
+                                return uploadedPhoto
+                            })
+                    })()
+                    : Promise.resolve('')
 
-                const registration = await registerUser(formData.email.trim(), formData.password)
-                await updetedUserProfile({
-                    displayName: formData.name.trim(),
-                    photoURL,
-                })
+                const [imageResult, registrationResult] = await Promise.allSettled([
+                    imageUploadPromise,
+                    registerUser(email, formData.password),
+                ])
+
+                if (registrationResult.status === 'fulfilled') registration = registrationResult.value
+                if (registrationResult.status === 'rejected') throw registrationResult.reason
+                if (imageResult.status === 'rejected') throw imageResult.reason
+
+                const photoURL = imageResult.value
+                const idToken = await registration.user.getIdToken()
+                const [profileResult, verificationResult] = await Promise.allSettled([
+                    updetedUserProfile({ displayName: formData.name.trim(), photoURL }),
+                    axios.post(
+                        `${apiUrl}/auth/registration/complete`,
+                        { verificationToken: codePrompt.value },
+                        { headers: { Authorization: `Bearer ${idToken}` } }
+                    ),
+                ])
+
+                if (verificationResult.status === 'fulfilled') emailVerificationCompleted = true
+                if (verificationResult.status === 'rejected') throw verificationResult.reason
+                if (profileResult.status === 'rejected') throw profileResult.reason
+
                 await registration.user.reload()
+                await registration.user.getIdToken(true)
                 await saveUserToDatabase(registration.user, 'register')
 
                 await Swal.fire({
                     toast: true,
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Account created successfully',
+                    title: 'Email verified and account created',
                     showConfirmButton: false,
-                    timer: 2200,
+                    timer: 2400,
                     timerProgressBar: true,
                 })
                 navigate('/', { replace: true })
             } catch (error) {
+                if (registration?.user && !emailVerificationCompleted) {
+                    await deleteIncompleteRegistration(registration.user).catch(() => {})
+                }
                 const firebaseMessages = {
                     'auth/email-already-in-use': 'An account already exists with this email address.',
-                    'auth/invalid-email': 'Enter a valid email address.',
+                    'auth/invalid-email': 'Please provide a valid email address.',
                     'auth/weak-password': 'Use a stronger password with at least 6 characters.',
                     'auth/network-request-failed': 'Network error. Check your connection and try again.',
                 }
-                setRegistrationError(firebaseMessages[error.code] || error.message || 'Registration failed. Please try again.')
+                setRegistrationError(
+                    firebaseMessages[error.code]
+                    || error.response?.data?.message
+                    || error.message
+                    || 'Registration failed. Please try again.'
+                )
             } finally {
                 setIsSubmitting(false)
+                setSubmissionStep('')
             }
         }
     return (
@@ -100,7 +180,7 @@ const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
                       <div className="flex items-center gap-4">
                         <label
                           htmlFor="profile-image"
-                          className={`group relative flex size-16 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 bg-[#F1F3F4] transition hover:scale-105 hover:border-[#CAEB66] focus-within:ring-2 focus-within:ring-[#CAEB66] ${errors.photo ? 'border-red-500' : 'border-transparent'}`}
+                          className="group relative flex size-16 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-transparent bg-[#F1F3F4] transition hover:scale-105 hover:border-[#CAEB66] focus-within:ring-2 focus-within:ring-[#CAEB66]"
                           title="Upload profile image"
                         >
                           <img
@@ -118,11 +198,10 @@ const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
                           />
                         </label>
                         <div>
-                          <p className="text-sm font-semibold text-[#303030]">Upload your photo <span className="text-red-500">*</span></p>
-                          <p className="mt-1 text-xs text-[#777777]">Click the avatar to select an image.</p>
+                          <p className="text-sm font-semibold text-[#303030]">Upload your photo <span className="font-normal text-[#777777]">(optional)</span></p>
+                          <p className="mt-1 text-xs text-[#777777]">Skip this now and add a photo later.</p>
                         </div>
                       </div>
-                      {errors.photo && <p className="text-sm font-medium text-red-600">Profile image is required.</p>}
                     
                       <label className="label  text-[17px]">Name</label>
                       <input type="text" {...register("name",{required:true, pattern:/^[A-Za-z][A-Za-z\s'-]*$/i})} className="input w-full rounded-2xl" placeholder="Name" />
@@ -130,10 +209,9 @@ const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
                         <p className='text-red-600 '> Name is requrde!! </p>
                       )}
                       <label className="label  text-[17px]">Email</label>
-                      <input type="email" {...register("email", {required:true})} className="input w-full rounded-2xl" placeholder="Email" />
-                      {errors.email?.type === "required"&&(
-                        <p className='text-red-600 '> Name is requrde!! </p>
-                      )}
+                      <input type="email" {...register("email", { required: true, pattern: emailPattern })} className={`input w-full rounded-2xl ${errors.email ? 'border-red-500' : ''}`} placeholder="Email" />
+                      {errors.email?.type === 'required' && <p className="text-sm font-medium text-red-600">Email is required.</p>}
+                      {errors.email?.type === 'pattern' && <p className="text-sm font-medium text-red-600">Please provide a valid email address.</p>}
                       <label className="label text-[17px]">Password</label>
                       <div className="relative">
                         <input
@@ -164,7 +242,7 @@ const {registerUser,updetedUserProfile,saveUserToDatabase} =useAuth()
                       {registrationError && <p className="rounded-lg bg-red-50 p-3 text-sm font-medium text-red-700" role="alert">{registrationError}</p>}
 
                       <button disabled={isSubmitting} className="btn btn-neutral mt-4 w-full rounded-full disabled:opacity-60">
-                        {isSubmitting ? 'Creating account...' : 'Register'}
+                        {isSubmitting ? submissionStep : 'Register'}
                       </button>
                       {/* google btn */}
                       <Google

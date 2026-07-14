@@ -15,6 +15,10 @@ const PrivetRoute = ({children}) => {
        
 
     }
+    const usesPassword = user.providerData?.some((provider) => provider.providerId === 'password')
+    if(usesPassword && !user.emailVerified){
+        return <Navigate to='/login' state={{ from: location.pathname }} replace />
+    }
     return children
 };
 
