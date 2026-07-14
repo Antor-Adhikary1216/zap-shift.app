@@ -88,16 +88,6 @@ const googleProvider = new GoogleAuthProvider()
         setLoading(true)
         try {
             const result = await signInWithEmailAndPassword(auth,email,password)
-            await result.user.reload()
-
-            const usesPassword = result.user.providerData.some((provider) => provider.providerId === 'password')
-            if (usesPassword && !result.user.emailVerified) {
-                await deleteUser(result.user)
-                const error = new Error('Email verification was not completed. Please register again and verify the code sent to your email.')
-                error.code = 'auth/email-not-verified'
-                throw error
-            }
-
             await saveUserToDatabase(result.user, 'login')
             return result
         } catch (error) {

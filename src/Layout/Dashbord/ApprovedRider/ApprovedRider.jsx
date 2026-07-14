@@ -54,26 +54,26 @@ const ApprovedRider = () => {
   }
 
   return (
-    <section className="p-4 sm:p-8">
+    <section className="min-w-0 p-3 sm:p-8">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-3xl font-bold text-[#03373D]">Rider Approve</h2>
+        <h2 className="text-2xl font-bold text-[#03373D] sm:text-3xl">Rider Approve</h2>
         <p className="mt-2 text-base-content/60">Review pending Be a Rider applications.</p>
 
         {isError && (
-          <div className="alert alert-error mt-6">
+          <div className="alert alert-error mt-6 break-words">
             {error.response?.data?.message || 'Unable to load rider applications.'}
           </div>
         )}
 
         {!isError && riders.length === 0 && (
-          <div className="mt-8 rounded-2xl border border-dashed border-base-300 bg-base-100 p-10 text-center">
+          <div className="mt-8 rounded-2xl border border-dashed border-base-300 bg-base-100 p-6 text-center sm:p-10">
             <p className="text-lg font-semibold">No riders waiting for review</p>
           </div>
         )}
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {riders.map((rider) => (
-            <article key={rider._id} className="rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm">
+            <article key={rider._id} className="min-w-0 rounded-2xl border border-base-300 bg-base-100 p-4 shadow-sm sm:p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h3 className="text-xl font-bold text-[#03373D]">{rider.name}</h3>
@@ -92,11 +92,11 @@ const ApprovedRider = () => {
                 {rider.about && <p className="rounded-xl bg-base-200 p-3 text-base-content/70">{rider.about}</p>}
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <button type="button" onClick={() => reviewRider(rider, 'approved')} className="btn border-green-600 bg-green-600 text-white hover:border-green-700 hover:bg-green-700">
+              <div className="mt-5 grid gap-3 min-[360px]:grid-cols-2">
+                <button type="button" onClick={() => reviewRider(rider, 'approved')} className="btn min-h-11 border-green-600 bg-green-600 text-white hover:border-green-700 hover:bg-green-700">
                   <FaCheck /> Approve
                 </button>
-                <button type="button" onClick={() => reviewRider(rider, 'rejected')} className="btn btn-outline border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+                <button type="button" onClick={() => reviewRider(rider, 'rejected')} className="btn btn-outline min-h-11 border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
                   <FaTimes /> Reject
                 </button>
               </div>

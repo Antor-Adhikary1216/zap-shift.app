@@ -1,4 +1,3 @@
-import React from 'react';
 import casio from "../../assets/brands/casio.png"
 import amazon from "../../assets/brands/amazon.png"
 import moon from "../../assets/brands/moonstar.png"
@@ -8,13 +7,13 @@ import randed from "../../assets/brands/randstad.png"
 
 const CompenesLogos = () => {
     return (
-        <div className='flex gap-10 my-5'>
-           <img src={casio} alt="" /> 
-           <img src={amazon} alt="" /> 
-           <img src={moon} alt="" /> 
-           <img src={star} alt="" /> 
-           <img src={starpepol} alt="" /> 
-           <img src={randed} alt="" /> 
+        <div className="my-5 flex shrink-0 items-center gap-8 px-4 sm:gap-12 sm:px-6">
+           <img src={casio} alt="Casio" className="h-8 w-auto max-w-28 object-contain sm:h-10" />
+           <img src={amazon} alt="Amazon" className="h-8 w-auto max-w-28 object-contain sm:h-10" />
+           <img src={moon} alt="Moonstar" className="h-8 w-auto max-w-28 object-contain sm:h-10" />
+           <img src={star} alt="Star" className="h-8 w-auto max-w-28 object-contain sm:h-10" />
+           <img src={starpepol} alt="Start People" className="h-8 w-auto max-w-28 object-contain sm:h-10" />
+           <img src={randed} alt="Randstad" className="h-8 w-auto max-w-28 object-contain sm:h-10" />
         </div>
     );
 };

@@ -73,26 +73,24 @@ const Navbar = () => {
           timerProgressBar: true,
         })
       })
-      .catch(error=>{
-        console.log(error)
-      })
+      .catch(() => undefined)
     }
     return (
-        <div>
-            <div className="navbar min-h-16 rounded-[10px] bg-white px-2 shadow-md sm:px-4 lg:max-w-full lg:px-7">
+        <div className="relative z-[1000]">
+            <div className="navbar min-h-16 flex-wrap gap-y-2 rounded-[10px] bg-white px-2 py-2 shadow-md sm:flex-nowrap sm:px-4 sm:py-0 lg:max-w-full lg:px-7">
   <div className="navbar-start min-w-0 flex-1">
     <div className={user ? 'dropdown' : 'hidden'}>
-      <div tabIndex={0} role="button" aria-label="Open navigation menu" className="btn btn-ghost btn-square lg:hidden">
+      <div tabIndex={0} role="button" aria-label="Open navigation menu" className="btn btn-ghost btn-square min-h-11 min-w-11 lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
       <ul
         tabIndex="-1"
-        className="menu menu-sm dropdown-content bg-white rounded-box z-1 mt-3 w-52 p-2 shadow hover:bg-base-300">
+        className="menu menu-sm dropdown-content z-[1100] mt-3 w-[min(18rem,calc(100vw-2rem))] rounded-box bg-white p-2 shadow-xl">
         {links}
       </ul>
     </div>
     {/* LOGO degins -> */}
-   <NavLink to="/" aria-label="ZapShift home" className="shrink-0"> <div className="logo flex shrink-0 cursor-pointer">
+   <NavLink to="/" aria-label="ZapShift home" className="inline-flex min-h-11 min-w-11 shrink-0 items-center"> <div className="logo flex shrink-0 cursor-pointer">
         <Logo></Logo>
         <p className='my-auto hidden text-xl font-semibold text-[#303030] sm:block sm:text-2xl'>ZapShift</p>
     </div></NavLink>
@@ -102,18 +100,18 @@ const Navbar = () => {
      {links}
     </ul>
   </div>
-  <div className="navbar-end w-auto shrink-0 gap-1 login">
+  <div className="navbar-end w-full shrink-0 justify-end gap-2 login sm:w-auto sm:gap-1">
     
     {
       user ? 
-      <button onClick={landealLogOut} className="btn btn-sm btn-outline rounded-xl text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign Out</button>
+      <button onClick={landealLogOut} className="btn btn-sm min-h-10 rounded-xl btn-outline text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign Out</button>
      
-       : <NavLink to="/login" > <button className="btn btn-sm btn-outline rounded-xl text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign In</button></NavLink>
+       : <NavLink to="/login" className="shrink-0"> <span className="btn btn-sm min-h-10 rounded-xl btn-outline text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign In</span></NavLink>
     
     }
     {!isRoleLoading && !isAdmin && <>
-      <NavLink to="bearider" className="shrink-0"> <button className="btn btn-sm btn-outline rounded-xl px-2 text-[#606060] sm:btn-md sm:px-4 lg:font-semibold lg:text-[18px]">Be a rider</button></NavLink>
-      <NavLink to="/" aria-label="Go to home page" className="shrink-0"> <div className='flex size-8 items-center justify-center rounded-full bg-black p-2'><img src={aro} alt="" /></div>  </NavLink>
+      <NavLink to="/bearider" className="btn btn-sm min-h-10 shrink-0 rounded-xl btn-outline px-3 text-[#606060] sm:btn-md sm:px-4 lg:font-semibold lg:text-[18px]">Be a rider</NavLink>
+      <NavLink to="/" aria-label="Go to home page" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-black p-2.5 sm:size-11"><img src={aro} alt="" /></NavLink>
     </>}
   </div>
 </div>

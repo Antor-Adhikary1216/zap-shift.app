@@ -170,14 +170,14 @@ const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDa
     return (
         <div>
             
-            <div className="card-body mx-auto w-full max-w-md px-0 sm:px-8">
+            <div className="card-body mx-auto w-full max-w-md gap-0 px-0 py-0 sm:px-8">
                  <Goback/>
-                             <h2 className='text-4xl font-bold my-2'> Create Account </h2>
-                        <p className=''>Register with ZapShift</p>
-                    <form onSubmit={handleSubmit(submitHeandel)} >
-                        <fieldset className="fieldset">
+                             <h2 className='my-2 text-3xl font-bold leading-tight sm:text-4xl'>Create Account</h2>
+                        <p>Register with ZapShift</p>
+                    <form onSubmit={handleSubmit(submitHeandel)} className="mt-4 min-w-0">
+                        <fieldset className="fieldset min-w-0">
                       <label className="label text-[17px]">Profile image</label>
-                      <div className="flex items-center gap-4">
+                      <div className="flex min-w-0 items-center gap-3 sm:gap-4">
                         <label
                           htmlFor="profile-image"
                           className="group relative flex size-16 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-transparent bg-[#F1F3F4] transition hover:scale-105 hover:border-[#CAEB66] focus-within:ring-2 focus-within:ring-[#CAEB66]"
@@ -197,19 +197,19 @@ const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDa
                             className="sr-only"
                           />
                         </label>
-                        <div>
-                          <p className="text-sm font-semibold text-[#303030]">Upload your photo <span className="font-normal text-[#777777]">(optional)</span></p>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold leading-5 text-[#303030]">Upload your photo <span className="font-normal text-[#777777]">(optional)</span></p>
                           <p className="mt-1 text-xs text-[#777777]">Skip this now and add a photo later.</p>
                         </div>
                       </div>
                     
                       <label className="label  text-[17px]">Name</label>
-                      <input type="text" {...register("name",{required:true, pattern:/^[A-Za-z][A-Za-z\s'-]*$/i})} className="input w-full rounded-2xl" placeholder="Name" />
+                      <input type="text" autoComplete="name" {...register("name",{required:true, pattern:/^[A-Za-z][A-Za-z\s'-]*$/i})} className="input h-12 w-full min-w-0 rounded-2xl text-base" placeholder="Name" />
                        {errors.name?.type === "required"&&(
                         <p className='text-red-600 '> Name is requrde!! </p>
                       )}
                       <label className="label  text-[17px]">Email</label>
-                      <input type="email" {...register("email", { required: true, pattern: emailPattern })} className={`input w-full rounded-2xl ${errors.email ? 'border-red-500' : ''}`} placeholder="Email" />
+                      <input type="email" autoComplete="email" {...register("email", { required: true, pattern: emailPattern })} className={`input h-12 w-full min-w-0 rounded-2xl text-base ${errors.email ? 'border-red-500' : ''}`} placeholder="Email" />
                       {errors.email?.type === 'required' && <p className="text-sm font-medium text-red-600">Email is required.</p>}
                       {errors.email?.type === 'pattern' && <p className="text-sm font-medium text-red-600">Please provide a valid email address.</p>}
                       <label className="label text-[17px]">Password</label>
@@ -217,7 +217,7 @@ const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDa
                         <input
                           type={showPassword ? 'text' : 'password'}
                           {...register("password", {required:true , minLength:6})}
-                          className="input w-full rounded-2xl pr-12"
+                          className="input h-12 w-full min-w-0 rounded-2xl pr-12 text-base"
                           placeholder="Password"
                         />
                         <button
@@ -236,12 +236,12 @@ const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDa
                         )
                       }
                       
-                      <NavLink to="/login"><p className='text-blue-600 hover:underline'> back to Login </p></NavLink>
+                      <NavLink to="/login" className="inline-flex min-h-11 items-center self-start text-blue-600 hover:underline">Back to Login</NavLink>
                      
                       
                       {registrationError && <p className="rounded-lg bg-red-50 p-3 text-sm font-medium text-red-700" role="alert">{registrationError}</p>}
 
-                      <button disabled={isSubmitting} className="btn btn-neutral mt-4 w-full rounded-full disabled:opacity-60">
+                      <button disabled={isSubmitting} className="btn btn-neutral mt-4 min-h-12 w-full rounded-full disabled:opacity-60">
                         {isSubmitting ? submissionStep : 'Register'}
                       </button>
                       {/* google btn */}

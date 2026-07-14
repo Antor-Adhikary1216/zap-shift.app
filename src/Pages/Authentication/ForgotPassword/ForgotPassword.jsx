@@ -129,8 +129,8 @@ const ForgotPassword = () => {
   }
 
   return (
-    <section className="mx-auto w-full max-w-md px-0 sm:px-8">
-      <h1 className="text-4xl font-extrabold tracking-tight text-[#111111] sm:text-[44px]">Forgot Password</h1>
+    <section className="mx-auto w-full max-w-md min-w-0 px-0 sm:px-8">
+      <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-[#111111] sm:text-[44px]">Forgot Password</h1>
       <p className="mt-3 max-w-sm leading-6 text-[#404040]">
         Enter your email address and we&apos;ll send you a 6-digit verification code.
       </p>
@@ -150,7 +150,7 @@ const ForgotPassword = () => {
               message: 'Enter a valid email address.',
             },
           })}
-          className={`h-12 w-full rounded-md border bg-white px-4 outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35 ${errors.email ? 'border-red-500' : 'border-[#CBD5E1]'}`}
+          className={`h-12 w-full min-w-0 rounded-md border bg-white px-4 text-base outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35 ${errors.email ? 'border-red-500' : 'border-[#CBD5E1]'}`}
         />
         {errors.email && <p className="mt-2 text-sm font-medium text-red-600" role="alert">{errors.email.message}</p>}
 
@@ -175,7 +175,7 @@ const ForgotPassword = () => {
             maxLength="6"
             pattern="[0-9]{6}"
             placeholder="Enter 6-digit code"
-            className="h-12 w-full rounded-md border border-[#CBD5E1] bg-white px-4 text-center text-xl font-bold tracking-[0.35em] outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35"
+            className="h-12 w-full min-w-0 rounded-md border border-[#CBD5E1] bg-white px-3 text-center text-xl font-bold tracking-[0.22em] outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35 sm:px-4 sm:tracking-[0.35em]"
           />
           <p className={`mt-3 text-center text-sm font-semibold ${codeSeconds > 0 ? 'text-[#526414]' : 'text-red-600'}`} role="timer">
             {codeSeconds > 0 ? `Code expires in 00:${String(codeSeconds).padStart(2, '0')}` : 'Code expired'}
@@ -184,11 +184,11 @@ const ForgotPassword = () => {
             {isVerifying ? 'Verifying...' : 'Verify code'}
           </button>
           {codeSeconds <= 0 && (
-            <button type="button" disabled={isSending} onClick={() => sendCode(emailAddress)} className="mt-3 w-full text-sm font-semibold text-[#77951d] hover:underline disabled:opacity-60">
+            <button type="button" disabled={isSending} onClick={() => sendCode(emailAddress)} className="mt-1 flex min-h-11 w-full items-center justify-center text-sm font-semibold text-[#77951d] hover:underline disabled:opacity-60">
               {isSending ? 'Sending...' : 'Send a new code'}
             </button>
           )}
-          <button type="button" onClick={() => { setStep('email'); setMessage(''); setRequestError('') }} className="mt-3 w-full text-sm font-semibold text-[#77951d] hover:underline">
+          <button type="button" onClick={() => { setStep('email'); setMessage(''); setRequestError('') }} className="flex min-h-11 w-full items-center justify-center text-sm font-semibold text-[#77951d] hover:underline">
             Use a different email
           </button>
         </form>
@@ -210,7 +210,7 @@ const ForgotPassword = () => {
               minLength="6"
               required
               placeholder="At least 6 characters"
-              className="h-12 w-full rounded-md border border-[#CBD5E1] bg-white px-4 pr-12 outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35"
+              className="h-12 w-full min-w-0 rounded-md border border-[#CBD5E1] bg-white px-4 pr-12 text-base outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35"
             />
             <button type="button" onClick={() => setShowPassword((visible) => !visible)} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#606060]" aria-label={showPassword ? 'Hide passwords' : 'Show passwords'}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -226,7 +226,7 @@ const ForgotPassword = () => {
               minLength="6"
               required
               placeholder="Enter the password again"
-              className="h-12 w-full rounded-md border border-[#CBD5E1] bg-white px-4 pr-12 outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35"
+              className="h-12 w-full min-w-0 rounded-md border border-[#CBD5E1] bg-white px-4 pr-12 text-base outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35"
             />
             <button type="button" onClick={() => setShowPassword((visible) => !visible)} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#606060]" aria-label={showPassword ? 'Hide passwords' : 'Show passwords'}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -248,9 +248,9 @@ const ForgotPassword = () => {
       {message && <p className="mt-4 rounded-lg bg-green-50 p-3 text-sm font-medium text-green-700" role="status">{message}</p>}
       {requestError && <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm font-medium text-red-700" role="alert">{requestError}</p>}
 
-      <p className="mt-6 text-[#818181]">
-        Remember your password?{' '}
-        <Link to="/login" className="font-semibold text-[#87a925] hover:underline">Login</Link>
+      <p className="mt-4 flex flex-wrap items-center gap-x-1 text-[#818181]">
+        <span>Remember your password?</span>
+        <Link to="/login" className="inline-flex min-h-11 items-center font-semibold text-[#87a925] hover:underline">Login</Link>
       </p>
     </section>
   )

@@ -1,4 +1,3 @@
-import React, { use } from 'react';
 import delevery from "../../assets/png/bookingIcon.png"
 
 const Workcard = ({data}) => {
@@ -6,10 +5,10 @@ const Workcard = ({data}) => {
    
     return (
         <div className="h-full">
-            <div className="h-full rounded-lg bg-white px-6 py-6 shadow-md lg:h-[260px] lg:px-8">
+            <div className="h-full rounded-lg bg-white px-5 py-6 shadow-md sm:px-6 lg:min-h-[260px] lg:px-8">
                 <img src={delevery} alt="" className='h-[50px] w-[50px]' />
-                <p className='text-[18px] font-medium my-3'>{data.title}</p>
-                <p className='text-[#606060] text-[16px]'>{data.description}</p>
+                <p className="my-3 text-lg font-semibold">{data.title}</p>
+                <p className="text-base leading-6 text-[#606060]">{data.description}</p>
             </div>
         </div>
     );

@@ -1,29 +1,28 @@
-import React from 'react';
 import Logo from '../../../Components/Logo/Logo';
 
 const Footer = () => {
     return (
-        <div>
-            <footer className="footer footer-center flex w-full flex-col rounded-2xl bg-black p-5 text-center text-white sm:p-7">
+        <div className="mt-8 sm:mt-10">
+            <footer className="footer footer-center flex w-full flex-col gap-5 rounded-2xl bg-black px-4 py-7 text-center text-white sm:p-8">
 
-              <div className="flex">
-                <Logo></Logo>
-                <p className='text-3xl'>ZapShift</p>
+              <div className="flex items-center gap-2">
+                <Logo />
+                <p className="text-2xl font-semibold sm:text-3xl">ZapShift</p>
               </div>
-              <p> Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to <br /> business shipments - we deliver on time, every time.</p>
-              <div className=" border-b border-base-200 w-full ">
+              <p className="mx-auto max-w-3xl text-sm leading-6 text-white/80 sm:text-base sm:leading-7">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments - we deliver on time, every time.</p>
+              <div className="w-full border-b border-base-200/40">
                 
               </div>
-  <nav className="flex flex-wrap justify-center gap-4">
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
+  <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
+    <a className="link link-hover inline-flex min-h-11 items-center">About us</a>
+    <a className="link link-hover inline-flex min-h-11 items-center">Contact</a>
+    <a className="link link-hover inline-flex min-h-11 items-center">Jobs</a>
+    <a className="link link-hover inline-flex min-h-11 items-center">Press kit</a>
   </nav>
-  <div className="border-b border-base-200 w-full"></div>
+  <div className="w-full border-b border-base-200/40"></div>
   <nav>
-    <div className="grid grid-flow-col gap-4">
-      <a>
+    <div className="grid grid-flow-col gap-3">
+      <a aria-label="Follow ZapShift on X" className="flex size-11 items-center justify-center rounded-full hover:bg-white/10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -34,7 +33,7 @@ const Footer = () => {
             d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
         </svg>
       </a>
-      <a>
+      <a aria-label="Follow ZapShift on YouTube" className="flex size-11 items-center justify-center rounded-full hover:bg-white/10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -45,7 +44,7 @@ const Footer = () => {
             d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
         </svg>
       </a>
-      <a>
+      <a aria-label="Follow ZapShift on Facebook" className="flex size-11 items-center justify-center rounded-full hover:bg-white/10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -59,7 +58,7 @@ const Footer = () => {
     </div>
   </nav>
   <aside className="w-full max-w-full">
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+    <p className="text-sm leading-6 text-white/75">Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
   </aside>
 </footer>
         </div>

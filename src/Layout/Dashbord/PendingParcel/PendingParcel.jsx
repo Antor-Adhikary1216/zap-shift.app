@@ -28,9 +28,9 @@ const PendingParcel = () => {
 
     if (isError || !parcel) {
         return (
-            <div className="m-6 rounded-xl bg-white p-8 shadow-sm">
-                <h2 className="text-2xl font-semibold text-red-600">Parcel not found</h2>
-                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-5">
+            <div className="mx-3 my-4 max-w-3xl rounded-xl bg-white p-5 shadow-sm sm:mx-auto sm:my-6 sm:p-8">
+                <h2 className="text-xl font-semibold text-red-600 sm:text-2xl">Parcel not found</h2>
+                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-5 min-h-11 w-full sm:w-auto">
                     Back to my parcels
                 </Link>
             </div>
@@ -39,10 +39,10 @@ const PendingParcel = () => {
 
     if (parcel.paymentStatus !== 'paid') {
         return (
-            <div className="m-6 rounded-xl bg-white p-8 shadow-sm">
-                <h2 className="text-2xl font-semibold text-amber-600">Payment is still pending</h2>
+            <div className="mx-3 my-4 max-w-3xl rounded-xl bg-white p-5 shadow-sm sm:mx-auto sm:my-6 sm:p-8">
+                <h2 className="text-xl font-semibold text-amber-600 sm:text-2xl">Payment is still pending</h2>
                 <p className="mt-2 text-gray-600">Complete the payment before tracking this parcel.</p>
-                <Link to={`/dashbord/payment/${parcel._id}`} className="btn bg-amber-400 mt-5">
+                <Link to={`/dashbord/payment/${parcel._id}`} className="btn mt-5 min-h-11 w-full bg-amber-400 sm:w-auto">
                     Pay Now
                 </Link>
             </div>
@@ -53,11 +53,11 @@ const PendingParcel = () => {
     const deliveryStatus = parcel.paymentStatus === 'paid' ? 'Parcel Shipped' : 'Pay Fast'
 
     return (
-        <div className="m-4 max-w-3xl rounded-xl bg-white p-5 shadow-sm sm:m-6 sm:p-8">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
+        <div className="mx-3 my-4 max-w-3xl rounded-xl bg-white p-4 shadow-sm sm:mx-auto sm:my-6 sm:p-8">
+            <div className="flex flex-col items-start gap-3 min-[390px]:flex-row min-[390px]:justify-between min-[390px]:gap-4">
+                <div className="min-w-0">
                     <p className="text-sm font-medium uppercase tracking-wide text-gray-500">Pending parcel</p>
-                    <h2 className="mt-1 text-3xl font-semibold">{parcel.parcelName || 'Unnamed parcel'}</h2>
+                    <h2 className="mt-1 break-words text-2xl font-semibold sm:text-3xl">{parcel.parcelName || 'Unnamed parcel'}</h2>
                 </div>
                 <span className="badge badge-warning badge-lg">{deliveryStatus}</span>
             </div>
@@ -85,13 +85,13 @@ const PendingParcel = () => {
                 </div>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 grid gap-3 min-[390px]:flex min-[390px]:flex-wrap">
                 {parcel.trackingId && (
-                    <Link to={`/dashbord/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`} className="btn bg-[#CAEB66] text-[#03373D] border-0">
+                    <Link to={`/dashbord/track-parcel?trackingId=${encodeURIComponent(parcel.trackingId)}`} className="btn min-h-11 border-0 bg-[#CAEB66] text-[#03373D]">
                         Track parcel
                     </Link>
                 )}
-                <Link to="/dashbord/my-parcels" className="btn btn-neutral">
+                <Link to="/dashbord/my-parcels" className="btn btn-neutral min-h-11">
                     View all parcels
                 </Link>
             </div>

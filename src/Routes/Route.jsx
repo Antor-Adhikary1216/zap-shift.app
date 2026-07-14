@@ -28,6 +28,7 @@ import AdminParcels from "../Layout/Dashbord/AdminParcels/AdminParcels";
 import AccountSettings from "../Layout/Dashbord/AccountSettings/AccountSettings";
 import UserRoute from "./UserRoute";
 import DashboardHome from "./DashboardHome";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 
 
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
     {
         path:"/",
         element:<RootLayout/>,
+        errorElement:<ErrorPage />,
         children:[
             {
                 index: true,
@@ -74,6 +76,7 @@ export const router = createBrowserRouter([
     {
          path:"/",
          Component: AuthLaout,
+         errorElement:<ErrorPage />,
          children:[
             {
                 path:"login",
@@ -92,6 +95,7 @@ export const router = createBrowserRouter([
     {
         path:"dashbord",
         element: <PrivetRoute><Dashlayout /></PrivetRoute>,
+        errorElement:<ErrorPage />,
         children:[
             {
                 index: true,
@@ -130,6 +134,11 @@ export const router = createBrowserRouter([
                 element: <AdminRoute><UserManagement /></AdminRoute>
             },
             {
+                path:'coverage',
+                element: <AdminRoute><Coverags /></AdminRoute>,
+                loader: () => fetch('/Resoin.json').then((res) => res.json())
+            },
+            {
                 path:"payment/:parcelId",
                 element: <UserRoute><PayNow /></UserRoute>,
             },
@@ -146,6 +155,10 @@ export const router = createBrowserRouter([
                 element: <UserRoute><PendingParcel /></UserRoute>
             }
         ]
+    },
+    {
+        path:"*",
+        element:<ErrorPage />
     }
 
 ])
