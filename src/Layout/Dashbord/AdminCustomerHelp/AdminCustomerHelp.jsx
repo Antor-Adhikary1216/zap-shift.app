@@ -18,11 +18,27 @@ const formatDate = (date) => date
   : 'Date not available'
 
 const topicLabels = {
+  booking: 'Book or send a parcel',
   parcel: 'Parcel delivery',
-  tracking: 'Tracking',
-  payment: 'Payment',
-  account: 'Account or login',
+  pickup: 'Pickup issue',
+  tracking: 'Track a parcel',
+  'delivery-delay': 'Delivery delay',
+  'failed-delivery': 'Failed or missed delivery',
+  'change-cancel': 'Change details or cancel a booking',
+  'damaged-parcel': 'Damaged parcel',
+  'lost-parcel': 'Lost or missing parcel',
+  payment: 'Payment problem',
+  refund: 'Refund request',
+  invoice: 'Invoice or payment receipt',
+  account: 'Account or login problem',
+  verification: 'Email verification',
+  technical: 'Website or technical issue',
+  pricing: 'Pricing question',
+  coverage: 'Delivery coverage',
   rider: 'Rider application',
+  business: 'Business or bulk delivery',
+  safety: 'Safety or security concern',
+  complaint: 'Complaint about service',
   other: 'Other',
 }
 

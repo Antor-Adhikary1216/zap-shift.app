@@ -65,7 +65,7 @@ const faqs = [
 const initialForm = {
   name: '',
   email: '',
-  category: 'parcel',
+  category: 'booking',
   trackingId: '',
   message: '',
 }
@@ -229,12 +229,37 @@ const ContactUs = () => {
               <label className="grid gap-2 text-sm font-semibold">
                 Help topic
                 <select name="category" value={form.category} onChange={updateField} className="min-h-12 rounded-xl border border-white/15 bg-[#17484E] px-4 text-base text-white outline-none focus:border-[#CAEB66] focus:ring-2 focus:ring-[#CAEB66]/20">
-                  <option value="parcel">Parcel delivery</option>
-                  <option value="tracking">Tracking</option>
-                  <option value="payment">Payment</option>
-                  <option value="account">Account or login</option>
-                  <option value="rider">Rider application</option>
-                  <option value="other">Something else</option>
+                  <optgroup label="Parcel booking and delivery">
+                    <option value="booking">Book or send a parcel</option>
+                    <option value="pickup">Pickup issue</option>
+                    <option value="tracking">Track a parcel</option>
+                    <option value="delivery-delay">Delivery delay</option>
+                    <option value="failed-delivery">Failed or missed delivery</option>
+                    <option value="change-cancel">Change details or cancel a booking</option>
+                    <option value="damaged-parcel">Damaged parcel</option>
+                    <option value="lost-parcel">Lost or missing parcel</option>
+                  </optgroup>
+                  <optgroup label="Payments and documents">
+                    <option value="payment">Payment problem</option>
+                    <option value="refund">Refund request</option>
+                    <option value="invoice">Invoice or payment receipt</option>
+                  </optgroup>
+                  <optgroup label="Account and website">
+                    <option value="account">Account or login problem</option>
+                    <option value="verification">Email verification</option>
+                    <option value="technical">Website or technical issue</option>
+                  </optgroup>
+                  <optgroup label="Services and partnerships">
+                    <option value="pricing">Pricing question</option>
+                    <option value="coverage">Delivery coverage</option>
+                    <option value="rider">Rider application</option>
+                    <option value="business">Business or bulk delivery</option>
+                  </optgroup>
+                  <optgroup label="Other assistance">
+                    <option value="safety">Safety or security concern</option>
+                    <option value="complaint">Complaint about service</option>
+                    <option value="other">Something else</option>
+                  </optgroup>
                 </select>
               </label>
               <label className="grid gap-2 text-sm font-semibold">
