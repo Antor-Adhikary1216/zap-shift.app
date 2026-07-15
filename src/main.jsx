@@ -9,6 +9,7 @@ import { router } from "./Routes/Route.jsx";
 import AuthProvider from "./Context/AuthContext/AuthProvider/AuthProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GlobalLoadingOverlay from "./Components/LoadingIndicator/GlobalLoadingOverlay.jsx";
+import FirstTimeFeatureGuide from "./Components/FirstTimeFeatureGuide/FirstTimeFeatureGuide.jsx";
 import "./Utilities/configureGlobalAxiosLoading.js";
 
 const queryClient = new QueryClient({
@@ -27,6 +28,7 @@ createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <GlobalLoadingOverlay />
+        <FirstTimeFeatureGuide />
         <Suspense
           fallback={(
             <div className="flex min-h-screen items-center justify-center bg-[#F6F8F8] px-4" role="status" aria-live="polite">
