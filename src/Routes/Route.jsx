@@ -15,6 +15,7 @@ import {
     Bargainnig,
     BeaRider,
     Coverags,
+    ContactUs,
     Dashlayout,
     ForgotPassword,
     Login,
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
             {
                 path:"aboutUs",
                 element: <AboutUS />
+            },
+            {
+                path:"contact-us",
+                element: <ContactUs />
             },
             {
                 path:"bargainnig",

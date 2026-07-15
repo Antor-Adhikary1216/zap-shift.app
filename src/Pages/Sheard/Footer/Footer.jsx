@@ -113,6 +113,7 @@ const Footer = () => {
 
             <nav className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-white/60" aria-label="Footer navigation">
               <NavLink to="/aboutUs" className="inline-flex min-h-11 items-center transition hover:text-[#CAEB66]">About us</NavLink>
+              <NavLink to="/contact-us" className="inline-flex min-h-11 items-center transition hover:text-[#CAEB66]">Contact us</NavLink>
               <NavLink to="/services" className="inline-flex min-h-11 items-center transition hover:text-[#CAEB66]">Services</NavLink>
               <NavLink to="/Coverags" className="inline-flex min-h-11 items-center transition hover:text-[#CAEB66]">Coverage</NavLink>
               <NavLink to="/bargainnig" className="inline-flex min-h-11 items-center transition hover:text-[#CAEB66]">Pricing</NavLink>

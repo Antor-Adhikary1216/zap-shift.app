@@ -3,6 +3,7 @@ import { lazy } from "react";
 export const Coverags = lazy(() => import("../Components/Coverage/Coverags"));
 export const Services = lazy(() => import("../Components/Services/Services"));
 export const AboutUS = lazy(() => import("../Components/AboutUS/AboutUS"));
+export const ContactUs = lazy(() => import("../Pages/ContactUs/ContactUs"));
 export const Bargainnig = lazy(() => import("../Components/Bargainnig/Bargainnig"));
 export const BeaRider = lazy(() => import("../Components/BeaRider/BeaRider"));
 export const AuthLaout = lazy(() => import("../Layout/AuthLaoyut/AuthLaout"));
