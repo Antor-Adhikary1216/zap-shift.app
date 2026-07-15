@@ -23,4 +23,5 @@ export const ApprovedRider = lazy(() => import("../Layout/Dashbord/ApprovedRider
 export const UserManagement = lazy(() => import("../Layout/Dashbord/UserManagement/UserManagement"));
 export const AdminPaymentHistory = lazy(() => import("../Layout/Dashbord/AdminPaymentHistory/AdminPaymentHistory"));
 export const AdminParcels = lazy(() => import("../Layout/Dashbord/AdminParcels/AdminParcels"));
+export const AdminFeedback = lazy(() => import("../Layout/Dashbord/AdminFeedback/AdminFeedback"));
 export const AccountSettings = lazy(() => import("../Layout/Dashbord/AccountSettings/AccountSettings"));

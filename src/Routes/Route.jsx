@@ -9,6 +9,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import {
     AccountSettings,
     AdminParcels,
+    AdminFeedback,
     AdminPaymentHistory,
     ApprovedRider,
     AuthLaout,
@@ -144,6 +145,10 @@ export const router = createBrowserRouter([
                 path:'coverage',
                 element: <AdminRoute><Coverags /></AdminRoute>,
                 loader: () => fetch('/Resoin.json').then((res) => res.json())
+            },
+            {
+                path:'feedback',
+                element: <AdminRoute><AdminFeedback /></AdminRoute>
             },
             {
                 path:"payment/:parcelId",
