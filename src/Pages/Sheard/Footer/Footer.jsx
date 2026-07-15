@@ -1,4 +1,5 @@
 import Logo from '../../../Components/Logo/Logo';
+import { NavLink } from 'react-router';
 
 const Footer = () => {
     return (
@@ -14,7 +15,7 @@ const Footer = () => {
                 
               </div>
   <nav className="flex flex-wrap justify-center gap-x-5 gap-y-1">
-    <a className="link link-hover inline-flex min-h-11 items-center">About us</a>
+    <NavLink to="/aboutUs" className="link link-hover inline-flex min-h-11 items-center">About us</NavLink>
     <a className="link link-hover inline-flex min-h-11 items-center">Contact</a>
     <a className="link link-hover inline-flex min-h-11 items-center">Jobs</a>
     <a className="link link-hover inline-flex min-h-11 items-center">Press kit</a>

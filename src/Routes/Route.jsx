@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"aboutUs",
-                element: <PrivetRoute><AboutUS /></PrivetRoute>
+                element: <AboutUS />
             },
             {
                 path:"bargainnig",
