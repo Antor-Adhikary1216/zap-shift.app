@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import './nav.css'
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import useUserRole from '../../../Hooks/useUserRole/useUserRole';
-import { FaMotorcycle, FaSignInAlt } from 'react-icons/fa';
+import { FaMotorcycle, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   const {user, loading, Logout} = useAuth()
@@ -105,7 +105,14 @@ const Navbar = () => {
     
     {
       user ? 
-      <button onClick={landealLogOut} className="btn btn-sm min-h-10 rounded-xl btn-outline text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign Out</button>
+      <button
+        type="button"
+        onClick={landealLogOut}
+        className="group inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl border border-slate-300 bg-white px-3.5 text-sm font-bold text-[#03373D] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-red-300 hover:bg-red-50 hover:text-red-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300 focus-visible:ring-offset-2 sm:min-h-12 sm:px-5 sm:text-base"
+      >
+        <span>Sign Out</span>
+        <FaSignOutAlt className="shrink-0 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+      </button>
      
        : <NavLink
           to="/login"
