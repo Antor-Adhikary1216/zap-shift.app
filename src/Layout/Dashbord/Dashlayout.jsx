@@ -8,6 +8,7 @@ import {
   FaCreditCard,
   FaCommentDots,
   FaHome,
+  FaHeadset,
   FaMapMarkedAlt,
   FaMoneyCheckAlt,
   FaSearch,
@@ -32,6 +33,7 @@ const pageTitles = {
   'user-management': ['User management', 'Manage users, roles, and account access.'],
   coverage: ['Coverage', 'View and search ZapShift delivery coverage areas.'],
   feedback: ['User feedback', 'Read ratings and comments submitted by ZapShift users.'],
+  'customer-help': ['Customer help', 'Review and manage support tickets submitted through Contact Us.'],
   payment: ['Parcel payment', 'Complete payment for your parcel request.'],
   'payment-successful': ['Payment successful', 'Your parcel payment has been confirmed.'],
   'payment-canceld': ['Payment cancelled', 'Your parcel payment was not completed.'],
@@ -77,6 +79,7 @@ const Dashlayout = () => {
     { to: 'user-management', label: 'User management', icon: FaUsersCog },
     { to: 'coverage', label: 'Coverage', icon: FaMapMarkedAlt },
     { to: 'feedback', label: 'Feedback', icon: FaCommentDots },
+    { to: 'customer-help', label: 'Customer help', icon: FaHeadset },
   ]
 
   const navigationItems = roleInfo?.isAdmin ? adminNavigation : userNavigation

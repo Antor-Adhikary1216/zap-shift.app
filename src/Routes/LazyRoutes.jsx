@@ -24,4 +24,5 @@ export const UserManagement = lazy(() => import("../Layout/Dashbord/UserManageme
 export const AdminPaymentHistory = lazy(() => import("../Layout/Dashbord/AdminPaymentHistory/AdminPaymentHistory"));
 export const AdminParcels = lazy(() => import("../Layout/Dashbord/AdminParcels/AdminParcels"));
 export const AdminFeedback = lazy(() => import("../Layout/Dashbord/AdminFeedback/AdminFeedback"));
+export const AdminCustomerHelp = lazy(() => import("../Layout/Dashbord/AdminCustomerHelp/AdminCustomerHelp"));
 export const AccountSettings = lazy(() => import("../Layout/Dashbord/AccountSettings/AccountSettings"));

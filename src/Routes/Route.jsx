@@ -10,6 +10,7 @@ import {
     AccountSettings,
     AdminParcels,
     AdminFeedback,
+    AdminCustomerHelp,
     AdminPaymentHistory,
     ApprovedRider,
     AuthLaout,
@@ -149,6 +150,10 @@ export const router = createBrowserRouter([
             {
                 path:'feedback',
                 element: <AdminRoute><AdminFeedback /></AdminRoute>
+            },
+            {
+                path:'customer-help',
+                element: <AdminRoute><AdminCustomerHelp /></AdminRoute>
             },
             {
                 path:"payment/:parcelId",
