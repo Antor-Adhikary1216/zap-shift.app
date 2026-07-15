@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import './nav.css'
 import useAuth from '../../../Hooks/useAuth/useAuth';
 import useUserRole from '../../../Hooks/useUserRole/useUserRole';
+import { FaMotorcycle, FaSignInAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   const {user, loading, Logout} = useAuth()
@@ -106,11 +107,24 @@ const Navbar = () => {
       user ? 
       <button onClick={landealLogOut} className="btn btn-sm min-h-10 rounded-xl btn-outline text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign Out</button>
      
-       : <NavLink to="/login" className="shrink-0"> <span className="btn btn-sm min-h-10 rounded-xl btn-outline text-[#606060] sm:btn-md lg:font-semibold lg:text-[18px]">Sign In</span></NavLink>
+       : <NavLink
+          to="/login"
+          className="group relative inline-flex min-h-10 shrink-0 items-center gap-2 overflow-hidden rounded-xl border border-[#03373D] bg-[#03373D] px-3.5 text-sm font-bold text-white shadow-md shadow-[#03373D]/15 transition duration-300 hover:-translate-y-0.5 hover:border-[#0A4A52] hover:bg-[#0A4A52] hover:shadow-lg hover:shadow-[#03373D]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#CAEB66] focus-visible:ring-offset-2 sm:min-h-12 sm:px-5 sm:text-base"
+        >
+          <span className="absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/20 transition-all duration-500 group-hover:left-[120%]" aria-hidden="true" />
+          <FaSignInAlt className="relative shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+          <span className="relative">Sign In</span>
+        </NavLink>
     
     }
     {!isRoleLoading && !isAdmin && <>
-      <NavLink to="/bearider" className="btn btn-sm min-h-10 shrink-0 rounded-xl btn-outline px-3 text-[#606060] sm:btn-md sm:px-4 lg:font-semibold lg:text-[18px]">Be a rider</NavLink>
+      <NavLink
+        to="/bearider"
+        className="group inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl border border-[#A8CE36] bg-[#CAEB66] px-3.5 text-sm font-bold text-[#03373D] shadow-md shadow-[#9FBE3C]/20 transition duration-300 hover:-translate-y-0.5 hover:border-[#03373D] hover:bg-[#D7F584] hover:shadow-lg hover:shadow-[#9FBE3C]/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#03373D] focus-visible:ring-offset-2 sm:min-h-12 sm:px-5 sm:text-base"
+      >
+        <FaMotorcycle className="shrink-0 text-base transition-transform duration-300 group-hover:translate-x-1 group-hover:-rotate-3 sm:text-lg" aria-hidden="true" />
+        <span>Be a rider</span>
+      </NavLink>
       <NavLink to="/" aria-label="Go to home page" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-black p-2.5 sm:size-11"><img src={aro} alt="" /></NavLink>
     </>}
   </div>
