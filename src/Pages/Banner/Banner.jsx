@@ -25,11 +25,14 @@ const Banner = () => {
                 showThumbs={false}
                 swipeable
              >
-                {slides.map((slide) => (
+                {slides.map((slide, index) => (
                     <div key={slide.image} className="relative overflow-hidden rounded-2xl bg-white">
                         <img
                             src={slide.image}
                             alt={slide.alt}
+                            loading={index === 0 ? 'eager' : 'lazy'}
+                            fetchPriority={index === 0 ? 'high' : 'low'}
+                            decoding="async"
                             className="aspect-[4/3] w-full object-cover object-left sm:aspect-auto sm:object-contain"
                         />
                         <div className="flex items-center justify-center gap-2 px-2 py-3 sm:absolute sm:bottom-5 sm:left-4 sm:z-10 sm:justify-start sm:p-0 lg:bottom-16 lg:left-6">

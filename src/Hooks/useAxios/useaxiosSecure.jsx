@@ -9,7 +9,7 @@ const axiosSecure = axios.create({
 })
 
 axiosSecure.interceptors.request.use((config) => {
-    if (config.skipGlobalLoading) return config
+    if (config.skipGlobalLoading || config.method?.toLowerCase() === 'get') return config
     config.completeGlobalLoading = startGlobalLoading(config.loadingMessage || 'Loading your data...')
     return config
 }, (error) => Promise.reject(error))

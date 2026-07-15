@@ -1,0 +1,25 @@
+import { lazy } from "react";
+
+export const Coverags = lazy(() => import("../Components/Coverage/Coverags"));
+export const Services = lazy(() => import("../Components/Services/Services"));
+export const AboutUS = lazy(() => import("../Components/AboutUS/AboutUS"));
+export const Bargainnig = lazy(() => import("../Components/Bargainnig/Bargainnig"));
+export const BeaRider = lazy(() => import("../Components/BeaRider/BeaRider"));
+export const AuthLaout = lazy(() => import("../Layout/AuthLaoyut/AuthLaout"));
+export const Login = lazy(() => import("../Pages/Authentication/Login/Login"));
+export const Register = lazy(() => import("../Pages/Authentication/Register/Register"));
+export const ForgotPassword = lazy(() => import("../Pages/Authentication/ForgotPassword/ForgotPassword"));
+export const SendParscel = lazy(() => import("../Components/send_A_parscel/SendParscel"));
+export const Dashlayout = lazy(() => import("../Layout/Dashbord/Dashlayout"));
+export const MyParcels = lazy(() => import("../Layout/Dashbord/MyParcels/MyParcels"));
+export const PayNow = lazy(() => import("../Layout/Dashbord/Payment/PayNow"));
+export const Payment_success = lazy(() => import("../Layout/Dashbord/Payment/Payment_Success/Payment_success"));
+export const Payment_Canceld = lazy(() => import("../Layout/Dashbord/Payment/Payment_Cancel/Payment_Canceld"));
+export const PendingParcel = lazy(() => import("../Layout/Dashbord/PendingParcel/PendingParcel"));
+export const PaymentHistory = lazy(() => import("../Layout/Dashbord/PaymentHistory/PaymentHistory"));
+export const TrackParcel = lazy(() => import("../Pages/TrackParcel/TrackParcel"));
+export const ApprovedRider = lazy(() => import("../Layout/Dashbord/ApprovedRider/ApprovedRider"));
+export const UserManagement = lazy(() => import("../Layout/Dashbord/UserManagement/UserManagement"));
+export const AdminPaymentHistory = lazy(() => import("../Layout/Dashbord/AdminPaymentHistory/AdminPaymentHistory"));
+export const AdminParcels = lazy(() => import("../Layout/Dashbord/AdminParcels/AdminParcels"));
+export const AccountSettings = lazy(() => import("../Layout/Dashbord/AccountSettings/AccountSettings"));

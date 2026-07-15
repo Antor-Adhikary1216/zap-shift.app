@@ -1,10 +1,13 @@
+import { lazy } from 'react';
 import Banner from '../Banner/Banner';
 import Work from '../Works/work';
 import Ourservces from '../Ourservices/Ourservces';
 import Helps from '../Helps/Helps';
 import TeamsDwon from '../TeamsDown/TeamsDwon';
 import Merchant from '../Merchant/Merchant';
-import Reviws from '../Reviws/Reviws';
+import DeferredSection from '../../Components/DeferredSection/DeferredSection';
+
+const Reviws = lazy(() => import('../Reviws/Reviws'))
 
 const workpromises = fetch("/Workcard.json")
 .then(res=>res.json())
@@ -26,7 +29,9 @@ const Home = () => {
           <Helps></Helps>
           <TeamsDwon key={servesPromises.id} servesPromises={servesPromises} ></TeamsDwon>
           <Merchant></Merchant>
-          <Reviws ReviwPromises={ReviwPromises} ></Reviws>
+          <DeferredSection minHeight="32rem">
+            <Reviws ReviwPromises={ReviwPromises} />
+          </DeferredSection>
         </div>
     );
 };
