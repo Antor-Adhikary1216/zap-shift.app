@@ -6,10 +6,12 @@ import { startGlobalLoading } from '../../../Utilities/globalLoading';
 
 const apiUrl = import.meta.env.VITE_API_URL || 'https://zap-shift-server-peach-nine.vercel.app'
 
-const saveUserToDatabase = async (firebaseUser, action = 'login') => {
-    const stopLoading = startGlobalLoading(action === 'register' ? 'Creating your account...' : 'Synchronizing your account...')
+const saveUserToDatabase = async (firebaseUser, action = 'login', { showLoading = true } = {}) => {
+    const stopLoading = showLoading
+        ? startGlobalLoading(action === 'register' ? 'Creating your account...' : 'Synchronizing your account...')
+        : () => {}
     try {
-    const idToken = await firebaseUser.getIdToken(true)
+    const idToken = await firebaseUser.getIdToken()
     const response = await fetch(`${apiUrl}/users`, {
         method: 'POST',
         headers: {
@@ -41,6 +43,17 @@ const saveUserToDatabase = async (firebaseUser, action = 'login') => {
     return data
     } finally {
         stopLoading()
+    }
+}
+
+const synchronizeUserInBackground = async (firebaseUser) => {
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+        try {
+            await saveUserToDatabase(firebaseUser, 'login', { showLoading: false })
+            return
+        } catch {
+            if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 750))
+        }
     }
 }
 
@@ -88,7 +101,7 @@ const googleProvider = new GoogleAuthProvider()
         setLoading(true)
         try {
             const result = await signInWithEmailAndPassword(auth,email,password)
-            await saveUserToDatabase(result.user, 'login')
+            void synchronizeUserInBackground(result.user)
             return result
         } catch (error) {
             setLoading(false)
@@ -102,7 +115,7 @@ const googleProvider = new GoogleAuthProvider()
         setLoading(true)
         try {
             const result = await signInWithPopup(auth,googleProvider)
-            await saveUserToDatabase(result.user, 'login')
+            void synchronizeUserInBackground(result.user)
             return result
         } catch (error) {
             setLoading(false)
@@ -141,7 +154,7 @@ const googleProvider = new GoogleAuthProvider()
 
             const passwordCredential = EmailAuthProvider.credential(firebaseUser.email, password)
             await linkWithCredential(firebaseUser, passwordCredential)
-            await saveUserToDatabase(firebaseUser, 'register')
+            await saveUserToDatabase(firebaseUser, 'register', { showLoading: false })
             return firebaseUser
         } catch (error) {
             if (auth.currentUser) await signOut(auth)

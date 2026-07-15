@@ -19,7 +19,7 @@ const [showPassword, setShowPassword] = useState(false)
 const [isSubmitting, setIsSubmitting] = useState(false)
 const [submissionStep, setSubmissionStep] = useState('')
 const [registrationError, setRegistrationError] = useState('')
-const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDatabase} =useAuth()
+const {registerUser,updetedUserProfile,deleteIncompleteRegistration} =useAuth()
     const navigate = useNavigate()
     const {register,handleSubmit,
         formState:{errors}
@@ -123,7 +123,11 @@ const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDa
                     updetedUserProfile({ displayName: formData.name.trim(), photoURL }),
                     axios.post(
                         `${apiUrl}/auth/registration/complete`,
-                        { verificationToken: codePrompt.value },
+                        {
+                            verificationToken: codePrompt.value,
+                            name: formData.name.trim(),
+                            photoURL,
+                        },
                         { headers: { Authorization: `Bearer ${idToken}` } }
                     ),
                 ])
@@ -134,7 +138,6 @@ const {registerUser,updetedUserProfile,deleteIncompleteRegistration,saveUserToDa
 
                 await registration.user.reload()
                 await registration.user.getIdToken(true)
-                await saveUserToDatabase(registration.user, 'register')
 
                 await Swal.fire({
                     toast: true,

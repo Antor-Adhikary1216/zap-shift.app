@@ -13,32 +13,32 @@ const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const axiosSecure = UseaxiosSecure()
   const { user: currentUser } = useAuth()
-  const { data: users = [], isLoading, isError, error, refetch } = useQuery({
-    queryKey: ['users-management'],
+  const { data: userPage, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ['users-management', currentPage, searchTerm],
     queryFn: async () => {
-      const response = await axiosSecure.get('/users')
+      const response = await axiosSecure.get('/users', {
+        params: {
+          page: currentPage,
+          limit: 10,
+          search: searchTerm.trim() || undefined,
+        },
+      })
       return response.data
     },
+    staleTime: 0,
+    refetchOnMount: 'always',
   })
 
   const getInitial = (user) => (user.name || user.email || 'U').charAt(0).toUpperCase()
   const normalizedSearchTerm = searchTerm.trim().toLowerCase()
-  const filteredUsers = users.filter((user) =>
-    String(user.email || '').toLowerCase().includes(normalizedSearchTerm),
-  )
-  const displayedUsers = [...filteredUsers].sort((firstUser, secondUser) => {
-    const adminOrder = Number(secondUser.role === 'admin') - Number(firstUser.role === 'admin')
-    if (adminOrder !== 0) return adminOrder
-
-    const firstJoinedAt = firstUser.createdAt ? new Date(firstUser.createdAt).getTime() : 0
-    const secondJoinedAt = secondUser.createdAt ? new Date(secondUser.createdAt).getTime() : 0
-    return secondJoinedAt - firstJoinedAt
-  })
+  const users = userPage?.users || []
+  const filteredUserCount = userPage?.total || 0
+  const totalUsers = userPage?.totalUsers || 0
   const usersPerPage = 10
-  const totalPages = Math.max(1, Math.ceil(displayedUsers.length / usersPerPage))
+  const totalPages = userPage?.totalPages || 1
   const activePage = Math.min(currentPage, totalPages)
   const firstUserIndex = (activePage - 1) * usersPerPage
-  const paginatedUsers = displayedUsers.slice(firstUserIndex, firstUserIndex + usersPerPage)
+  const paginatedUsers = users
 
   const handleSearchChange = (event) => {
     setSearchInput(event.target.value)
@@ -94,7 +94,11 @@ const UserManagement = () => {
     setActiveAction(`delete-${selectedUser._id}`)
     try {
       const response = await axiosSecure.delete(`/users/${selectedUser._id}`)
-      await refetch()
+      if (users.length === 1 && currentPage > 1) {
+        setCurrentPage((page) => page - 1)
+      } else {
+        await refetch()
+      }
       Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: response.data.message, showConfirmButton: false, timer: 2200 })
     } catch (actionError) {
       Swal.fire({ icon: 'error', title: 'Action failed', text: actionError.response?.data?.message || 'Unable to delete this user.' })
@@ -110,10 +114,10 @@ const UserManagement = () => {
   return (
     <section className="min-w-0 p-3 sm:p-8">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-2xl font-bold text-[#03373D] sm:text-4xl">All Users: {users.length}</h2>
+        <h2 className="text-2xl font-bold text-[#03373D] sm:text-4xl">All Users: {totalUsers}</h2>
         <p className="mt-2 text-base-content/60">View registered ZapShift user accounts and their roles.</p>
 
-        {!isError && users.length > 0 && (
+        {!isError && totalUsers > 0 && (
           <div className="mt-6 max-w-xl">
             <label htmlFor="user-email-search" className="mb-2 block text-sm font-semibold text-[#03373D]">
               Search users by email
@@ -148,7 +152,7 @@ const UserManagement = () => {
             </form>
             {normalizedSearchTerm && (
               <p className="mt-2 text-sm text-base-content/60">
-                {displayedUsers.length} {displayedUsers.length === 1 ? 'user' : 'users'} found
+                {filteredUserCount} {filteredUserCount === 1 ? 'user' : 'users'} found
               </p>
             )}
           </div>
@@ -160,13 +164,13 @@ const UserManagement = () => {
           </div>
         )}
 
-        {!isError && users.length === 0 && (
+        {!isError && !normalizedSearchTerm && totalUsers === 0 && (
           <div className="mt-8 rounded-2xl border border-dashed border-base-300 bg-base-100 p-6 text-center sm:p-10">
             <p className="text-lg font-semibold">No registered users found</p>
           </div>
         )}
 
-        {!isError && users.length > 0 && displayedUsers.length === 0 && (
+        {!isError && normalizedSearchTerm && filteredUserCount === 0 && (
           <div className="mt-8 rounded-2xl border border-dashed border-base-300 bg-base-100 p-6 text-center sm:p-10">
             <p className="text-lg font-semibold text-[#03373D]">No users found</p>
             <p className="mt-2 text-sm text-base-content/60">
@@ -178,7 +182,7 @@ const UserManagement = () => {
           </div>
         )}
 
-        {!isError && displayedUsers.length > 0 && (
+        {!isError && users.length > 0 && (
           <div className="mt-6 space-y-4 md:hidden">
             {paginatedUsers.map((user, index) => (
               <article
@@ -258,12 +262,12 @@ const UserManagement = () => {
               </button>
             </div>
             <p className="text-center text-xs text-base-content/55">
-              Showing {firstUserIndex + 1}–{Math.min(firstUserIndex + usersPerPage, displayedUsers.length)} of {displayedUsers.length} users
+              Showing {firstUserIndex + 1}–{Math.min(firstUserIndex + users.length, filteredUserCount)} of {filteredUserCount} users
             </p>
           </div>
         )}
 
-        {!isError && displayedUsers.length > 0 && (
+        {!isError && users.length > 0 && (
           <div className="mt-8 hidden max-w-full overflow-x-auto overscroll-x-contain rounded-2xl border border-base-300 bg-base-100 shadow-sm md:block">
             <table className="table min-w-max">
               <thead className="bg-base-200 text-sm text-[#03373D]">
@@ -342,7 +346,7 @@ const UserManagement = () => {
 
             <div className="flex flex-col gap-4 border-t border-base-300 px-4 py-5 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm text-base-content/60">
-                Showing {firstUserIndex + 1}–{Math.min(firstUserIndex + usersPerPage, displayedUsers.length)} of {displayedUsers.length} users
+                Showing {firstUserIndex + 1}–{Math.min(firstUserIndex + users.length, filteredUserCount)} of {filteredUserCount} users
               </p>
 
               <div className="join max-w-full overflow-x-auto pb-1">
