@@ -1,12 +1,11 @@
-import React from 'react';
 import { FaHandPointLeft } from 'react-icons/fa';
 import { NavLink } from 'react-router';
 
 const Goback = () => {
     return (
-        <div>
-           <NavLink to="/" ><button className="btn btn-outline btn-info rounded-2xl  border-none shadow-none"> <span><FaHandPointLeft /></span> Back to Home</button></NavLink>
-        </div>
+        <NavLink to="/" className="btn btn-outline btn-info min-h-11 rounded-2xl border-none shadow-none">
+            <FaHandPointLeft /> Back to Home
+        </NavLink>
     );
 };
 

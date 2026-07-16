@@ -1,19 +1,16 @@
-import React from 'react';
-
 const ReviwCard = ({data}) => {
-    console.log(data)
     return (
-        <div>
-            <div className="rounded-lg bg-white p-5 shadow-lg sm:p-10">
-                <p>{data.review}</p>
+        <div className="h-full py-2">
+            <div className="h-full rounded-lg bg-white p-5 shadow-lg sm:p-8 lg:p-10">
+                <p className="leading-6 text-[#303030]">{data.review}</p>
                 <div className="border-b my-2 "></div>
-                <div className="flex gap-4 items-center">
-                    <div className="">
-                       <img src={data.user_photoURL} className='w-[50px] h-[50px] rounded-full' />
+                <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+                    <div className="shrink-0">
+                       <img src={data.user_photoURL} alt="" className="size-[50px] rounded-full object-cover" />
                     </div>
-                        <div className="">
-                            <h2 className='text-[#03373D] font-medium text-[20px]'>{data.userName}</h2>
-                        <p className='break-all text-[15px] text-[#606060]'>{data.delivery_email}</p>
+                        <div className="min-w-0">
+                            <h2 className="text-lg font-semibold text-[#03373D] sm:text-xl">{data.userName}</h2>
+                        <p className="break-words text-sm text-[#606060] sm:text-[15px]">{data.delivery_email}</p>
                         </div>
                 </div>
             </div>

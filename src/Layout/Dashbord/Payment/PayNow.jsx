@@ -43,7 +43,6 @@ const PayNow = () => {
 
             window.location.assign(res.data.url)
         } catch (error) {
-            console.error(error)
             setPaymentError(error.response?.data?.message || 'Unable to start payment. Please try again.')
             setIsProcessing(false)
         }
@@ -55,10 +54,10 @@ const PayNow = () => {
 
     if (isError || !parcel) {
         return (
-            <div className="mx-auto my-10 max-w-xl rounded-3xl bg-base-100 p-8 text-center shadow-sm">
-                <h2 className="text-2xl font-bold text-error">Parcel not found</h2>
+            <div className="mx-3 my-6 max-w-xl rounded-3xl bg-base-100 p-5 text-center shadow-sm sm:mx-auto sm:my-10 sm:p-8">
+                <h2 className="text-xl font-bold text-error sm:text-2xl">Parcel not found</h2>
                 <p>The parcel could not be loaded for payment.</p>
-                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-4">
+                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-4 min-h-11 w-full sm:w-auto">
                     Back to my parcels
                 </Link>
             </div>
@@ -72,36 +71,36 @@ const PayNow = () => {
     }).format(Number(parcel.cost || 0))
 
     return (
-        <main className="min-h-[calc(100vh-4rem)] bg-base-200/50 p-4 sm:p-8">
+        <main className="min-h-[calc(100vh-4rem)] min-w-0 bg-base-200/50 p-3 sm:p-8">
             <div className="mx-auto max-w-xl">
-                <div className="mb-8 flex items-center gap-4">
-                    <div className="rounded-2xl bg-primary p-4 text-primary-content">
-                        <FaCreditCard className="text-2xl" />
+                <div className="mb-6 flex min-w-0 items-start gap-3 sm:mb-8 sm:items-center sm:gap-4">
+                    <div className="shrink-0 rounded-2xl bg-primary p-3 text-primary-content sm:p-4">
+                        <FaCreditCard className="text-xl sm:text-2xl" />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                         <p className="text-sm font-semibold uppercase tracking-widest text-primary">Secure checkout</p>
-                        <h1 className="text-3xl font-bold">Pay now</h1>
+                        <h1 className="text-2xl font-bold sm:text-3xl">Pay now</h1>
                         <p className="text-base-content/60">Review the parcel before paying.</p>
                     </div>
                 </div>
 
                 <article className="card overflow-hidden border border-base-300 bg-base-100 shadow-sm">
                     <div className="h-2 bg-primary" />
-                    <div className="card-body gap-5">
-                        <div className="flex items-start justify-between gap-3">
-                            <div>
+                    <div className="card-body gap-5 p-4 sm:p-6">
+                        <div className="flex flex-col items-start gap-3 min-[390px]:flex-row min-[390px]:justify-between">
+                            <div className="min-w-0">
                                 <p className="text-xs font-semibold uppercase tracking-widest text-primary">Parcel payment</p>
                                 <h2 className="mt-1 text-2xl font-bold">{parcel.parcelName || 'Unnamed parcel'}</h2>
                                 <p className="mt-1 capitalize text-base-content/60">{parcel.parceltype || 'Parcel delivery'}</p>
                             </div>
-                            <span className={`badge ${isPaid ? 'badge-success badge-outline' : 'badge-warning'}`}>
+                            <span className={`badge shrink-0 ${isPaid ? 'badge-success badge-outline' : 'badge-warning'}`}>
                                 {isPaid ? 'Paid' : 'Payment pending'}
                             </span>
                         </div>
 
                         <div className="rounded-2xl bg-base-200 p-4">
                             <p className="text-xs uppercase tracking-wide text-base-content/50">Amount to pay</p>
-                            <p className="mt-1 text-3xl font-bold text-primary">{amount}</p>
+                            <p className="mt-1 break-words text-2xl font-bold text-primary sm:text-3xl">{amount}</p>
                         </div>
 
                         <dl className="space-y-3 text-sm">
@@ -109,13 +108,13 @@ const PayNow = () => {
                                 <dt className="font-medium text-base-content/50">Parcel ID</dt>
                                 <dd className="mt-1 break-all font-mono text-xs">{parcel._id}</dd>
                             </div>
-                            <div className="flex items-center justify-between gap-4 border-t border-base-300 pt-3">
+                            <div className="flex flex-col gap-1 border-t border-base-300 pt-3 min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between min-[390px]:gap-4">
                                 <dt className="font-medium text-base-content/50">Sender</dt>
-                                <dd className="text-right font-medium">{parcel.senderemail || 'Not available'}</dd>
+                                <dd className="break-all font-medium min-[390px]:text-right">{parcel.senderemail || 'Not available'}</dd>
                             </div>
-                            <div className="flex items-center justify-between gap-4 border-t border-base-300 pt-3">
+                            <div className="flex flex-col gap-1 border-t border-base-300 pt-3 min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between min-[390px]:gap-4">
                                 <dt className="font-medium text-base-content/50">Receiver</dt>
-                                <dd className="text-right font-medium">{parcel.receiverName || 'Not available'}</dd>
+                                <dd className="break-words font-medium min-[390px]:text-right">{parcel.receiverName || 'Not available'}</dd>
                             </div>
                         </dl>
 

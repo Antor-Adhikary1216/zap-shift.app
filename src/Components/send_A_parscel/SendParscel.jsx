@@ -62,9 +62,7 @@ const SendParscel = () => {
   //     "delibery Address": "",
   //     "Delibery instruction": ""
   // }
-  const handlesendParcel = (data) => {
-    console.log(data);
-
+  const handlesendParcel = async (data) => {
     const Isdocument = data.parceltype === "document";
     const parcelweitght = parseFloat(data.parcelWeight);
     const Issamedistrict = data.receiverDestricts === data.senderDestricts;
@@ -83,10 +81,9 @@ const SendParscel = () => {
         cost = minCharge + extraCharge;
       }
     }
-    console.log("cost", cost);
     data.cost = cost;
     // Sweet Alert Info------------------------------->
-    Swal.fire({
+    const confirmation = await Swal.fire({
       title: "Are you agree with  price?",
       text: ` You have to pay ${cost} Rupe!💸  `,
       icon: "warning",
@@ -94,71 +91,77 @@ const SendParscel = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, take it my parcel!",
-    }).then((result) => {
-      if (result.isConfirmed)
-        // seve the parcel database
-        axiosSecure.post("/parcels", data).then((res) => {
-
-          if(res.data.insertedId){
-            queryClient.invalidateQueries({ queryKey: ["my-parcels", user?.email] })
-            navigete("/dashbord/my-parcels")
-            Swal.fire({
-        title: "Conform !",
-        text: "Your parcel has been conform now please pay your parcel cost .",
-        icon: "success",
-        
-        
-      });
-          }
-          console.log("After seveing parcel", res.data);
-        })
-
-      
     });
+
+    if (!confirmation.isConfirmed) return;
+
+    try {
+      const res = await axiosSecure.post("/parcels", data);
+
+      if (res.data.insertedId) {
+        await queryClient.invalidateQueries({ queryKey: ["my-parcels", user?.email] });
+        navigete("/dashbord/my-parcels");
+        Swal.fire({
+          title: "Confirmed!",
+          text: "Your parcel has been saved. You can now pay the delivery cost.",
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Unable to save parcel",
+        text: error.response?.data?.message || "Please try again in a moment.",
+        icon: "error",
+      });
+    }
   };
 
+  const fieldLabelClass = "mb-2 mt-4 block text-sm font-semibold text-[#303030]";
+  const inputClass = "h-12 w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 text-base outline-none transition focus:border-[#9fc22e] focus:ring-2 focus:ring-[#caeb66]/35";
+  const selectClass = "select h-12 w-full min-w-0 rounded-lg border-slate-300 bg-white text-base focus:border-[#9fc22e] focus:outline-none";
+
   return (
-    <div>
-      <div className="mt-5 mb-10 rounded-xl bg-white p-4 shadow-md sm:p-6 lg:p-10">
-        <h1 className="text-3xl font-bold sm:text-[45px]">Send A Parcel</h1>
-        <p className="font-bold text-[20px] my-4">Enter your parcel details</p>
+    <div className="min-w-0">
+      <div className="mx-auto mb-10 mt-4 w-full max-w-[1200px] min-w-0 rounded-xl bg-white p-4 shadow-md sm:mt-5 sm:p-6 lg:p-10">
+        <h1 className="text-3xl font-bold leading-tight sm:text-[45px]">Send A Parcel</h1>
+        <p className="my-3 text-lg font-bold sm:my-4 sm:text-xl">Enter your parcel details</p>
         <div className="border-b border-[#000000]"></div>
 
-        <form onSubmit={handleSubmit(handlesendParcel)}>
-          <div className="flex flex-wrap gap-5 sm:gap-10">
-            <div className="mt-3 flex gap-0.5 text-center">
+        <form onSubmit={handleSubmit(handlesendParcel)} className="min-w-0">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 sm:gap-x-10">
+            <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-2">
               <input
                 type="radio"
                 {...register("parceltype")}
                 value="document"
-                className="radio text-green-500"
+                className="radio size-5 shrink-0 text-green-500"
               />
-              <p>Document <span className="text-red-500">*</span></p>
-            </div>
-            <div className="mt-3 flex gap-0.5 text-center">
+              <span>Document <span className="text-red-500">*</span></span>
+            </label>
+            <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-2">
               <input
                 type="radio"
                 {...register("parceltype")}
                 value="none-documet"
-                className="radio text-green-500"
+                className="radio size-5 shrink-0 text-green-500"
               />
-              <p>Non-Document <span className="text-red-500">*</span></p>
-            </div>
+              <span>Non-Document <span className="text-red-500">*</span></span>
+            </label>
           </div>
           {/* input */}
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10">
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:mt-8">
             <div className="min-w-0">
-              <p className="my-1">Parcel Name <span className="text-red-500">*</span></p>
+              <p className="mb-2 text-sm font-semibold">Parcel Name <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register("parcelName", { required: true })}
                 placeholder="Parcel Name"
-                className={`w-full rounded-md border bg-white p-2 ${errors.parcelName ? "border-red-500" : ""}`}
+                className={`${inputClass} ${errors.parcelName ? "border-red-500" : ""}`}
               />
             </div>
             <div className="min-w-0">
-              <p className="my-1">
+              <p className="mb-2 text-sm font-semibold">
                 Parcel Weight (KG) {!isDocument && <span className="text-red-500">*</span>}
               </p>
               <input
@@ -171,46 +174,50 @@ const SendParscel = () => {
                   min: isDocument ? undefined : 0.1,
                 })}
                 placeholder={isDocument ? "Not required for documents" : "Parcel Weight (KG)"}
-                className={`w-full rounded-md border bg-white p-2 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 ${errors.parcelWeight ? "border-red-500" : ""}`}
+                className={`${inputClass} disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-500 ${errors.parcelWeight ? "border-red-500" : ""}`}
               />
             </div>
           </div>
 
           <div className="mx-auto my-8 w-full border-b border-[#000000] lg:my-10"></div>
           {/*  sendder------------------------------------------------ -> */}
-          <div className="mt-10 grid gap-8 lg:mt-16 lg:grid-cols-2">
+          <div className="mt-8 grid min-w-0 gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-12">
             <div className="min-w-0">
-              <h1 className="text-[20px] font-medium ">Sender Details</h1>
-              <p>Sender Name <span className="text-red-500">*</span></p>
+              <h2 className="text-xl font-semibold">Sender Details</h2>
+              <p className={fieldLabelClass}>Sender Name <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register(" sender Name", { required: true })}
                 defaultValue={user?.displayName}
                 placeholder="Sender Name"
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
-              <p>Email Address <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Email Address <span className="text-red-500">*</span></p>
               <input
                 type="email"
                 placeholder="Email Address"
-                {...register("senderemail", { required: true })}
+                {...register("senderemail", {
+                  required: true,
+                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+                })}
                 defaultValue={user?.email}
-                className="rounded-md w-full border p-2"
+                className={`${inputClass} ${errors.senderemail ? "border-red-500" : ""}`}
               />
-              <p>Sender Phone No <span className="text-red-500">*</span></p>
+              {errors.senderemail && <p className="text-sm font-medium text-red-600">Please provide a valid sender email address.</p>}
+              <p className={fieldLabelClass}>Sender Phone No <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register(" senderNo", { required: true })}
                 placeholder="Sender Phone No"
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
 
               {/* sender--------------------------------------------------------------------------------  */}
               {/*  pic a regoin -> */}
-              <p>Your Region <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Your Region <span className="text-red-500">*</span></p>
               <select
                 {...register("receiverrwatch", { required: true })}
-                className="select select-accent w-full"
+                className={selectClass}
               >
                 <option value="" disabled>Select your location</option>
                 {regios.map((r, i) => (
@@ -221,10 +228,10 @@ const SendParscel = () => {
               </select>
 
               {/* dectricts */}
-              <p>Your District <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Your District <span className="text-red-500">*</span></p>
               <select
                 {...register("receiverDestricts", { required: true })}
-                className="select select-accent w-full"
+                className={selectClass}
               >
                 <option value="" disabled>Select your location</option>
                 {districtsByregions(receiverrwatch).map((r, i) => (
@@ -235,66 +242,54 @@ const SendParscel = () => {
               </select>
 
               {/*Address =>-------------------------- receiver  */}
-              <p>Pickup Address <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Pickup Address <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register("senderpickup Address", { required: true })}
                 placeholder="Pickup Address "
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
 
               {/* reinstruction  */}
-              <p>pickup Instruction</p>
+              <p className={fieldLabelClass}>Pickup Instruction</p>
               <input
                 type="text"
                 {...register("sender instruction")}
                 placeholder="Delivery Instruction "
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
-              <p className="mt-15">* PickUp Time 4pm-7pm Approx.</p>
-
-              {Object.keys(errors).length > 0 && (
-                <p className="mt-4 text-sm font-semibold text-red-600" role="alert">
-                  Please complete all required fields marked with *.
-                </p>
-              )}
-
-              <input
-                type="submit"
-                value="send parcel"
-                className="btn mt-5 w-full bg-amber-400 px-6 text-lg font-bold sm:w-auto sm:px-10"
-              />
+              <p className="mt-5 text-sm text-[#606060]">* PickUp Time 4pm-7pm Approx.</p>
             </div>
 
             {/* Receiver Details------------------------------------------------ */}
             <div className="min-w-0">
-              <h1 className="text-[20px] font-medium ">Receiver Details</h1>
-              <p>Receiver Name <span className="text-red-500">*</span></p>
+              <h2 className="text-xl font-semibold">Receiver Details</h2>
+              <p className={fieldLabelClass}>Receiver Name <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register("receiverName", { required: true })}
                 placeholder="Receiver Name"
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
-              <p>Receiver Email Address <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Receiver Email Address <span className="text-red-500">*</span></p>
               <input
                 type="email"
                 {...register("receiver email address", { required: true })}
                 placeholder="Email Address"
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
-              <p>Receiver Contact No <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Receiver Contact No <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register("receiver Contect", { required: true })}
                 placeholder="Receiver No"
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
               {/*  pic a regoin----------------------------------------- -> */}
-              <p>Receiver Region <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Receiver Region <span className="text-red-500">*</span></p>
               <select
                 {...register("senderwatch", { required: true })}
-                className="select select-accent w-full"
+                className={selectClass}
               >
                 <option value="" disabled>Select your location</option>
                 {regios.map((r, i) => (
@@ -305,10 +300,10 @@ const SendParscel = () => {
               </select>
 
               {/* dectricts--------------------------------------- */}
-              <p>Receiver District <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Receiver District <span className="text-red-500">*</span></p>
               <select
                 {...register("senderDestricts", { required: true })}
-                className="select select-accent w-full"
+                className={selectClass}
               >
                 <option value="" disabled>Select your location</option>
                 {districtsByregions(senderwatch).map((r, i) => (
@@ -317,22 +312,34 @@ const SendParscel = () => {
                   </option>
                 ))}
               </select>
-              <p>Delivery Address <span className="text-red-500">*</span></p>
+              <p className={fieldLabelClass}>Delivery Address <span className="text-red-500">*</span></p>
               <input
                 type="text"
                 {...register("delibery Address", { required: true })}
                 placeholder="Delivery Address "
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
-              <p>Delivery Instruction</p>
+              <p className={fieldLabelClass}>Delivery Instruction</p>
               <input
                 type="text"
                 {...register("Delibery instruction")}
                 placeholder="Delivery Instruction "
-                className="rounded-md w-full border p-2"
+                className={inputClass}
               />
             </div>
           </div>
+
+          {Object.keys(errors).length > 0 && (
+            <p className="mt-6 text-sm font-semibold text-red-600" role="alert">
+              Please complete all required fields marked with *.
+            </p>
+          )}
+
+          <input
+            type="submit"
+            value="Send parcel"
+            className="btn mt-6 min-h-12 w-full bg-amber-400 px-6 text-base font-bold sm:w-auto sm:px-10 sm:text-lg"
+          />
         </form>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import { use } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -15,21 +15,22 @@ const Reviws = ({ReviwPromises}) => {
     
     return (
         <>
-      <div className='my-10  mx-auto'>
+      <section className="mx-auto my-8 min-w-0 sm:my-10">
         <Swiper
         loop={true}
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={1}
+        spaceBetween={12}
         breakpoints={{
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
         }}
         coverflowEffect={{
-          rotate: 20,
-          stretch: '50%',
-          depth: 100,
+          rotate: 8,
+          stretch: 0,
+          depth: 60,
           modifier: 1,
           scale:0.75,
           slideShadows: true,
@@ -39,18 +40,18 @@ const Reviws = ({ReviwPromises}) => {
             delay:2000,
             disableOnInteraction:false
         }}
-        pagination={true}
+        pagination={{ clickable: true }}
         modules={[EffectCoverflow, Pagination,Autoplay]}
-        className="mySwiper"
+        className="mySwiper pb-12"
       >
         {
-            datas.map(data=><SwiperSlide>
+            datas.map(data=><SwiperSlide key={data.id} className="h-auto">
           <ReviwCard data={data} ></ReviwCard>
         </SwiperSlide>)
         }
        
       </Swiper>
-      </div>
+      </section>
     </>
     );
 };

@@ -54,10 +54,10 @@ const PaymentSuccess = () => {
 
     if (!sessionId) {
         return (
-            <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
-                <h2 className="text-3xl font-semibold text-red-600">Payment confirmation unavailable</h2>
+            <div className="mx-3 my-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:mx-auto sm:my-6 sm:p-8">
+                <h2 className="text-2xl font-semibold text-red-600 sm:text-3xl">Payment confirmation unavailable</h2>
                 <p className="mt-3 text-gray-600">The Stripe session ID is missing.</p>
-                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-6">
+                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-6 min-h-11 w-full sm:w-auto">
                     Back to my parcels
                 </Link>
             </div>
@@ -70,12 +70,12 @@ const PaymentSuccess = () => {
 
     if (isError) {
         return (
-            <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
-                <h2 className="text-3xl font-semibold text-red-600">Payment could not be confirmed</h2>
+            <div className="mx-3 my-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:mx-auto sm:my-6 sm:p-8">
+                <h2 className="text-2xl font-semibold text-red-600 sm:text-3xl">Payment could not be confirmed</h2>
                 <p className="mt-3 text-gray-600">
                     {error.response?.data?.message || 'Please return to your parcels and try again.'}
                 </p>
-                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-6">
+                <Link to="/dashbord/my-parcels" className="btn btn-neutral mt-6 min-h-11 w-full sm:w-auto">
                     Back to my parcels
                 </Link>
             </div>
@@ -83,8 +83,8 @@ const PaymentSuccess = () => {
     }
 
     return (
-        <div className="m-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:m-6 sm:p-8">
-            <h2 className="text-3xl font-semibold text-green-600">Payment successful</h2>
+        <div className="mx-3 my-4 max-w-xl rounded-xl bg-white p-5 text-center shadow-sm sm:mx-auto sm:my-6 sm:p-8">
+            <h2 className="text-2xl font-semibold text-green-600 sm:text-3xl">Payment successful</h2>
             <p className="mt-3 text-gray-600">Your parcel is now marked as paid.</p>
             {confirmation?.transactionId && (
                 <div className="mt-5 rounded-lg bg-green-50 p-4">
@@ -98,7 +98,7 @@ const PaymentSuccess = () => {
             <Link
                 to={`/dashbord/pending-parcel/${confirmation.parcelId}`}
                 state={{ paymentId: confirmation.transactionId }}
-                className="btn btn-neutral mt-6"
+                className="btn btn-neutral mt-6 min-h-11 w-full sm:w-auto"
             >
                 View pending parcel now
             </Link>

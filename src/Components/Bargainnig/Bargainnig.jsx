@@ -61,12 +61,12 @@ const Bargainnig = () => {
   }
 
   return (
-    <section className="my-5 overflow-hidden rounded-3xl bg-white px-5 py-10 shadow-sm sm:px-10 lg:px-16 lg:py-16">
+    <section className="my-5 overflow-hidden rounded-3xl bg-white px-4 py-9 shadow-sm min-[380px]:px-5 sm:px-10 sm:py-10 lg:px-16 lg:py-16">
       <div className="max-w-4xl">
         <p className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] text-[#8bad28]">
           <FaCalculator /> Quick estimate
         </p>
-        <h1 className="text-4xl font-bold text-[#03373D] sm:text-5xl lg:text-6xl">Pricing Calculator</h1>
+        <h1 className="text-3xl font-bold text-[#03373D] min-[380px]:text-4xl sm:text-5xl lg:text-6xl">Pricing Calculator</h1>
         <p className="mt-5 max-w-3xl text-base leading-7 text-[#606060] sm:text-lg">
           Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. Calculate your estimated delivery charge before booking.
         </p>
@@ -124,8 +124,8 @@ const Bargainnig = () => {
 
           {error && <p className="text-sm font-medium text-error" role="alert">{error}</p>}
 
-          <div className="grid grid-cols-[auto_1fr] gap-4 pt-2">
-            <button type="button" onClick={handleReset} className="btn h-14 rounded-xl border-[#91ad3e] bg-white px-7 text-[#6f8728] hover:bg-[#f4f9e5]">
+          <div className="grid gap-3 pt-2 sm:grid-cols-[auto_1fr] sm:gap-4">
+            <button type="button" onClick={handleReset} className="btn h-14 w-full rounded-xl border-[#91ad3e] bg-white px-7 text-[#6f8728] hover:bg-[#f4f9e5]">
               Reset
             </button>
             <button type="submit" className="btn h-14 rounded-xl border-[#c5ed58] bg-[#c5ed58] text-base text-black hover:border-[#b4dd45] hover:bg-[#b4dd45]">
@@ -134,10 +134,10 @@ const Bargainnig = () => {
           </div>
         </form>
 
-        <div className="flex min-h-56 items-center justify-center rounded-3xl bg-[#f5f8ed] p-8 text-center lg:min-h-80">
+        <div className="flex min-h-56 items-center justify-center rounded-3xl bg-[#f5f8ed] p-5 text-center sm:p-8 lg:min-h-80">
           <div aria-live="polite">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#71852f]">Estimated delivery cost</p>
-            <p className="mt-4 text-6xl font-black text-black sm:text-7xl">
+            <p className="mt-4 text-5xl font-black text-black min-[380px]:text-6xl sm:text-7xl">
               {cost === null ? '—' : `₹${cost.toFixed(2)}`}
             </p>
             <p className="mx-auto mt-4 max-w-xs text-sm leading-6 text-[#606060]">

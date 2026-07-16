@@ -1,4 +1,3 @@
-import React from 'react';
 import servecs from "../../assets/png/service.png"
 import { NavLink } from 'react-router';
 
@@ -8,13 +7,13 @@ const OurservecesCard = ({data}) => {
 
     return (
         <div>
-           <NavLink>
-            <div className='h-full rounded-lg bg-white p-5 lg:min-h-[350px] lg:px-10 lg:py-5'>
+           <NavLink className="block h-full">
+            <div className="h-full rounded-lg bg-white p-5 sm:p-6 lg:min-h-[350px] lg:px-10 lg:py-5">
                 
-                    <img src={servecs} alt="" className='my-2 lg:w-[50px] lg:h-[50px] bg-[#EEEDFC] p-2 rounded-full lg:mx-auto' />
+                    <img src={servecs} alt="" className="mx-auto my-2 size-[50px] rounded-full bg-[#EEEDFC] p-2" />
               
-                <p className="font-bold text-[24px] text-center my-3 ">{data.title}</p>
-                <p className="text-[#606060] text-center my-2">{data.description}</p> 
+                <p className="my-3 text-center text-xl font-bold sm:text-2xl">{data.title}</p>
+                <p className="my-2 text-center leading-6 text-[#606060]">{data.description}</p>
             </div>
            </NavLink>
         </div>

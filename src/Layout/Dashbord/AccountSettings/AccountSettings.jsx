@@ -301,10 +301,10 @@ const AccountSettings = () => {
   }
 
   return (
-    <main className="min-h-[calc(100vh-5.5rem)] bg-[#F6F8F8] p-4 sm:p-8">
+    <main className="min-h-[calc(100vh-5.5rem)] min-w-0 bg-[#F6F8F8] p-3 sm:p-8">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-6 lg:grid-cols-[310px_minmax(0,1fr)]">
-          <aside className="h-fit rounded-3xl bg-[#03373D] p-6 text-white shadow-xl shadow-[#03373D]/10">
+          <aside className="h-fit rounded-2xl bg-[#03373D] p-5 text-white shadow-xl shadow-[#03373D]/10 sm:rounded-3xl sm:p-6">
             <div className="flex flex-col items-center text-center">
               <div className="avatar placeholder">
                 <div className="h-28 w-28 overflow-hidden rounded-full bg-white/10 text-3xl font-bold text-[#CAEB66] ring-4 ring-[#CAEB66] ring-offset-4 ring-offset-[#03373D]">
@@ -323,10 +323,10 @@ const AccountSettings = () => {
           </aside>
 
           <div className="space-y-6">
-            <form onSubmit={handleProfileSubmit} className="rounded-3xl border border-[#DCE5E6] bg-white p-5 shadow-sm sm:p-7">
-              <div className="mb-6 flex items-start gap-4 border-b border-[#E6ECEC] pb-5">
-                <div className="rounded-2xl bg-[#F3F9DF] p-3 text-[#617718]"><FaUser className="text-xl" /></div>
-                <div><h2 className="text-2xl font-bold text-[#03373D]">Profile information</h2><p className="mt-1 text-sm text-[#708487]">Update how your account appears across ZapShift.</p></div>
+            <form onSubmit={handleProfileSubmit} className="rounded-2xl border border-[#DCE5E6] bg-white p-4 shadow-sm sm:rounded-3xl sm:p-7">
+              <div className="mb-6 flex items-start gap-3 border-b border-[#E6ECEC] pb-5 sm:gap-4">
+                <div className="shrink-0 rounded-2xl bg-[#F3F9DF] p-3 text-[#617718]"><FaUser className="text-xl" /></div>
+                <div className="min-w-0"><h2 className="text-xl font-bold text-[#03373D] sm:text-2xl">Profile information</h2><p className="mt-1 text-sm text-[#708487]">Update how your account appears across ZapShift.</p></div>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
@@ -387,16 +387,16 @@ const AccountSettings = () => {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <button type="submit" disabled={savingProfile} className="btn border-0 bg-[#CAEB66] px-6 font-bold text-[#03373D] hover:bg-[#B9DB55]">
+                <button type="submit" disabled={savingProfile} className="btn min-h-11 w-full border-0 bg-[#CAEB66] px-6 font-bold text-[#03373D] hover:bg-[#B9DB55] sm:w-auto">
                   {savingProfile ? <span className="loading loading-spinner loading-sm" /> : <FaSave />} Save profile
                 </button>
               </div>
             </form>
 
-            <form onSubmit={handlePasswordSubmit} className="rounded-3xl border border-[#DCE5E6] bg-white p-5 shadow-sm sm:p-7">
-              <div className="mb-6 flex items-start gap-4 border-b border-[#E6ECEC] pb-5">
-                <div className="rounded-2xl bg-[#FFF4E5] p-3 text-[#B66A00]"><FaLock className="text-xl" /></div>
-                <div className="flex-1"><h2 className="text-2xl font-bold text-[#03373D]">Password and security</h2><p className="mt-1 text-sm text-[#708487]">Choose a strong password you do not use elsewhere.</p></div>
+            <form onSubmit={handlePasswordSubmit} className="rounded-2xl border border-[#DCE5E6] bg-white p-4 shadow-sm sm:rounded-3xl sm:p-7">
+              <div className="mb-6 flex items-start gap-3 border-b border-[#E6ECEC] pb-5 sm:gap-4">
+                <div className="shrink-0 rounded-2xl bg-[#FFF4E5] p-3 text-[#B66A00]"><FaLock className="text-xl" /></div>
+                <div className="min-w-0 flex-1"><h2 className="text-xl font-bold text-[#03373D] sm:text-2xl">Password and security</h2><p className="mt-1 text-sm text-[#708487]">Choose a strong password you do not use elsewhere.</p></div>
                 <Link
                   to={`/forgot-password?email=${encodeURIComponent(user?.email || '')}`}
                   className="hidden shrink-0 rounded-xl bg-[#F3F9DF] px-4 py-2 text-sm font-bold text-[#617718] transition hover:bg-[#E7F2BC] sm:inline-flex"
@@ -412,7 +412,7 @@ const AccountSettings = () => {
                 </div>
                 <Link
                   to={`/forgot-password?email=${encodeURIComponent(user?.email || '')}`}
-                  className="btn btn-sm border-0 bg-[#CAEB66] font-bold text-[#03373D] hover:bg-[#B9DB55] sm:hidden"
+                  className="btn btn-sm min-h-11 w-full border-0 bg-[#CAEB66] font-bold text-[#03373D] hover:bg-[#B9DB55] sm:hidden"
                 >
                   Reset password
                 </Link>
@@ -426,7 +426,7 @@ const AccountSettings = () => {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <button type="submit" disabled={savingPassword} className="btn border-0 bg-[#03373D] px-6 font-bold text-white hover:bg-[#064D55]">
+                <button type="submit" disabled={savingPassword} className="btn min-h-11 w-full border-0 bg-[#03373D] px-6 font-bold text-white hover:bg-[#064D55] sm:w-auto">
                   {savingPassword ? <span className="loading loading-spinner loading-sm" /> : <FaLock />} Change password
                 </button>
               </div>
@@ -437,16 +437,16 @@ const AccountSettings = () => {
 
       {cropSource && (
         <div className="modal modal-open z-50" role="dialog" aria-modal="true" aria-labelledby="adjust-photo-title">
-          <div className="modal-box max-w-lg overflow-hidden p-0">
-            <div className="flex items-center justify-between border-b border-[#E6ECEC] px-5 py-4">
-              <div>
-                <h2 id="adjust-photo-title" className="text-xl font-bold text-[#03373D]">Adjust profile photo</h2>
+          <div className="modal-box mx-2 max-h-[calc(100dvh-1rem)] w-[calc(100%-1rem)] max-w-lg overflow-y-auto p-0">
+            <div className="flex items-center justify-between gap-3 border-b border-[#E6ECEC] px-4 py-4 sm:px-5">
+              <div className="min-w-0">
+                <h2 id="adjust-photo-title" className="text-lg font-bold text-[#03373D] sm:text-xl">Adjust profile photo</h2>
                 <p className="mt-1 text-sm text-[#708487]">Drag to reposition and use the slider to zoom.</p>
               </div>
-              <button type="button" onClick={closeCropEditor} className="btn btn-circle btn-ghost" aria-label="Close photo editor"><FaTimes /></button>
+              <button type="button" onClick={closeCropEditor} className="btn btn-circle btn-ghost min-h-11 shrink-0" aria-label="Close photo editor"><FaTimes /></button>
             </div>
 
-            <div className="bg-[#EEF2F2] px-4 py-7 sm:px-8">
+            <div className="bg-[#EEF2F2] px-2 py-6 sm:px-8 sm:py-7">
               <div
                 className="relative mx-auto touch-none cursor-grab overflow-hidden rounded-full bg-[#CDD7D8] shadow-xl active:cursor-grabbing"
                 style={{ width: CROP_SIZE, height: CROP_SIZE }}
@@ -482,9 +482,9 @@ const AccountSettings = () => {
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 px-5 py-4">
-              <button type="button" onClick={closeCropEditor} className="btn btn-ghost">Cancel</button>
-              <button type="button" onClick={applyPhotoCrop} disabled={isApplyingCrop || !cropDimensions.width} className="btn border-0 bg-[#CAEB66] font-bold text-[#03373D] hover:bg-[#B9DB55]">
+            <div className="flex flex-col-reverse gap-3 px-4 py-4 min-[390px]:flex-row min-[390px]:justify-end sm:px-5">
+              <button type="button" onClick={closeCropEditor} className="btn btn-ghost min-h-11">Cancel</button>
+              <button type="button" onClick={applyPhotoCrop} disabled={isApplyingCrop || !cropDimensions.width} className="btn min-h-11 border-0 bg-[#CAEB66] font-bold text-[#03373D] hover:bg-[#B9DB55]">
                 {isApplyingCrop ? <span className="loading loading-spinner loading-sm" /> : <FaCheck />} Apply photo
               </button>
             </div>

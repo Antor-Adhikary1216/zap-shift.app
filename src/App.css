@@ -1,11 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default
 }
 
-
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
-*{
+* {
   box-sizing: border-box;
   font-family: "Urbanist", sans-serif;
 }
@@ -14,15 +13,37 @@ html,
 body,
 #root {
   max-width: 100%;
+  min-width: 320px;
   min-height: 100%;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
+  margin: 0;
   overflow-x: hidden;
 }
 
 img,
-svg {
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+.leaflet-container {
   max-width: 100%;
 }
 
@@ -31,4 +52,17 @@ svg {
 marquee {
   max-width: 100%;
   overflow: hidden;
+}
+
+@media (max-width: 639px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .swal2-popup {
+    width: calc(100% - 2rem);
+    max-width: 30rem;
+  }
 }

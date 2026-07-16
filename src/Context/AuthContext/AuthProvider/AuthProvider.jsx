@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Authcontext } from '../AuthContext';
-import { createUserWithEmailAndPassword, EmailAuthProvider, GoogleAuthProvider, linkWithCredential, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, deleteUser, EmailAuthProvider, GoogleAuthProvider, linkWithCredential, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../../../FireBase/Firebase.config';
 import { startGlobalLoading } from '../../../Utilities/globalLoading';
 
 const apiUrl = import.meta.env.VITE_API_URL || 'https://zap-shift-server-peach-nine.vercel.app'
 
-const saveUserToDatabase = async (firebaseUser, action = 'login') => {
-    const stopLoading = startGlobalLoading(action === 'register' ? 'Creating your account...' : 'Synchronizing your account...')
+const saveUserToDatabase = async (firebaseUser, action = 'login', { showLoading = true } = {}) => {
+    const stopLoading = showLoading
+        ? startGlobalLoading(action === 'register' ? 'Creating your account...' : 'Synchronizing your account...')
+        : () => {}
     try {
+    const idToken = await firebaseUser.getIdToken()
     const response = await fetch(`${apiUrl}/users`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${idToken}`,
+        },
         body: JSON.stringify({
             email: firebaseUser.email,
             name: firebaseUser.displayName || '',
@@ -40,10 +46,25 @@ const saveUserToDatabase = async (firebaseUser, action = 'login') => {
     }
 }
 
-const ensureUserDoesNotExist = async (email) => {
+const synchronizeUserInBackground = async (firebaseUser) => {
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+        try {
+            await saveUserToDatabase(firebaseUser, 'login', { showLoading: false })
+            return
+        } catch {
+            if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 750))
+        }
+    }
+}
+
+const ensureUserDoesNotExist = async (firebaseUser) => {
     const stopLoading = startGlobalLoading('Checking your account...')
     try {
-    const response = await fetch(`${apiUrl}/users/${encodeURIComponent(email)}/role`)
+    const idToken = await firebaseUser.getIdToken()
+    const response = await fetch(
+        `${apiUrl}/users/${encodeURIComponent(firebaseUser.email)}/role?createIfMissing=false`,
+        { headers: { Authorization: `Bearer ${idToken}` } }
+    )
 
     if (response.ok) {
         throw new Error('An account already exists with this email address. Please log in instead.')
@@ -80,9 +101,7 @@ const googleProvider = new GoogleAuthProvider()
         setLoading(true)
         try {
             const result = await signInWithEmailAndPassword(auth,email,password)
-            saveUserToDatabase(result.user, 'login').catch((error) => {
-                console.error('Unable to synchronize the logged-in user:', error)
-            })
+            void synchronizeUserInBackground(result.user)
             return result
         } catch (error) {
             setLoading(false)
@@ -96,9 +115,7 @@ const googleProvider = new GoogleAuthProvider()
         setLoading(true)
         try {
             const result = await signInWithPopup(auth,googleProvider)
-            saveUserToDatabase(result.user, 'login').catch((error) => {
-                console.error('Unable to synchronize the Google user:', error)
-            })
+            void synchronizeUserInBackground(result.user)
             return result
         } catch (error) {
             setLoading(false)
@@ -113,7 +130,7 @@ const googleProvider = new GoogleAuthProvider()
 
         try {
             const result = await signInWithPopup(auth,googleProvider)
-            await ensureUserDoesNotExist(result.user.email)
+            await ensureUserDoesNotExist(result.user)
 
             if (result.user.providerData.some((provider) => provider.providerId === 'password')) {
                 throw new Error('An account already exists with this email address. Please log in instead.')
@@ -137,7 +154,7 @@ const googleProvider = new GoogleAuthProvider()
 
             const passwordCredential = EmailAuthProvider.credential(firebaseUser.email, password)
             await linkWithCredential(firebaseUser, passwordCredential)
-            await saveUserToDatabase(firebaseUser, 'register')
+            await saveUserToDatabase(firebaseUser, 'register', { showLoading: false })
             return firebaseUser
         } catch (error) {
             if (auth.currentUser) await signOut(auth)
@@ -165,6 +182,10 @@ const googleProvider = new GoogleAuthProvider()
         return auth.currentUser
     }
 
+    const deleteIncompleteRegistration = async (firebaseUser)=>{
+        if (firebaseUser && !firebaseUser.emailVerified) await deleteUser(firebaseUser)
+    }
+
    useEffect(()=>{
     const unSuscraibe = onAuthStateChanged(auth,(cruntUser)=>{
         setUser(cruntUser)
@@ -185,6 +206,7 @@ user,
 loading,
 Logout,
 updetedUserProfile,
+deleteIncompleteRegistration,
 saveUserToDatabase
 
 

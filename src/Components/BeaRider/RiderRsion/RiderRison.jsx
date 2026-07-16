@@ -1,8 +1,8 @@
-import React, { use } from 'react';
+import { use } from 'react';
 
 
 const RiderRison = ({resonPromsese}) => {
-    const data = use(resonPromsese)
+    use(resonPromsese)
     return (
         <div>
                <fieldset className="fieldset">
